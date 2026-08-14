@@ -1,20 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { Button } from './Button';
+import { Icon } from '../Icon';
 import type { ButtonHierarchy, ButtonSize } from './Button.types';
-
-/** Demo icons (the design system does not define an icon library yet). */
-const PlusIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} className="h-full w-full">
-    <path d="M10 4.167v11.666M4.167 10h11.666" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const ArrowRightIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} className="h-full w-full">
-    <path d="M4.167 10h11.666M10.833 4.167 16.667 10l-5.834 5.833" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
 
 const hierarchyOptions = [
   'Primary',
@@ -43,8 +31,8 @@ const meta = {
   args: {
     onClick: fn(),
     children: 'Button CTA',
-    iconLeadingSwap: <PlusIcon />,
-    iconTrailingSwap: <ArrowRightIcon />,
+    iconLeadingSwap: <Icon name="add" size="sm" />,
+    iconTrailingSwap: <Icon name="arrow_forward" size="sm" />,
   },
   // No `table: { category }`: that native Storybook option renders
   // collapsible accordions. Visual grouping (Appearance / Icons / Content)
@@ -193,18 +181,18 @@ export const WithIcons: Story = {
   args: { hierarchy: 'Primary' },
   render: (args) => (
     <div className="flex flex-wrap items-center gap-lg">
-      <Button {...args} iconLeading iconLeadingSwap={<PlusIcon />}>
+      <Button {...args} iconLeading iconLeadingSwap={<Icon name="add" size="sm" />}>
         Left icon
       </Button>
-      <Button {...args} iconTrailing iconTrailingSwap={<ArrowRightIcon />}>
+      <Button {...args} iconTrailing iconTrailingSwap={<Icon name="arrow_forward" size="sm" />}>
         Right icon
       </Button>
       <Button
         {...args}
         iconLeading
         iconTrailing
-        iconLeadingSwap={<PlusIcon />}
-        iconTrailingSwap={<ArrowRightIcon />}
+        iconLeadingSwap={<Icon name="add" size="sm" />}
+        iconTrailingSwap={<Icon name="arrow_forward" size="sm" />}
       >
         Both
       </Button>

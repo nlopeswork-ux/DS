@@ -1,51 +1,7 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import { Icon } from '../components/Icon';
 
 <Meta title="Introduction" />
-
-export const IconPalette = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M12 21a9 9 0 1 1 0-18c4.97 0 9 3.582 9 8 0 2.21-1.79 3-4 3h-2.5a1.5 1.5 0 0 0-1.06 2.56l.3.3A1.5 1.5 0 0 1 12.5 19.5c0 .5-.2 1-.5 1.5" />
-    <circle cx="7.5" cy="10.5" r="1" fill="currentColor" stroke="none" />
-    <circle cx="11" cy="7" r="1" fill="currentColor" stroke="none" />
-    <circle cx="16" cy="8.5" r="1" fill="currentColor" stroke="none" />
-  </svg>
-);
-
-export const IconPuzzle = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
-  </svg>
-);
-
-export const IconClipboardCheck = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
-    <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-    <path d="M9 14l2 2l4 -4" />
-  </svg>
-);
-
-export const IconAccessible = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M10 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-    <path d="M4 17l5 1l.75 -1.5" />
-    <path d="M15 21l0 -4l-4 -3l1 -6" />
-    <path d="M7 12l0 -3l9 -1l4 2" />
-  </svg>
-);
-
-export const IconCompass = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M8 16l2 -6l6 -2l-2 6l-6 2" />
-    <circle cx="12" cy="12" r="9" />
-  </svg>
-);
-
-export const IconBolt = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
-  </svg>
-);
 
 <div className="relative isolate overflow-hidden rounded-xl bg-brand-section h-fit py-10 px-8 mb-10">
   <div className="relative z-10 flex flex-col items-start gap-lg">
@@ -81,7 +37,7 @@ export const IconBolt = () => (
     href="?path=/docs/foundations-colors--docs"
     className="group flex flex-col gap-md rounded-lg border border-secondary p-6 no-underline hover:border-brand hover:shadow-md transition-shadow"
   >
-    <span className="text-brand-secondary"><IconPalette /></span>
+    <Icon name="palette" size="xl" className="fg-brand-secondary" />
     <h3 className="!m-0 text-lg font-semibold text-primary no-underline group-hover:underline">Foundations</h3>
     <p className="!m-0 text-sm text-secondary no-underline">Colors, typography, spacing, shadows and border radius — the token layer that underpins the whole system.</p>
     <span className="text-sm font-semibold text-brand-secondary mt-auto no-underline group-hover:underline">View Foundations →</span>
@@ -90,7 +46,7 @@ export const IconBolt = () => (
     href="?path=/docs/components-button--docs"
     className="group flex flex-col gap-md rounded-lg border border-secondary p-6 no-underline hover:border-brand hover:shadow-md transition-shadow"
   >
-    <span className="text-brand-secondary"><IconPuzzle /></span>
+    <Icon name="extension" size="xl" className="fg-brand-secondary" />
     <h3 className="!m-0 text-lg font-semibold text-primary no-underline group-hover:underline">Components</h3>
     <p className="!m-0 text-sm text-secondary no-underline">UI library — buttons, form controls, navigation, feedback — each with an interactive Playground.</p>
     <span className="text-sm font-semibold text-brand-secondary mt-auto no-underline group-hover:underline">View Components →</span>
@@ -99,7 +55,7 @@ export const IconBolt = () => (
     href="?path=/docs/components-button--docs#ux-guidelines"
     className="group flex flex-col gap-md rounded-lg border border-secondary p-6 no-underline hover:border-brand hover:shadow-md transition-shadow"
   >
-    <span className="text-brand-secondary"><IconClipboardCheck /></span>
+    <Icon name="checklist" size="xl" className="fg-brand-secondary" />
     <h3 className="!m-0 text-lg font-semibold text-primary no-underline group-hover:underline">UX Guidelines & Accessibility</h3>
     <p className="!m-0 text-sm text-secondary no-underline">When to use each component, content best practices and WCAG AA compliance, documented page by page.</p>
     <span className="text-sm font-semibold text-brand-secondary mt-auto no-underline group-hover:underline">View guidelines →</span>
@@ -110,17 +66,17 @@ export const IconBolt = () => (
 
 <div className="grid grid-cols-1 md:grid-cols-3 gap-xl mb-6">
   <div className="flex flex-col gap-md">
-    <span className="text-brand-secondary"><IconAccessible /></span>
+    <Icon name="accessibility_new" size="xl" className="fg-brand-secondary" />
     <span className="text-lg font-semibold text-primary">Accessibility</span>
     <span className="text-sm text-tertiary">WCAG AA contrast on every fill/text pair, visible focus always present, and native keyboard navigation across all interactive components.</span>
   </div>
   <div className="flex flex-col gap-md">
-    <span className="text-brand-secondary"><IconCompass /></span>
+    <Icon name="explore" size="xl" className="fg-brand-secondary" />
     <span className="text-lg font-semibold text-primary">Consistency</span>
     <span className="text-sm text-tertiary">A single set of semantic tokens — never raw hex or primitives — ensures color, spacing and typography behave the same way across the whole product.</span>
   </div>
   <div className="flex flex-col gap-md">
-    <span className="text-brand-secondary"><IconBolt /></span>
+    <Icon name="bolt" size="xl" className="fg-brand-secondary" />
     <span className="text-lg font-semibold text-primary">Performance</span>
     <span className="text-sm text-tertiary">Lightweight components, no unnecessary dependencies, with CSS generated via Tailwind utilities — no styling runtime overhead.</span>
   </div>
