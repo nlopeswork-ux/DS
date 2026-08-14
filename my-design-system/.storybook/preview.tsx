@@ -27,7 +27,7 @@ const preview: Preview = {
     // (comportamento default do `storySort` quando o item não está listado).
     options: {
       storySort: {
-        order: ['Introduction', 'Foundations', ['Colors', 'Typography', 'Spacing', 'Shadows & Radius', 'Icons'], 'Components', ['Icon', 'Button'], '*'],
+        order: ['Introduction', 'Foundations', ['Colors', 'Typography', 'Spacing', 'Shadows & Radius', 'Icons'], 'Components', ['Icon', 'Button', 'Badge', 'Badge Group'], '*'],
       },
     },
   },

@@ -1,0 +1,169 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as BadgeGroupStories from './BadgeGroup.stories';
+
+<Meta of={BadgeGroupStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Badge Group
+
+A pill that pairs a small highlighted [Badge](?path=/docs/components-badge--docs) chip with descriptive text — e.g. "New · 3 unread messages". 3 outer themes, 5 semantic colors and 2 sizes, with a leading or trailing chip position.
+
+<div className="border-b border-secondary mb-8" />
+
+{/*
+  Mini table of contents — pure relative anchors (`href="#id"`), navigation
+  done via scrollIntoView on onClick (never window.location.href/absolute
+  URLs), so it never escapes the Storybook iframe/shell.
+*/}
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+{/*
+  OutSystems UI-style 2-column layout (see CLAUDE.md — mandatory rule):
+  1.6fr/1fr grid, a single shared outline (border + rounded-lg +
+  overflow-hidden), `relative isolate z-10` to isolate the stacking
+  context from any internal Storybook overlay. `items-stretch` makes both
+  columns share the same height. 1 column on narrow screens, 1.6fr/1fr
+  from `md:` up.
+*/}
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  {/* Left column — Preview */}
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={BadgeGroupStories.Playground} inline />
+    </div>
+  </div>
+
+  {/* Right column — Options */}
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={BadgeGroupStories.Playground} include={['Size', 'Theme', 'Color', 'Badge Position', 'State', 'Show Dot']} />
+      <Controls of={BadgeGroupStories.Playground} include={['Badge Text', 'Description Text']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- To pair a short highlighted value ("New", "Beta", "+3") with plain-language context — release notes, changelogs, notification summaries.
+- Wherever a standalone [Badge](?path=/docs/components-badge--docs) would read as too terse on its own and needs a sentence of support right next to it.
+
+### 🚫 When not to use
+- For a single label with no supporting text — use a plain `Badge` instead.
+- As an interactive control — like `Badge`, `Badge group` has no built-in click behavior; wrap it in a `Button`/link if the whole pill needs to be actionable.
+
+### Choosing a theme
+
+<table>
+  <thead>
+    <tr><th>Theme</th><th>Usage</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Light</strong></td>
+      <td>The default — a solid, colored fill for the most visible, attention-grabbing use.</td>
+    </tr>
+    <tr>
+      <td><strong>Outline</strong></td>
+      <td>A lighter-weight alternative on already color-dense surfaces.</td>
+    </tr>
+    <tr>
+      <td><strong>Modern</strong></td>
+      <td>A white, elevated (shadow-xs) variant with squared-off corners (radius-lg) for dense data surfaces.</td>
+    </tr>
+  </tbody>
+</table>
+
+<ExampleGallery
+  tabs={[
+    { label: 'Themes', content: <Canvas of={BadgeGroupStories.Themes} withToolbar={false} sourceState="none" /> },
+    { label: 'Colors', content: <Canvas of={BadgeGroupStories.Colors} withToolbar={false} sourceState="none" /> },
+    { label: 'Badge position', content: <Canvas of={BadgeGroupStories.BadgePosition} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Badge chip** (`badge="Leading"`/`"Trailing"`) — a compact `Badge color` rendered inside the group, carrying the short highlighted value (`badgeLabel`). Optionally shows a `Dot` indicator (`icon` boolean).
+- **Descriptive text** (`children`) — plain-language context next to the chip, in the group's own color.
+
+### Best practices
+- ✅ Keep the Badge chip text very short (1 word, e.g. "New") — the surrounding text carries the detail.
+- ✅ Use `badge="Leading"` (the default) for "label first" reading order ("New — 3 unread messages"); reserve `"Trailing"` for cases where the description reads more naturally first ("3 unread messages — New").
+- 🚫 Don't nest another interactive element (a button, a link) inside the group — it isn't built to host focusable children.
+
+See every theme/color/position combination in the tab gallery under [UX Guidelines](#ux-guidelines).
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Default</strong></td>
+      <td>Resting state — fill/border per theme and color.</td>
+    </tr>
+    <tr>
+      <td><strong>Hover</strong></td>
+      <td><code>Light</code> theme only: fill shifts one step darker (<code>utility-&#123;color&#125;-100</code>), governed by the real <code>:hover</code> pseudo-class. <code>Outline</code>/<code>Modern</code> have no documented hover treatment.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={BadgeGroupStories.HoverPreview} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Contrast:** the same `utility-{color}-50/200/700` token triplet as `Badge` — every theme/color pair meets WCAG AA (ratio ≥ 4.5:1) for text.
+- **Semantics:** renders as a plain `<span>` with visible text — no extra ARIA role needed since both the chip and the description are already text content read in order by screen readers.
+- **Non-interactive:** `Badge group` carries no focusable element on its own; if it needs to be clickable as a whole, wrap it in a `Button`/link rather than adding click handlers directly to the `<span>`.
