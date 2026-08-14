@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
+import { Icon } from '../Icon';
 import { Input } from './Input';
 import type { InputSize, InputType } from './Input.types';
 
@@ -15,33 +16,12 @@ const typeOptions = [
   'trailingButton',
 ] satisfies InputType[];
 
-const MailIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} className="h-full w-full">
-    <path
-      d="M3.333 5.833h13.334c.46 0 .833.373.833.834v6.666a.833.833 0 0 1-.833.834H3.333a.833.833 0 0 1-.833-.834V6.667c0-.46.373-.834.833-.834Z"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path d="m3.333 6.667 6.25 4.375a.833.833 0 0 0 .834 0l6.25-4.375" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
+/** Stylized card graphic, not a pictogram — kept as a one-off SVG (not a Material Symbols glyph). */
 const CardIcon = () => (
   <svg viewBox="0 0 34 24" fill="none" className="h-full w-full">
     <rect x="0.5" y="0.5" width="33" height="23" rx="3.5" fill="white" stroke="#D0D5DD" />
     <rect x="0.5" y="6.5" width="33" height="4" fill="#1C7E78" />
     <rect x="3.5" y="15.5" width="10" height="2.5" rx="1.25" fill="#D0D5DD" />
-  </svg>
-);
-
-const CopyIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} className="h-full w-full">
-    <path
-      d="M13.333 7.5H8.333c-.92 0-1.666.746-1.666 1.667v5c0 .92.746 1.666 1.666 1.666h5c.92 0 1.667-.746 1.667-1.666v-5c0-.921-.746-1.667-1.667-1.667Z"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path d="M4.167 12.5a1.667 1.667 0 0 1-1.667-1.667v-5c0-.92.746-1.666 1.667-1.666h5c.92 0 1.666.746 1.666 1.666" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -74,7 +54,7 @@ const meta = {
     // "Type" in the Playground shows real content instead of an empty
     // field — each slot only renders when its matching `type` is active.
     errorMessage: 'Please enter a valid email address.',
-    iconSwap: <MailIcon />,
+    iconSwap: <Icon name="mail" size="sm" />,
     leadingDropdown: { options: countryOptions, defaultValue: 'us', ariaLabel: 'Country code' },
     trailingDropdown: { options: currencyOptions, defaultValue: 'usd', ariaLabel: 'Currency' },
     leadingTextAddon: 'http://',
@@ -83,7 +63,7 @@ const meta = {
       { id: '1', label: 'design-system' },
       { id: '2', label: 'accessibility' },
     ],
-    trailingButton: { label: 'Copy', icon: <CopyIcon /> },
+    trailingButton: { label: 'Copy', icon: <Icon name="content_copy" size="xs" /> },
   },
   argTypes: {
     label: {
@@ -191,7 +171,7 @@ export const IconLeading: Story = {
   tags: ['!dev'],
   args: {
     type: 'iconLeading',
-    iconSwap: <MailIcon />,
+    iconSwap: <Icon name="mail" size="sm" />,
   },
 };
 
@@ -284,7 +264,7 @@ export const TrailingButton: Story = {
     hint: undefined,
     defaultValue: 'https://app.example.com/r/abc123',
     type: 'trailingButton',
-    trailingButton: { label: 'Copy', icon: <CopyIcon /> },
+    trailingButton: { label: 'Copy', icon: <Icon name="content_copy" size="xs" /> },
   },
 };
 

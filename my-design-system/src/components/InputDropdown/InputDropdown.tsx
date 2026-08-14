@@ -1,14 +1,9 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { cn } from '../../utils/cn';
+import { Icon } from '../Icon';
 import { InputDropdownMenuItem } from './InputDropdownMenuItem';
 import type { InputDropdownProps } from './InputDropdown.types';
-
-const ChevronDownIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.7} className="size-4">
-    <path d="m4 6 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
 
 /** docs/components/form-controls.md §1 — searchable/single-select combobox built from `_Input dropdown menu item`. */
 export function InputDropdown({
@@ -164,9 +159,11 @@ export function InputDropdown({
           <span className={cn('flex-1 truncate', selectedOption ? 'text-primary' : 'text-placeholder')}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
-          <span aria-hidden="true" className={cn('shrink-0 text-tertiary transition-transform duration-150', open && 'rotate-180')}>
-            <ChevronDownIcon />
-          </span>
+          <Icon
+            name="expand_more"
+            size="xs"
+            className={cn('shrink-0 text-tertiary transition-transform duration-150', open && 'rotate-180')}
+          />
         </button>
 
         {open ? (

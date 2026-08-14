@@ -1,11 +1,6 @@
 import { cn } from '../../utils/cn';
+import { Icon } from '../Icon';
 import type { InputDropdownOption } from './InputDropdown.types';
-
-const CheckIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="size-4">
-    <path d="M20 6 9 17l-5-5" />
-  </svg>
-);
 
 export interface InputDropdownMenuItemProps {
   option: InputDropdownOption;
@@ -51,11 +46,7 @@ export function InputDropdownMenuItem({ option, selected, active, onSelect }: In
         {option.supportingText ? <span className="text-sm text-tertiary">{option.supportingText}</span> : null}
       </span>
 
-      {selected ? (
-        <span aria-hidden="true" className="text-brand-secondary">
-          <CheckIcon />
-        </span>
-      ) : null}
+      {selected ? <Icon name="check" size="xs" weight={700} className="text-brand-secondary" /> : null}
     </li>
   );
 }

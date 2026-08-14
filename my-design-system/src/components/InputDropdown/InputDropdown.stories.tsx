@@ -1,19 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
+import { Icon } from '../Icon';
 import { InputDropdown } from './InputDropdown';
 import type { InputDropdownOption } from './InputDropdown.types';
 
-const FlagIcon = () => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} className="h-full w-full">
-    <path d="M4.167 2.5v15M4.167 3.333h9.166l-1.666 3.334 1.666 3.333H4.167" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
 const roleOptions: InputDropdownOption[] = [
-  { value: 'owner', label: 'Owner', supportingText: 'Full access to every setting.', icon: <FlagIcon /> },
-  { value: 'admin', label: 'Admin', supportingText: 'Can manage members and billing.', icon: <FlagIcon /> },
-  { value: 'member', label: 'Member', supportingText: 'Standard project access.', icon: <FlagIcon /> },
-  { value: 'viewer', label: 'Viewer', supportingText: 'Read-only access.', disabled: true, icon: <FlagIcon /> },
+  { value: 'owner', label: 'Owner', supportingText: 'Full access to every setting.', icon: <Icon name="flag" size="sm" /> },
+  { value: 'admin', label: 'Admin', supportingText: 'Can manage members and billing.', icon: <Icon name="flag" size="sm" /> },
+  { value: 'member', label: 'Member', supportingText: 'Standard project access.', icon: <Icon name="flag" size="sm" /> },
+  { value: 'viewer', label: 'Viewer', supportingText: 'Read-only access.', disabled: true, icon: <Icon name="flag" size="sm" /> },
 ];
 
 const statusOptions: InputDropdownOption[] = [

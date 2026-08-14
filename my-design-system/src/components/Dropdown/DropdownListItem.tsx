@@ -1,11 +1,6 @@
 import { cn } from '../../utils/cn';
+import { Icon } from '../Icon';
 import type { DropdownListItemProps } from './Dropdown.types';
-
-const CheckIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="size-3">
-    <path d="M20 6 9 17l-5-5" />
-  </svg>
-);
 
 /** docs/components/form-controls.md §5.2/§5.3 — `_Dropdown list item` primitive. */
 export function DropdownListItem({
@@ -42,7 +37,7 @@ export function DropdownListItem({
             checked ? 'border-transparent bg-brand-solid fg-white' : 'border-primary',
           )}
         >
-          {checked ? <CheckIcon /> : null}
+          {checked ? <Icon name="check" size="xs" weight={700} /> : null}
         </span>
       ) : null}
 
