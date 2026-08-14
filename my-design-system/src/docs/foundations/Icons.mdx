@@ -1,0 +1,140 @@
+import { useState } from 'react';
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Icon } from '../../components/Icon';
+
+<Meta title="Foundations/Icons" />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/*
+  Curated sample of the icon set — Material Symbols has thousands of glyphs,
+  this is a representative slice grouped by common UI purpose, not the full
+  catalog. Any valid name from fonts.google.com/icons works with the `Icon`
+  component even if it isn't listed here.
+*/}
+export const iconGroups = [
+  {
+    label: 'Navigation',
+    icons: ['home', 'menu', 'search', 'close', 'arrow_back', 'arrow_forward', 'expand_more', 'expand_less', 'chevron_left', 'chevron_right', 'more_vert', 'more_horiz'],
+  },
+  {
+    label: 'Actions',
+    icons: ['add', 'remove', 'edit', 'delete', 'save', 'download', 'upload', 'share', 'content_copy', 'refresh', 'filter_list', 'sort', 'settings', 'visibility', 'visibility_off', 'lock', 'lock_open'],
+  },
+  {
+    label: 'Status & Feedback',
+    icons: ['check_circle', 'cancel', 'error', 'warning', 'info', 'help', 'notifications', 'notifications_off', 'star', 'favorite', 'thumb_up', 'thumb_down'],
+  },
+  {
+    label: 'Communication',
+    icons: ['mail', 'chat', 'call', 'send', 'forum', 'campaign'],
+  },
+  {
+    label: 'Media',
+    icons: ['play_arrow', 'pause', 'stop', 'volume_up', 'volume_off', 'image', 'videocam', 'mic', 'mic_off'],
+  },
+  {
+    label: 'Files & Data',
+    icons: ['folder', 'description', 'attach_file', 'cloud_upload', 'cloud_download', 'insert_drive_file', 'table_chart', 'bar_chart', 'pie_chart'],
+  },
+  {
+    label: 'User & Account',
+    icons: ['person', 'group', 'account_circle', 'badge', 'logout', 'login'],
+  },
+  {
+    label: 'Commerce',
+    icons: ['shopping_cart', 'credit_card', 'local_shipping', 'storefront', 'receipt_long'],
+  },
+  {
+    label: 'Layout & Misc',
+    icons: ['dashboard', 'calendar_today', 'schedule', 'location_on', 'link', 'apps', 'grid_view', 'list', 'view_module'],
+  },
+];
+
+{/* Searchable grid — filters every group by substring match, click-to-copy the `<Icon name="..." />` snippet. */}
+export const IconLibrary = () => {
+  const [query, setQuery] = useState('');
+  const [copied, setCopied] = useState(null);
+
+  const handleCopy = (name) => {
+    navigator.clipboard?.writeText(`<Icon name="${name}" />`);
+    setCopied(name);
+    setTimeout(() => setCopied((current) => (current === name ? null : current)), 1200);
+  };
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredGroups = iconGroups
+    .map((group) => ({
+      ...group,
+      icons: group.icons.filter((name) => name.includes(normalizedQuery)),
+    }))
+    .filter((group) => group.icons.length > 0);
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search icons by name…"
+        className="mb-8 w-full rounded-md border border-primary bg-primary px-4 py-2.5 text-sm text-primary placeholder:text-quaternary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-500"
+      />
+
+      {filteredGroups.length === 0 ? (
+        <p className="text-sm text-tertiary">No icon in this sample matches "{query}" — any valid Material Symbols name still works with the component even if it isn't listed here.</p>
+      ) : (
+        filteredGroups.map((group) => (
+          <div key={group.label} className="mb-10">
+            <span className="mb-4 block text-sm font-semibold text-primary">{group.label}</span>
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
+              {group.icons.map((name) => (
+                <button
+                  key={name}
+                  type="button"
+                  onClick={() => handleCopy(name)}
+                  title={`Click to copy <Icon name="${name}" />`}
+                  className="flex flex-col items-center gap-2 rounded-lg border border-secondary bg-secondary px-3 py-4 text-center transition-colors hover:border-brand hover:bg-brand-primary"
+                >
+                  <Icon name={name} size="lg" className="text-primary" />
+                  <span className="font-mono text-tertiary" style={{ fontSize: '11px', wordBreak: 'break-all' }}>
+                    {copied === name ? 'Copied!' : name}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  );
+};
+
+# Icons
+
+The Design System's single, official icon set — [Google Material Symbols](https://fonts.google.com/icons), a variable font loaded once globally (`.storybook/preview-head.html` / `index.html`). No SVG library, no emoji — every icon in the product goes through the [`Icon`](?path=/docs/components-icon--docs) component and a name from this catalog.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#usage" onClick={(e) => scrollToSection(e, 'usage')} className="text-brand-secondary font-semibold">Usage</a>
+  <a href="#library" onClick={(e) => scrollToSection(e, 'library')} className="text-brand-secondary font-semibold">Icon Library</a>
+</nav>
+
+<h2 id="usage" className="mt-4 mb-6 text-2xl font-semibold">Usage</h2>
+
+```jsx
+import { Icon } from 'my-design-system';
+
+<Icon name="home" />
+<Icon name="favorite" size="lg" filled />
+<Icon name="settings" label="Settings" />
+```
+
+This is a representative sample, not the full catalog — Material Symbols has thousands of glyphs. Any valid name from [fonts.google.com/icons](https://fonts.google.com/icons) works with `<Icon name="..." />`, listed here or not. For the full API (`size`, `filled`, `weight`, `color`, `label`) and accessibility guidance, see the [`Icon` component page](?path=/docs/components-icon--docs).
+
+<h2 id="library" className="mt-16 mb-6 text-2xl font-semibold">Icon Library</h2>
+
+<IconLibrary />
