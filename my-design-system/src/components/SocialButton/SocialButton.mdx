@@ -1,0 +1,177 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as SocialButtonStories from './SocialButton.stories';
+
+<Meta of={SocialButtonStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# SocialButton
+
+Sign-in button for third-party identity providers (Google, Facebook, Apple, X, Figma, Dribbble). Supports a labeled or icon-only layout, and three color themes — Brand, Color and Gray.
+
+<div className="border-b border-secondary mb-8" />
+
+{/*
+  Mini table of contents — pure relative anchors (`href="#id"`), navigation
+  done via scrollIntoView on onClick (never window.location.href/absolute
+  URLs), so it never escapes the Storybook iframe/shell.
+*/}
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+{/*
+  OutSystems UI-style 2-column layout (see CLAUDE.md — mandatory rule):
+  1.6fr/1fr grid, a single shared outline (border + rounded-lg +
+  overflow-hidden), `relative isolate z-10` to isolate the stacking
+  context from any internal Storybook overlay. `items-stretch` makes both
+  columns share the same height (that of the Options column, usually the
+  taller one). 1 column on narrow screens, 1.6fr/1fr from `md:` up.
+*/}
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  {/* Left column — Preview */}
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={SocialButtonStories.Playground} inline />
+    </div>
+  </div>
+
+  {/* Right column — Options */}
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={SocialButtonStories.Playground} include={['Provider', 'Theme', 'State']} />
+      <Controls of={SocialButtonStories.Playground} include={['Supporting Text']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- On sign-in/sign-up screens, as an alternative to email/password authentication.
+- Grouped together (see `SocialButtonGroup`) when several providers are offered — always stacked vertically, never side by side in a row of full-width buttons.
+- Icon-only (`supportingText: false`) in compact spaces where the provider set is already familiar to the user (e.g. a toolbar or a secondary settings panel).
+
+### 🚫 When not to use
+- As a generic action button — a `Button` communicates decision hierarchy through fill/hierarchy; `SocialButton` always maps 1:1 to a specific identity provider.
+- With a provider not on the supported list (`Google`, `Facebook`, `Apple`, `Twitter`, `Figma`, `Dribbble`) — extend the component's `social` union instead of hardcoding a one-off variant.
+
+### Theme selection
+
+<table>
+  <thead>
+    <tr><th>Theme</th><th>Usage</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Brand</strong></td>
+      <td>Highest visual weight — background filled with the provider's own brand color. Use for the primary/most-recommended sign-in option, or when there's only one provider on screen.</td>
+    </tr>
+    <tr>
+      <td><strong>Color</strong></td>
+      <td>Neutral white background with the provider's full-color logo. The most common choice when listing several providers with equal visual weight.</td>
+    </tr>
+    <tr>
+      <td><strong>Gray</strong></td>
+      <td>Same neutral background, monochrome logo — lowest visual weight. Use when sign-in options are secondary to another primary flow on the same screen.</td>
+    </tr>
+  </tbody>
+</table>
+
+<ExampleGallery
+  tabs={[
+    { label: 'Providers', content: <Canvas of={SocialButtonStories.AllProviders} withToolbar={false} sourceState="none" /> },
+    { label: 'Themes', content: <Canvas of={SocialButtonStories.Themes} withToolbar={false} sourceState="none" /> },
+    { label: 'Icon only', content: <Canvas of={SocialButtonStories.IconOnly} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Label (`supportingText`)
+- ✅ The label is generated automatically from the provider — "Sign in with Google", "Sign in with X" — never pass free text; the copy must stay consistent across every provider button in the product.
+- ✅ Use `supportingText: false` only when space is constrained and the provider is identifiable by its logo alone (e.g. a compact row of icon buttons).
+- 🚫 Don't mix labeled and icon-only buttons within the same `SocialButtonGroup` — pick one style per group (see `style: 'Buttons' | 'Icons'`).
+
+### Icon
+- The provider logo is always decorative (`aria-hidden`) — when `supportingText` is off, the button itself carries an `aria-label` ("Sign in with …") so the accessible name isn't lost.
+- Figma and Google keep their full-color mark even on the `Brand` theme — Figma's official logo is inherently multicolor, and Google's Brand button uses a white/outline fill rather than a solid brand color.
+
+See the provider, theme and icon-only examples in the tab gallery under [UX Guidelines](#ux-guidelines).
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Default</strong></td>
+      <td>Resting state — theme fill/border, <code>shadow-xs</code> shadow.</td>
+    </tr>
+    <tr>
+      <td><strong>Hover</strong></td>
+      <td>Mandatory feedback on pointer devices — background shifts to <code>bg-primary-hover</code> (Color/Gray) or a brightness step down (Brand).</td>
+    </tr>
+    <tr>
+      <td><strong>Focus</strong></td>
+      <td>Mandatory for keyboard navigation — double focus ring (white halo + color ring). Must never be removed or suppressed.</td>
+    </tr>
+  </tbody>
+</table>
+
+There is no `Disabled` variant in this component set (docs/components/buttons.md §3.6) — a sign-in option that can't be used should be removed from the screen rather than shown disabled.
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={SocialButtonStories.States} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Contrast:** every theme/provider pair meets WCAG AA (ratio ≥ 4.5:1) for both text and icon against their background.
+- **Accessible name:** with `supportingText: true`, the visible text is the accessible name. With `supportingText: false`, the button carries an explicit `aria-label` ("Sign in with …") so screen readers still announce the provider.
+- **Visible focus:** the focus ring (2px white halo + 4px color ring) must never be disabled — it's the primary visual cue for keyboard navigation.
+- **Keyboard navigation:** SocialButton renders a native `<button>` — reachable with `Tab`, activatable with `Enter`/`Space`, with no need for extra `tabIndex` or `role`.

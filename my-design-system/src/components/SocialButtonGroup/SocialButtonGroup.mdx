@@ -1,0 +1,74 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as SocialButtonGroupStories from './SocialButtonGroup.stories';
+
+<Meta of={SocialButtonGroupStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# SocialButtonGroup
+
+Vertical stack of `SocialButton` instances, used to offer several sign-in providers at once. `style: 'Buttons'` stacks full-width labeled buttons; `style: 'Icons'` lays the same providers out as a single row of icon-only buttons.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={SocialButtonGroupStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={SocialButtonGroupStories.Playground} include={['Style', 'Theme']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- On a sign-in/sign-up screen that offers 3–4 identity providers as alternatives to email/password.
+- `style: 'Buttons'` when each provider needs to be clearly labeled — the default and most accessible choice.
+- `style: 'Icons'` only when vertical space is constrained and the provider set is already familiar to the user (e.g. a compact secondary panel).
+
+### 🚫 When not to use
+- For a single provider — use a standalone `SocialButton` instead of wrapping it in a group.
+- Mixing themes within the same group — every button in a `SocialButtonGroup` shares one `theme`, so the set reads as a single, consistent choice.
+
+<div className="my-6">
+  <Canvas of={SocialButtonGroupStories.AllCombinations} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+- **Order:** list providers by relevance to your audience, not alphabetically — the most-used provider for your product should be first.
+- **Spacing:** items are always separated by 12px (`spacing-lg`, `docs/components/buttons.md §4.2`) — never override the gap to tighten the group, it's the same rhythm used across the rest of the Buttons foundation.
+- 🚫 Don't combine `style: 'Buttons'` and `style: 'Icons'` rows in the same group — pick one per screen.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+`SocialButtonGroup` has no state of its own — every visual state (Default/Hover/Focused) is inherited from its `SocialButton` children, each of which manages its own state independently. See the [SocialButton states](../?path=/docs/components-socialbutton--docs#states) documentation.
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Structure:** the group is a plain layout wrapper (`<div>`) — each `SocialButton` remains an individually focusable, labeled `<button>`, so keyboard and screen-reader navigation works exactly as it does for a standalone button.
+- **Tab order:** follows the `providers` array order — keep it consistent with the group's visual reading order (top-to-bottom for `Buttons`, left-to-right for `Icons`).
