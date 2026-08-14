@@ -1,0 +1,164 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as AvatarStories from './Avatar.stories';
+
+<Meta of={AvatarStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Avatar
+
+A circular user representation — photo, initials, or a generic placeholder — with an optional status overlay (online indicator, company, verified). 6 sizes, plus a family of related pieces: an add-user button, a square profile-photo variant, and a name + supporting-text label group.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={AvatarStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={AvatarStories.Playground} include={['Size', 'Status Icon', 'Online', 'Contrast Border']} />
+      <Controls of={AvatarStories.Playground} include={['Placeholder', 'Initials']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- To represent a person (or, via the `company` status icon, an organization) anywhere in the UI — comment threads, member lists, navigation, the `Avatar + Label Group` combo.
+- With `statusIcon="online-indicator"` for presence-aware contexts (chat, collaborative editing).
+- With `statusIcon="verified"` to flag an authenticated/trusted account.
+
+### 🚫 When not to use
+- As a generic image thumbnail for non-person content — use a plain image or a dedicated media component.
+- To convey more than one status at once — the overlay slot is single-select (`online-indicator` / `company` / `verified` / none).
+
+### Content priority
+When more than one content source is available, `Avatar` resolves in this order: **photo (`src`) → initials (`text`) → generic placeholder**. Set `placeholder` explicitly when you have neither a photo nor initials to fall back on cleanly.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Sizes', content: <Canvas of={AvatarStories.Sizes} withToolbar={false} sourceState="none" /> },
+    { label: 'Content modes', content: <Canvas of={AvatarStories.ContentModes} withToolbar={false} sourceState="none" /> },
+    { label: 'Status icons', content: <Canvas of={AvatarStories.StatusIcons} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Related pieces
+- **`_Avatar online indicator`** — a small ring-bordered dot, green when online, gray when offline.
+- **`_Avatar company icon`** — a square badge overlay for an organization; no dedicated Company/Org logo component exists yet, so a neutral placeholder glyph renders until it does (same approach as Badge's `flagSwap`/`avatarSwap` placeholders).
+- **`_Verified badge`** — a solid blue circle with a white check, usable both as an Avatar overlay and standalone (its own size scale reaches up to 32px).
+- **`_Avatar add button`** — a circular "+" button with Default/Hover/Focus/Disabled states and an "Add user" tooltip on hover, typically trailing an `Avatar Group`.
+- **`_Avatar profile photo`** — a larger, square/portrait (not circular) framing for standalone profile shots, its own sm/md/lg scale (72/96/160px).
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={AvatarStories.AddButton} withToolbar={false} sourceState="none" />
+</div>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={AvatarStories.ProfilePhoto} withToolbar={false} sourceState="none" />
+</div>
+
+### `Avatar + Label Group` composite
+Pairs an `Avatar` with a semibold name and a lighter supporting line (email, role, handle) — the standard row pattern for member lists, comment authors and assignee pickers.
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={AvatarStories.LabelGroup} withToolbar={false} sourceState="none" />
+</div>
+
+### Large + verified
+The spec's "Avatar with verified badge" composite is just a larger `Avatar` with `statusIcon="verified"` — no separate component, since it's a plain size/prop combination of the same `Avatar`.
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={AvatarStories.VerifiedLarge} withToolbar={false} sourceState="none" />
+</div>
+
+See [Avatar Group](?path=/docs/components-avatar-group--docs) for the overlapping-stack composite.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Avatar</strong></td>
+      <td>Static — no hover/focus/disabled states of its own.</td>
+    </tr>
+    <tr>
+      <td><strong>`_Avatar add button` — Default</strong></td>
+      <td>White fill, gray border, <code>fg-quinary</code> (400) "+" icon.</td>
+    </tr>
+    <tr>
+      <td><strong>`_Avatar add button` — Hover</strong></td>
+      <td>Slightly tinted fill, darker "+" icon, "Add user" tooltip with a drop shadow.</td>
+    </tr>
+    <tr>
+      <td><strong>`_Avatar add button` — Focus</strong></td>
+      <td>Visible focus ring — never suppressed, the primary cue for keyboard navigation.</td>
+    </tr>
+    <tr>
+      <td><strong>`_Avatar add button` — Disabled</strong></td>
+      <td>Muted fill/border/icon via the native <code>disabled</code> attribute, no tooltip.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Photos:** pass a meaningful `alt` (the person's name) whenever `src` is set — it defaults to an empty string (decorative) only because most Avatar instances sit right next to a visible name already (see `Avatar + Label Group`).
+- **Status overlays:** `online-indicator`, `company` and `verified` are marked `aria-hidden`/decorative except `verified`, which carries `role="img"` + `aria-label="Verified"` since a checkmark alone isn't otherwise announced.
+- **`_Avatar add button`:** a native `<button aria-label="Add user">`, reachable with `Tab` and activatable with `Enter`/`Space` — the tooltip is a supplementary visual hint, not the element's only accessible name.

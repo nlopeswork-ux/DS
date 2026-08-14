@@ -1,0 +1,103 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as SocialIconStories from './SocialIcon.stories';
+
+<Meta of={SocialIconStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Social Icon
+
+A fixed 24×24 platform logo mark — 22 platforms, a Brand (official colors) or Gray (neutral monochrome) style, with a Default/Hover state on Gray only.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={SocialIconStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={SocialIconStories.Playground} include={['Platform', 'Style', 'State']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- Inside `Social Button` / `Social Button Group` (sign-in/connect flows).
+- As a compact platform identifier in a list of connected accounts, integrations or share targets.
+
+### 🚫 When not to use
+- As a clickable control on its own — `Social Icon` is a presentational mark with no built-in interaction; wrap it in a `Button`/`Social Button` when it needs to be pressable.
+- At any size other than 24×24 — the mark's internal proportions are tuned for that viewBox; scale the wrapping `<span>` rather than distorting the icon.
+
+### Choosing a style
+- **Brand** — the default, most recognizable choice; use on light/white surfaces where the platform's own colors read clearly.
+- **Gray** — a neutral, low-emphasis alternative for dense lists (e.g. many connected accounts side by side) where 22 different brand colors would compete for attention.
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Sourcing
+- **Google, Facebook, Apple, X, Figma, Dribbble, LinkedIn, Slack** — hand-drawn local SVG marks (this project has no runtime icon-library dependency for brand logos, see CLAUDE.md); the first six are shared with `Social Button`. LinkedIn and Slack are hand-drawn because both were removed from the `simple-icons` library at their trademark holders' request.
+- **The remaining 14 platforms** — official single-path marks extracted from `simple-icons` (MIT) at authoring time into a local, versioned data file (`simpleIconMarks.generated.ts`) — no runtime dependency on the package itself.
+- **AngelList** — rendered via its modern rebrand mark, Wellfound (`simple-icons`' `siWellfound`), since AngelList itself no longer exists as a brand.
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={SocialIconStories.AllPlatforms} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>Style</th><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Brand</strong></td>
+      <td>Default only</td>
+      <td>No Hover treatment — brand colors stay fixed.</td>
+    </tr>
+    <tr>
+      <td><strong>Gray</strong></td>
+      <td>Default</td>
+      <td><code>#98A2B3</code> (fg-quinary, 400).</td>
+    </tr>
+    <tr>
+      <td><strong>Gray</strong></td>
+      <td>Hover</td>
+      <td><code>#667085</code> (fg-quinary_hover) — a darker, more prominent gray.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={SocialIconStories.StylesAndStates} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Labeled by default:** the root `<span>` carries `role="img"` and `aria-label={platform}` — the mark alone (a colored shape) isn't self-describing to screen readers.
+- **Not a control:** `Social Icon` renders no focusable element — pair it with a real `<button>`/`<a>` (e.g. `Social Button`) whenever the mark needs to be actionable, and let that element carry its own accessible name instead of relying on this one.

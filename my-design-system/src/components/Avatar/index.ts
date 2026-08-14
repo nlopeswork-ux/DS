@@ -1,0 +1,14 @@
+export { Avatar } from './Avatar';
+export { AvatarOnlineIndicator } from './AvatarOnlineIndicator';
+export { AvatarCompanyIcon } from './AvatarCompanyIcon';
+export { VerifiedBadge } from './VerifiedBadge';
+export { AvatarAddButton } from './AvatarAddButton';
+export { AvatarProfilePhoto } from './AvatarProfilePhoto';
+export { AvatarLabelGroup } from './AvatarLabelGroup';
+export type { AvatarProps, AvatarSize, AvatarStatusIcon } from './Avatar.types';
+export type { AvatarOnlineIndicatorProps } from './AvatarOnlineIndicator';
+export type { AvatarCompanyIconProps } from './AvatarCompanyIcon';
+export type { VerifiedBadgeProps, VerifiedBadgeSize } from './VerifiedBadge';
+export type { AvatarAddButtonProps } from './AvatarAddButton';
+export type { AvatarProfilePhotoProps, AvatarProfilePhotoSize } from './AvatarProfilePhoto';
+export type { AvatarLabelGroupProps, AvatarLabelGroupSize } from './AvatarLabelGroup';

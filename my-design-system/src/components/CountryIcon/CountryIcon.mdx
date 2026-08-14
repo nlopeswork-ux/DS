@@ -1,0 +1,61 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as CountryIconStories from './CountryIcon.stories';
+
+<Meta of={CountryIconStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Country Icon
+
+234 standalone circular flag marks, selected by ISO 3166-1 alpha-2 code — no variant props, unlike Badge or Social Icon.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#usage" onClick={(e) => scrollToSection(e, 'usage')} className="text-brand-secondary font-semibold">Usage</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={CountryIconStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={CountryIconStories.Playground} include={['Country Code', 'Size']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="usage" className="text-2xl font-semibold">Usage</h2>
+
+Unlike `Badge` or `Social Icon`, `Country Icon` is not a variant-driven component set — it's a single component selected by a `code` string, following ISO 3166-1 alpha-2 (e.g. `"PT"`, `"US"`, `"BR"`). Two special values beyond the ISO list: `"GB-2"` (alternate UK flag — currently mapped to the same mark as `"GB"`, no visually distinct asset exists) and `"earth"` (a generic globe placeholder for "no specific country").
+
+Flags are sourced from the vendored [`circle-flags`](https://github.com/HatScripts/circle-flags) SVG set (MIT-licensed, see `public/flags/LICENSE-circle-flags.md`) rather than hand-drawn — 234 accurate national flags is outside what can be reliably hand-vectored. This is the one component in the Design System that pulls in third-party vector assets instead of the local hand-drawn/Material Symbols convention (see `Social Icon` and `Icon`).
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={CountryIconStories.Sample} withToolbar={false} sourceState="none" />
+</div>
+
+### Where it's used
+- `Badge`'s `flagSwap` slot (`icon="Country"`).
+- Anywhere a phone-number/country field, address form, or locale switcher needs a recognizable flag.
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Decorative by default:** rendered with an empty `alt=""` — a flag alone rarely carries meaning a screen reader user needs; pair it with a visible or `aria-label`led country name in the surrounding UI (e.g. a Dropdown option's text) rather than relying on the flag as the only cue.
+- **Never color-only:** don't use a Country Icon as the sole way to distinguish otherwise-identical options — pair it with the country name.

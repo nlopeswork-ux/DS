@@ -144,8 +144,8 @@ The 12-color palette (`Gray`, `Brand`, `Error`, `Warning`, `Success`, `Blue ligh
 
 ### Icon slots (`icon`)
 - **`Dot`** — a small solid-color indicator, typically for live/online-style statuses.
-- **`Country`** — a circular flag slot (`flagSwap`). No dedicated Flag component exists yet — a neutral placeholder icon renders until it does.
-- **`Avatar`** — a circular avatar slot (`avatarSwap`). No dedicated Avatar component exists yet — a neutral placeholder icon renders until it does.
+- **`Country`** — a circular flag slot (`flagSwap`). Defaults to a generic globe mark ([Country Icon](?path=/docs/components-country-icon--docs)'s `"earth"` code) until a specific country is passed, e.g. `flagSwap={<CountryIcon code="PT" />}`.
+- **`Avatar`** — a circular avatar slot (`avatarSwap`). Defaults to a small placeholder [Avatar](?path=/docs/components-avatar--docs) until a real photo/initials are passed, e.g. `avatarSwap={<Avatar size="xs" text="OR" />}`.
 - **`Icon leading` / `Icon trailing`** — a generic icon slot (`iconLeadingSwap`/`iconTrailingSwap`) before or after the label.
 - **`X close`** — a trailing dismiss button (`_Badge close X`); fires `onClose` when activated.
 - **`Only`** — the badge renders just the icon, no label — always pair with an `aria-label` since the icon alone carries the meaning.

@@ -1,0 +1,57 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as AvatarGroupStories from './AvatarGroup.stories';
+
+<Meta of={AvatarGroupStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Avatar Group
+
+An overlapping stack of [Avatars](?path=/docs/components-avatar--docs), optionally trailed by an add-user button — for "who's in this thread/team/call" summaries.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#usage" onClick={(e) => scrollToSection(e, 'usage')} className="text-brand-secondary font-semibold">Usage</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={AvatarGroupStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={AvatarGroupStories.Playground} include={['Size', 'Show Add Button']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="usage" className="text-2xl font-semibold">Usage</h2>
+
+Each avatar overlaps the previous one by 12px (`-ml-3`), with later avatars stacked on top and a white ring (the same `contrastBorder` every `Avatar` already has) doubling as the separator between them. Only `xs`/`sm`/`md` are supported — the overlapping-stack pattern is meant for compact summaries, not large hero-sized avatars.
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={AvatarGroupStories.Sizes} withToolbar={false} sourceState="none" />
+</div>
+
+Pass `showAddButton` to trail the stack with an `_Avatar add button` (8px gap) — typically wired to open an "invite people" flow via `onAddClick`.
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Overflow counts:** when trimming a longer list down to the visible stack, surface the remaining count as visible text (e.g. a trailing `Badge` "+5") rather than only a color/visual cue.
+- **Add button:** inherits `_Avatar add button`'s native `<button aria-label="Add user">` — reachable and operable by keyboard.

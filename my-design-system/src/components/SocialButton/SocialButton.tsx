@@ -8,7 +8,7 @@ import {
   GoogleIcon,
   TwitterIcon,
   type SocialIconTone,
-} from './icons';
+} from '../SocialIcon/brandIcons';
 import type { SocialButtonProps, SocialProvider } from './SocialButton.types';
 
 const providerLabel: Record<SocialProvider, string> = {

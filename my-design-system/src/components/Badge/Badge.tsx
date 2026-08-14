@@ -1,6 +1,8 @@
 import { forwardRef } from 'react';
 import { cn } from '../../utils/cn';
 import { Icon } from '../Icon';
+import { CountryIcon } from '../CountryIcon';
+import { Avatar } from '../Avatar';
 import { BadgeCloseX } from './BadgeCloseX';
 import { colorStyles } from './colorStyles';
 import type { BadgeProps, BadgeSize } from './Badge.types';
@@ -69,24 +71,29 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
         {icon === 'Dot' && (
           <span aria-hidden="true" className={cn('shrink-0 rounded-full', styles.dot, dotSizeStyles[size])} />
         )}
-        {icon === 'Country' && (
-          <span
-            aria-hidden="true"
-            className="inline-flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-full bg-utility-gray-100"
-          >
-            {/* Placeholder until the Flag component exists — swap via `flagSwap`. */}
-            {flagSwap ?? <Icon name="public" size="xs" className="size-3 text-[12px] text-tertiary" />}
-          </span>
-        )}
-        {icon === 'Avatar' && (
-          <span
-            aria-hidden="true"
-            className="inline-flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-full bg-utility-gray-200"
-          >
-            {/* Placeholder until the Avatar component exists — swap via `avatarSwap`. */}
-            {avatarSwap ?? <Icon name="person" size="xs" filled className="size-3 text-[12px] text-utility-gray-500" />}
-          </span>
-        )}
+        {icon === 'Country' &&
+          (flagSwap ? (
+            <span
+              aria-hidden="true"
+              className="inline-flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-full bg-utility-gray-100"
+            >
+              {flagSwap}
+            </span>
+          ) : (
+            // Generic globe mark until a specific country is known — pass `flagSwap={<CountryIcon code="PT" />}` for a real flag.
+            <CountryIcon code="earth" size={16} aria-hidden="true" className="shrink-0" />
+          ))}
+        {icon === 'Avatar' &&
+          (avatarSwap ? (
+            <span
+              aria-hidden="true"
+              className="inline-flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-full bg-utility-gray-200"
+            >
+              {avatarSwap}
+            </span>
+          ) : (
+            <Avatar size="xs" placeholder contrastBorder={false} aria-hidden="true" className="size-4 shrink-0" />
+          ))}
         {(icon === 'Icon leading' || isOnly) &&
           (iconLeadingSwap ?? <Icon name="star" size="xs" className="size-3.5 text-[14px]" />)}
         {!isOnly && children}

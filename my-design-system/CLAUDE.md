@@ -5,6 +5,11 @@ Este repositório contém o **Design System** da empresa. O teu objetivo é atua
 
 ---
 
+## 🚀 Fluxo de Trabalho e Git (Obrigatório)
+- **Ciclo completo:** Sempre que criares, alterares ou corrigires um componente, a tarefa só se considera terminada após a validação no Storybook e a respetiva submissão para o repositório remoto.
+- **Automação Git:** Lembra-te e sugere sempre os comandos necessários (`git add`, `git commit`, `git push`) para manter o repositório do GitHub e o GitHub Pages sincronizados com o código atualizado.
+---
+
 ## 📚 Fonte da Verdade (Single Source of Truth)
 Todas as especificações técnicas de Design Tokens e Componentes estão divididas em ficheiros Markdown organizados na pasta `docs/`. **Sempre que fores criar, alterar ou refatorar um componente ou token, deves consultar o ficheiro correspondente antes de gerar o código:**
 
