@@ -47,6 +47,22 @@
   margin-bottom: 2.5rem !important; /* 40px no fundo do bloco */
 }
 
+/*
+ * Blocos de grupo (ex: cada categoria da grelha de Icons.mdx) sofrem o
+ * mesmo problema do .color-ramp-grid acima — o reset interno de
+ * `.sbdocs-content` zera `margin` em `div`/`span` com mais especificidade
+ * do que uma classe Tailwind solta (`mb-10`, `mb-4`), por isso o
+ * espaçamento vertical entre blocos tem de ser forçado aqui, nunca só
+ * com a classe Tailwind no próprio `.mdx`.
+ */
+.foundation-group-block {
+  margin-bottom: 2.5rem !important; /* 40px no fundo do bloco, mesma regra do color-ramp-grid */
+}
+
+.foundation-group-label {
+  margin-bottom: 1rem !important; /* 16px entre o título do grupo e o seu grid */
+}
+
 .sbdocs-table,
 table {
   margin-bottom: 2.5rem !important; /* 40px de margem no fundo das tabelas */

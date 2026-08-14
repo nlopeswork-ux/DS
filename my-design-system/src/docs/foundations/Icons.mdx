@@ -111,8 +111,8 @@ export const IconLibrary = () => {
         <p className="text-sm text-tertiary">No icon in this sample matches "{query}" — any valid Material Symbols name still works with the component even if it isn't listed here.</p>
       ) : (
         filteredGroups.map((group) => (
-          <div key={group.label} className="mb-10">
-            <span className="mb-4 block text-sm font-semibold text-primary">{group.label}</span>
+          <div key={group.label} className="foundation-group-block">
+            <span className="foundation-group-label block text-sm font-semibold text-primary">{group.label}</span>
             <div className="grid grid-cols-3 gap-x-2 gap-y-5 sm:grid-cols-4 md:grid-cols-6">
               {group.icons.map((name) => (
                 <button
