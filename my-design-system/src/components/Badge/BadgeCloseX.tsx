@@ -26,7 +26,10 @@ export const BadgeCloseX = ({ color, rounded, onClick, className }: BadgeCloseXP
       onClick={onClick}
       aria-label="Remove"
       className={cn(
-        'inline-flex size-4 shrink-0 items-center justify-center p-0.5 transition-colors duration-150',
+        // No padding: Icon's `xs` (16px) is already the smallest box the
+        // Material Symbols `opsz` axis renders cleanly at (see Badge.tsx),
+        // so it fills this button's 16×16 frame exactly.
+        'inline-flex size-4 shrink-0 items-center justify-center transition-colors duration-150',
         rounded ? 'rounded-full' : 'rounded-[3px]',
         styles.closeIdle,
         styles.hoverBg,
@@ -34,7 +37,7 @@ export const BadgeCloseX = ({ color, rounded, onClick, className }: BadgeCloseXP
         className,
       )}
     >
-      <Icon name="close" size="xs" className="size-3 text-[12px]" />
+      <Icon name="close" size="xs" />
     </button>
   );
 };

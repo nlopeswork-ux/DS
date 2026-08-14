@@ -28,7 +28,7 @@ export const CountryIcon = ({ code, size = 24, className, ...rest }: CountryIcon
         )}
         style={{ width: size, height: size }}
       >
-        <Icon name="public" size="xs" className="size-3 text-[12px] text-tertiary" />
+        <Icon name="public" size="xs" className="text-tertiary" />
       </span>
     );
   }

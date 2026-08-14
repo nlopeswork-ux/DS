@@ -44,8 +44,8 @@ const meta = {
   },
   args: {
     children: 'Label',
-    iconLeadingSwap: <Icon name="star" size="xs" className="size-3.5 text-[14px]" />,
-    iconTrailingSwap: <Icon name="arrow_forward" size="xs" className="size-3.5 text-[14px]" />,
+    iconLeadingSwap: <Icon name="add" size="xs" />,
+    iconTrailingSwap: <Icon name="arrow_forward" size="xs" />,
   },
   argTypes: {
     children: {

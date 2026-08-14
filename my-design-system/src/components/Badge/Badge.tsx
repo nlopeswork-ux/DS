@@ -14,11 +14,15 @@ const sizeStyles: Record<BadgeSize, string> = {
   lg: 'px-3 py-1 text-sm leading-5',
 };
 
-/** `icon="Only"` drops the label — padding shrinks toward a square footprint instead of the text paddings above. */
+/**
+ * `icon="Only"` drops the label — padding shrinks toward a square footprint
+ * instead of the text paddings above. Sized to comfortably fit a real 16px
+ * icon (Icon's `xs` floor — see comment on the icon slots below).
+ */
 const onlySizeStyles: Record<BadgeSize, string> = {
-  sm: 'p-1',
-  md: 'p-[5px]',
-  lg: 'p-1.5',
+  sm: 'p-1', // 24px box
+  md: 'p-1.5', // 28px box
+  lg: 'p-2', // 32px box
 };
 
 /** `icon="Dot"` indicator size — docs don't specify a value, extrapolated from the Untitled UI reference (6px sm, 8px md/lg). */
@@ -75,31 +79,37 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
           (flagSwap ? (
             <span
               aria-hidden="true"
-              className="inline-flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-full bg-utility-gray-100"
+              className="inline-flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-full bg-utility-gray-100"
             >
               {flagSwap}
             </span>
           ) : (
             // Generic globe mark until a specific country is known — pass `flagSwap={<CountryIcon code="PT" />}` for a real flag.
-            <CountryIcon code="earth" size={16} aria-hidden="true" className="shrink-0" />
+            <CountryIcon code="earth" size={20} aria-hidden="true" className="shrink-0" />
           ))}
         {icon === 'Avatar' &&
           (avatarSwap ? (
             <span
               aria-hidden="true"
-              className="inline-flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-full bg-utility-gray-200"
+              className="inline-flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-full bg-utility-gray-200"
             >
               {avatarSwap}
             </span>
           ) : (
-            <Avatar size="xs" placeholder contrastBorder={false} aria-hidden="true" className="size-4 shrink-0" />
+            <Avatar size="xs" placeholder contrastBorder={false} aria-hidden="true" className="size-5 shrink-0" />
           ))}
-        {(icon === 'Icon leading' || isOnly) &&
-          (iconLeadingSwap ?? <Icon name="star" size="xs" className="size-3.5 text-[14px]" />)}
+        {/*
+          Icon's Material Symbols `opsz` axis floors at 20 (see Icon.tsx),
+          matched to its own `xs` = 16px box — shrinking below that via an
+          arbitrary className (e.g. `size-3.5`/`text-[14px]`) desyncs the
+          glyph's optical size from its rendered box, producing the
+          distorted/overflowing icons seen at Badge's smallest sizes.
+          `xs` (16px) is therefore the floor used everywhere in this file.
+        */}
+        {(icon === 'Icon leading' || isOnly) && (iconLeadingSwap ?? <Icon name="add" size="xs" />)}
         {!isOnly && children}
-        {icon === 'Icon trailing' &&
-          (iconTrailingSwap ?? <Icon name="arrow_forward" size="xs" className="size-3.5 text-[14px]" />)}
-        {icon === 'X close' && <BadgeCloseX color={color} rounded={isPill} onClick={onClose} className="-mr-1" />}
+        {icon === 'Icon trailing' && (iconTrailingSwap ?? <Icon name="arrow_forward" size="xs" />)}
+        {icon === 'X close' && <BadgeCloseX color={color} rounded={isPill} onClick={onClose} />}
       </span>
     );
   },

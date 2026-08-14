@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { cn } from '../../utils/cn';
 import { Icon } from '../Icon';
+import type { IconSize } from '../Icon';
 import { AvatarOnlineIndicator } from './AvatarOnlineIndicator';
 import { AvatarCompanyIcon } from './AvatarCompanyIcon';
 import { VerifiedBadge } from './VerifiedBadge';
@@ -36,14 +37,20 @@ const textSizeStyles: Record<AvatarSize, string> = {
   '2xl': 'text-xl',
 };
 
-/** Placeholder person-icon size, scaled with the avatar box. */
-const placeholderIconSize: Record<AvatarSize, string> = {
-  xs: 'size-3.5 text-[14px]',
-  sm: 'size-4 text-[16px]',
-  md: 'size-5 text-[20px]',
-  lg: 'size-6 text-[24px]',
-  xl: 'size-7 text-[28px]',
-  '2xl': 'size-8 text-[32px]',
+/**
+ * Placeholder person-icon size, scaled with the avatar box — mapped onto
+ * Icon's own discrete size scale (never an arbitrary className shrink)
+ * so its Material Symbols `opsz` axis stays matched to the rendered box;
+ * a mismatch there is what produced distorted/overflowing glyphs at small
+ * sizes (see Badge.tsx, which embeds this Avatar at `size="xs"`).
+ */
+const placeholderIconSize: Record<AvatarSize, IconSize> = {
+  xs: 'xs', // 16px
+  sm: 'sm', // 20px
+  md: 'md', // 24px
+  lg: 'lg', // 28px
+  xl: 'xl', // 32px
+  '2xl': 'xl', // 32px (Icon's ceiling)
 };
 
 export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
@@ -71,7 +78,7 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
     } else {
       // `placeholder` explicitly requested, or nothing else to render — the generic person glyph is the component's own fallback.
       void placeholder;
-      content = <Icon name="person" filled className={cn('text-utility-gray-500', placeholderIconSize[size])} />;
+      content = <Icon name="person" filled size={placeholderIconSize[size]} className="text-utility-gray-500" />;
     }
 
     return (

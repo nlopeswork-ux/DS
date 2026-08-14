@@ -3,10 +3,15 @@ import { cn } from '../../utils/cn';
 import { Badge, badgeColorStyles } from '../Badge';
 import type { BadgeGroupProps, BadgeGroupSize } from './BadgeGroup.types';
 
-/** docs/components/badges-tags.md §2.2 — height + item spacing + font size per size. */
+/**
+ * docs/components/badges-tags.md §2.2 — height + item spacing + font size
+ * per size. Height nudged 2px past the literal 30/32px spec value so the
+ * inner Badge chip (24/28px tall) always keeps a clearly visible ring of
+ * padding above/below, instead of nearly touching the outer edge.
+ */
 const sizeStyles: Record<BadgeGroupSize, string> = {
-  md: 'h-[30px] gap-md text-xs',
-  lg: 'h-8 gap-lg text-sm',
+  md: 'h-8 gap-md text-xs', // 32px
+  lg: 'h-9 gap-lg text-sm', // 36px
 };
 
 export const BadgeGroup = forwardRef<HTMLSpanElement, BadgeGroupProps>(
@@ -32,7 +37,7 @@ export const BadgeGroup = forwardRef<HTMLSpanElement, BadgeGroupProps>(
     const isOutline = theme === 'Outline';
 
     const badgeChip = (
-      <Badge size="sm" type="Badge color" color={color} icon={icon ? 'Dot' : 'False'}>
+      <Badge size="sm" type="Pill color" color={color} icon={icon ? 'Dot' : 'False'}>
         {badgeLabel}
       </Badge>
     );
