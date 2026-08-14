@@ -1,0 +1,156 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as InputStories from './Input.stories';
+
+<Meta of={InputStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex flex-wrap gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Input
+
+Single-line text field for free-form user input (text, email, password, phone, currency, etc.). Full Light/Dark Mode support, 2 sizes, and 8 structural `type` variants — Default, Icon leading, Leading dropdown, Trailing dropdown, Leading text, Payment input, Tags, Trailing button.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <div className="w-full max-w-[480px]">
+        <Story of={InputStories.Playground} inline />
+      </div>
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className="flex flex-col p-6 playground-options-list">
+      <Controls of={InputStories.Playground} include={['Size', 'Type', 'Destructive', 'Required', 'Help Icon', 'Disabled']} />
+      <Controls of={InputStories.Playground} include={['Label', 'Placeholder', 'Hint Text', 'Error Message']} />
+      <Controls of={InputStories.Playground} include={['Leading Text', 'Trailing Button Label']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- To collect a single line of free-form text — name, email, password, search term, amount.
+- With `leadingDropdown`/`trailingDropdown` when the value has an inherent unit or prefix the user must also choose (phone country code, currency).
+- With `trailingButton` for a paired action on the field's own value (copy a link, regenerate a code).
+
+### 🚫 When not to use
+- For multi-line content — use `Textarea`.
+- For a fixed set of options with no free text — use `Dropdown` or `InputDropdown`.
+- For a short, fixed-length code (OTP/2FA) — use `VerificationCodeInput`, which is easier to scan and paste into.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Icon Leading', content: <Canvas of={InputStories.IconLeading} withToolbar={false} sourceState="none" /> },
+    { label: 'Leading Dropdown', content: <Canvas of={InputStories.LeadingDropdown} withToolbar={false} sourceState="none" /> },
+    { label: 'Trailing Dropdown', content: <Canvas of={InputStories.TrailingDropdown} withToolbar={false} sourceState="none" /> },
+    { label: 'Leading Text', content: <Canvas of={InputStories.LeadingText} withToolbar={false} sourceState="none" /> },
+    { label: 'Payment Input', content: <Canvas of={InputStories.PaymentInput} withToolbar={false} sourceState="none" /> },
+    { label: 'Tags', content: <Canvas of={InputStories.Tags} withToolbar={false} sourceState="none" /> },
+    { label: 'Trailing Button', content: <Canvas of={InputStories.TrailingButton} withToolbar={false} sourceState="none" /> },
+    { label: 'Sizes', content: <Canvas of={InputStories.Sizes} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Label & hint
+- ✅ Label is always visible above the field — never rely on a placeholder alone as the label (it disappears once the user types).
+- ✅ Hint text gives format guidance ("Minimum 8 characters") and disappears automatically once an error message takes its place.
+- 🚫 Don't show both hint and error message at once — the component already hides the hint whenever `destructive` + `errorMessage` are set.
+
+### Type-specific slots
+- `iconSwap`, `leadingTextAddon`, `paymentIcon` and the `tags` chips all share the field's own padding — no separate background, they read as part of the same input.
+- `leadingDropdown`, `trailingDropdown` and `trailingButton` instead span the full field height, edge to edge, with their own fused background/border.
+- `helpIcon` (an info icon, swapped for an alert icon when `destructive`) only renders when the trailing slot is free — it's automatically suppressed for `trailingDropdown`, `trailingButton` and `tags`.
+- Always give `leadingDropdown`/`trailingDropdown` an `ariaLabel` (e.g. "Country code"), since the fused select has no visible label of its own.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Placeholder / Filled</strong></td>
+      <td><code>border-primary</code>, 1px, <code>shadow-xs</code>. Visually identical whether empty (placeholder) or filled — text color is the only difference, driven by the browser.</td>
+    </tr>
+    <tr>
+      <td><strong>Focus</strong></td>
+      <td><code>border-brand</code>, 2px, plus a 4px focus ring — triggered by <code>focus-within</code> on the field wrapper so it also engages when a leading/trailing dropdown is focused.</td>
+    </tr>
+    <tr>
+      <td><strong>Disabled</strong></td>
+      <td><code>bg-disabled-subtle</code>, <code>border-primary</code> (unchanged), reduced opacity, native <code>disabled</code> attribute on all interactive children. Destructive styling is suppressed while disabled.</td>
+    </tr>
+    <tr>
+      <td><strong>Destructive</strong></td>
+      <td><code>border-error</code> at rest, 2px on focus — same pattern as the brand border, just swapped to the error palette. The hint text becomes an error message, and the help icon swaps to an alert icon.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={InputStories.Disabled} withToolbar={false} sourceState="none" />
+</div>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={InputStories.DestructiveState} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Label association:** the label is linked via `htmlFor`/`id` (auto-generated with `useId` when no `id` is provided).
+- **Error announcement:** `aria-invalid` and `aria-describedby` point to the error message so screen readers announce it as part of the field.
+- **Visible focus:** the focus ring must never be disabled — it's the primary visual cue for keyboard navigation, and it also engages for the fused leading/trailing dropdown or button.
+- **Dropdown segments:** always pass `ariaLabel` on `leadingDropdown`/`trailingDropdown` — they're native `<select>` elements with no visible label of their own.
+- **Tag removal:** every chip's remove button has an explicit `aria-label` ("Remove design-system") — never rely on the "×" glyph alone.
+- **Disabled state:** always uses the native `disabled` attribute on the input and any dropdown/button segment, which removes them from tab order and communicates the state to screen readers.

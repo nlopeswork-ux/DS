@@ -1,0 +1,86 @@
+import { Meta, Typeset } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Typography" />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Typography
+
+Full scale from `text-xs` to `display-2xl`, weights and font family. Source of truth: [`docs/foundations/typography.md`](../../../docs/foundations/typography.md).
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#family-and-weights" onClick={(e) => scrollToSection(e, 'family-and-weights')} className="text-brand-secondary font-semibold">Family & Weights</a>
+  <a href="#headings" onClick={(e) => scrollToSection(e, 'headings')} className="text-brand-secondary font-semibold">Headings</a>
+  <a href="#body" onClick={(e) => scrollToSection(e, 'body')} className="text-brand-secondary font-semibold">Body</a>
+  <a href="#caption" onClick={(e) => scrollToSection(e, 'caption')} className="text-brand-secondary font-semibold">Caption</a>
+</nav>
+
+<h2 id="family-and-weights" className="mt-4 mb-6 text-2xl font-semibold">Family & Weights</h2>
+
+A single family, **Inter**, applied in two semantic roles: `font-display` (headings/highlighted numbers) and `font-body` (running text). Four available weights:
+
+<div className="flex flex-col gap-md border border-secondary rounded-lg p-6 mb-8">
+  <p className="text-lg font-normal">Regular (400) — Aa Bb Cc</p>
+  <p className="text-lg font-medium">Medium (500) — Aa Bb Cc</p>
+  <p className="text-lg font-semibold">Semibold (600) — Aa Bb Cc</p>
+  <p className="text-lg font-bold">Bold (700) — Aa Bb Cc</p>
+</div>
+
+<h2 id="headings" className="mt-16 mb-6 text-2xl font-semibold">Headings (Display)</h2>
+
+Scale from `display-xs` to `display-2xl`, used for section titles and highlighted numbers (e.g. Progress circle). From `display-lg` up, *letter-spacing* tightens to `-2%`.
+
+<Typeset
+  fontSizes={[24, 30, 36, 48, 60, 72]}
+  fontWeight={600}
+  sampleText="Design System"
+  fontFamily="var(--font-family-display)"
+/>
+
+<h2 id="body" className="mt-16 mb-6 text-2xl font-semibold">Body (Text)</h2>
+
+Scale from `text-xs` to `text-xl`, used for body copy, labels and form component values.
+
+<Typeset
+  fontSizes={[12, 14, 16, 18, 20]}
+  fontWeight={400}
+  sampleText="Supporting text for paragraphs, labels and hints."
+  fontFamily="var(--font-family-body)"
+/>
+
+<h2 id="caption" className="mt-16 mb-6 text-2xl font-semibold">Caption</h2>
+
+`text-xs` in `semibold` — used for Tooltip titles and other compact labels.
+
+<Typeset
+  fontSizes={[12]}
+  fontWeight={600}
+  sampleText="Caption / Tooltip Title"
+  fontFamily="var(--font-family-body)"
+/>
+
+<h2 className="mt-16 mb-6 text-2xl font-semibold">Sizes & Line Heights</h2>
+
+<table>
+  <thead>
+    <tr><th>Scale</th><th>px</th><th>rem</th><th>Line height</th><th>Tailwind</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>text-xs</td><td>12px</td><td>0.75rem</td><td>18px</td><td><code>text-xs</code></td></tr>
+    <tr><td>text-sm</td><td>14px</td><td>0.875rem</td><td>20px</td><td><code>text-sm</code></td></tr>
+    <tr><td>text-md</td><td>16px</td><td>1rem</td><td>24px</td><td><code>text-base</code></td></tr>
+    <tr><td>text-lg</td><td>18px</td><td>1.125rem</td><td>28px</td><td><code>text-lg</code></td></tr>
+    <tr><td>text-xl</td><td>20px</td><td>1.25rem</td><td>30px</td><td><code>text-xl</code></td></tr>
+    <tr><td>display-xs</td><td>24px</td><td>1.5rem</td><td>32px</td><td><code>text-2xl</code></td></tr>
+    <tr><td>display-sm</td><td>30px</td><td>1.875rem</td><td>38px</td><td><code>text-3xl</code></td></tr>
+    <tr><td>display-md</td><td>36px</td><td>2.25rem</td><td>44px</td><td><code>text-4xl</code></td></tr>
+    <tr><td>display-lg</td><td>48px</td><td>3rem</td><td>60px</td><td><code>text-5xl</code></td></tr>
+    <tr><td>display-xl</td><td>60px</td><td>3.75rem</td><td>72px</td><td><code>text-6xl</code></td></tr>
+    <tr><td>display-2xl</td><td>72px</td><td>4.5rem</td><td>90px</td><td><code>text-7xl</code></td></tr>
+  </tbody>
+</table>

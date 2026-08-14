@@ -1,0 +1,216 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Button
+
+Primary action button for the Design System. Communicates a screen's decision hierarchy through fill, border and typographic weight, with full Light/Dark Mode support, 5 sizes and 7 visual hierarchies.
+
+<div className="border-b border-secondary mb-8" />
+
+{/*
+  Mini table of contents — pure relative anchors (`href="#id"`), navigation
+  done via scrollIntoView on onClick (never window.location.href/absolute
+  URLs), so it never escapes the Storybook iframe/shell.
+*/}
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+{/*
+  OutSystems UI-style 2-column layout (see CLAUDE.md — mandatory rule):
+  1.6fr/1fr grid, a single shared outline (border + rounded-lg +
+  overflow-hidden), `relative isolate z-10` to isolate the stacking
+  context from any internal Storybook overlay. `items-stretch` makes both
+  columns share the same height (that of the Options column, usually the
+  taller one). 1 column on narrow screens, 1.6fr/1fr from `md:` up.
+*/}
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  {/* Left column — Preview */}
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={ButtonStories.Playground} inline />
+    </div>
+  </div>
+
+  {/* Right column — Options */}
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    {/*
+      Simple flat rows, never a database-style table. The `.sbdocs-content
+      table` rule injected globally by @storybook/addon-docs' own theme
+      (cell borders + alternating row background stripes) has the same
+      specificity as plain Tailwind descendant selectors and loads after
+      our stylesheet, so it silently wins and reintroduces a boxed/card
+      look — Tailwind utility classes on this wrapper alone are NOT
+      enough. The `.playground-options-list` class below is overridden in
+      `.storybook/preview-styles.css` with `!important` (same pattern
+      already used there for h2/h3/table spacing — see CLAUDE.md) to
+      guarantee flat rows regardless of Storybook's internal CSS. 3
+      separate `<Controls>` blocks (Appearance/Icons/Content) grouped only
+      by vertical whitespace — no category headers, emojis or colored
+      backgrounds.
+    */}
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={ButtonStories.Playground} include={['Size', 'Hierarchy', 'State', 'Destructive', 'Disabled']} />
+      <Controls of={ButtonStories.Playground} include={['Left Icon', 'Right Icon']} />
+      <Controls of={ButtonStories.Playground} include={['Label Text']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- To trigger a concrete, immediate task — submit, save, confirm, create, continue.
+- As the primary call to action of a form, modal, card or page section.
+- Together with other hierarchies (Secondary, Tertiary, Link) to express the relative importance of several actions in the same area.
+
+### 🚫 When not to use
+- For simple navigation between pages, with no action to perform — use a `Link gray`/`Link color`, or a dedicated navigation component.
+- To toggle a binary state (on/off) — use a `Toggle`.
+- To pick one among several options — use `Radio` or `Dropdown`.
+- For purely informational text with no associated action — it shouldn't be a button.
+
+### Visual hierarchy
+
+<table>
+  <thead>
+    <tr><th>Hierarchy</th><th>Usage</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Primary</strong></td>
+      <td>The most important action on the screen or section. <strong>At most 1 Primary per action area</strong> (form, modal, card). More than one Primary removes the decision hierarchy and confuses the user about which action to follow.</td>
+    </tr>
+    <tr>
+      <td><strong>Secondary gray / Secondary color</strong></td>
+      <td>Alternative actions to the main one (e.g. "Cancel" next to "Save").</td>
+    </tr>
+    <tr>
+      <td><strong>Tertiary gray / Tertiary color</strong></td>
+      <td>Supporting actions, low visual weight — several can coexist in the same area (e.g. toolbar actions).</td>
+    </tr>
+    <tr>
+      <td><strong>Link gray / Link color</strong></td>
+      <td>Lowest-priority actions, equivalent to a text hyperlink, typically inline.</td>
+    </tr>
+  </tbody>
+</table>
+
+The **destructive** variant (`destructive`, Error palette) applies on top of any hierarchy, but should be reserved for irreversible or risky actions — delete, remove, cancel subscription. Never use the error palette as purely decorative styling.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Hierarchies', content: <Canvas of={ButtonStories.AllHierarchies} withToolbar={false} sourceState="none" /> },
+    { label: 'Destructive', content: <Canvas of={ButtonStories.Destructive} withToolbar={false} sourceState="none" /> },
+    { label: 'Sizes', content: <Canvas of={ButtonStories.Sizes} withToolbar={false} sourceState="none" /> },
+    { label: 'Icons', content: <Canvas of={ButtonStories.WithIcons} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Labels (button text)
+- ✅ Always start with an action verb in the imperative: "Save changes", "Create account", "Invite member".
+- ✅ Short and specific — ideally 1 to 4 words. Avoid generic phrases like "Click here" or a context-free "OK".
+- 🚫 Don't write text in all caps — typographic weight and color already communicate priority.
+- 🚫 Don't repeat information that's obvious from context ("Submit form" inside a form — "Submit" is enough).
+
+### Icons (`iconLeading` / `iconTrailing`)
+- **Left icon** reinforces the meaning of the action (e.g. "+" before "Add item"). It's the default position for semantic reinforcement icons.
+- **Right icon** communicates navigation or progression (e.g. an arrow after "Continue", "See more →"). Use only when the action takes the user to a next step.
+- 🚫 Avoid combining `iconLeading` and `iconTrailing` on the same button, except in very specific cases (e.g. bidirectional navigation actions) — too many icons dilutes focus on the text.
+- Icons are always decorative (`aria-hidden`) — the button text is the only source of accessible meaning. An icon-only button needs an explicit `aria-label`.
+
+See size and icon examples in the tab gallery under [UX Guidelines](#ux-guidelines).
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Default</strong></td>
+      <td>Resting state — solid fill, <code>shadow-xs</code> shadow + skeuomorphic shadow on the Primary hierarchy.</td>
+    </tr>
+    <tr>
+      <td><strong>Hover</strong></td>
+      <td>Mandatory feedback on pointer devices — a one-step color shift within the same family (see <code>foundations/colors.md §3.4</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Focus</strong></td>
+      <td>Mandatory for keyboard navigation — double focus ring (white halo + color ring). Must never be removed or suppressed.</td>
+    </tr>
+    <tr>
+      <td><strong>Disabled</strong></td>
+      <td>Reduces contrast/opacity and disables interaction via the native <code>disabled</code> attribute. Use only when the action is unavailable due to an explicit business rule — avoid disabling a button without communicating why to the user.</td>
+    </tr>
+    <tr>
+      <td><strong>Loading</strong></td>
+      <td>⚠️ Not yet implemented in this version of the component — planned as a next increment. Until then, avoid triggering long async actions without giving visual feedback through another means.</td>
+    </tr>
+  </tbody>
+</table>
+
+{/*
+  `.docs-story` is the internal box addon-docs itself draws around every
+  `<Canvas>` (32px vertical padding by default) — shrink it so the box
+  fits the button's actual size, with no extra dead space.
+*/}
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={ButtonStories.Disabled} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Contrast:** every Button fill/text pair meets WCAG AA (ratio ≥ 4.5:1) in both Light and Dark Mode, through semantic tokens (`text-primary-on-brand`, `text-secondary`, etc. — `foundations/colors.md §2`).
+- **Visible focus:** the focus ring (2px white halo + 4px color ring) must never be disabled — it's the primary visual cue for keyboard navigation.
+- **Keyboard navigation:** Button renders a native `<button>` — reachable with `Tab`, activatable with `Enter`/`Space`, with no need for extra `tabIndex` or `role`.
+- **Disabled state:** always uses the native `disabled` attribute, which automatically removes the button from tab order and communicates the state to screen readers — never simulate "disabled" with opacity/CSS alone.

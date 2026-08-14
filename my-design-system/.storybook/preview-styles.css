@@ -1,0 +1,125 @@
+/*
+ * Centralização global de espaçamento vertical e grids/tabelas para toda a
+ * documentação MDX (`.sbdocs-content`). Qualquer `.mdx` de Foundations ou
+ * Componentes herda este ritmo automaticamente — não repitas margens de
+ * h2/h3/p/tabela manualmente nos ficheiros `.mdx` individuais.
+ * Ver CLAUDE.md — "Espaçamentos verticais em MDX são regidos centralmente".
+ */
+
+/* --- VERTICAL RHYTHM GRID (Escala de 8px) --- */
+.sbdocs-content h2 {
+  margin-top: 3rem !important; /* 48px - Separação de Seção Principal */
+  margin-bottom: 1rem !important; /* 16px */
+  border-bottom: 1px solid var(--border-subtle, #eaecf0);
+  padding-bottom: 0.5rem;
+}
+
+.sbdocs-content h3 {
+  margin-top: 2rem !important; /* 32px - Subseção / Sub-título */
+  margin-bottom: 0.75rem !important; /* 12px */
+  font-weight: 600;
+}
+
+.sbdocs-content p,
+.sbdocs-content .sbdocs-p {
+  margin-bottom: 1.25rem !important; /* 20px */
+  line-height: 1.6;
+}
+
+/* Rampas de Cor e Tabelas */
+.color-ramp-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)) !important;
+  row-gap: 1.25rem !important; /* 20px de espaço vertical entre a 1ª e 2ª linha */
+  column-gap: 0.5rem !important; /* 8px de espaço horizontal */
+  margin-bottom: 2.5rem !important; /* 40px no fundo do bloco */
+}
+
+.sbdocs-table,
+table {
+  margin-bottom: 2.5rem !important; /* 40px de margem no fundo das tabelas */
+  width: 100%;
+}
+
+/*
+ * Painel de Opções do Playground (ver Button.mdx / CLAUDE.md — "linhas
+ * flex simples"). O tema interno do @storybook/addon-docs injeta um
+ * `.sbdocs-content table` global com borda em cada célula e fundo
+ * alternado por linha (zebra stripes) — mesma especificidade dos
+ * seletores Tailwind deste wrapper e carregado depois, por isso ganha
+ * silenciosamente e devolve o efeito de caixa/card que esta classe existe
+ * para eliminar. `!important` garante que este bloco vence
+ * independentemente da ordem de carregamento das folhas de estilo.
+ */
+.playground-options-list table {
+  all: unset !important;
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.playground-options-list thead {
+  display: none !important;
+}
+
+.playground-options-list tbody {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.playground-options-list tr {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important; /* 16px */
+  padding: 0.75rem 0 !important; /* 12px */
+  margin: 0 !important;
+  border: none !important;
+  border-bottom: 1px solid var(--color-border-secondary) !important;
+  background: transparent !important;
+}
+
+.playground-options-list tr:last-child {
+  border-bottom: none !important;
+}
+
+.playground-options-list td {
+  all: unset !important;
+  display: block !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.playground-options-list td:nth-child(2),
+.playground-options-list td:nth-child(3) {
+  display: none !important;
+}
+
+.playground-options-list td:first-child {
+  flex: 0 0 110px !important;
+  width: 110px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--color-text-secondary) !important;
+  white-space: nowrap !important;
+}
+
+.playground-options-list td:last-child {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+
+.playground-options-list td:last-child select,
+.playground-options-list td:last-child input[type='text'] {
+  width: 100% !important;
+}
+
+.playground-options-list button[aria-label='Reset controls'],
+.playground-options-list button[aria-label='Resetting controls...'] {
+  display: none !important;
+}

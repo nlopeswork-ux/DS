@@ -1,0 +1,109 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import * as VerificationCodeInputStories from './VerificationCodeInput.stories';
+
+<Meta of={VerificationCodeInputStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Verification Code Input
+
+A row of large digit boxes for OTP/2FA codes, built on the `_Mega input field base` primitive. Auto-advances focus as the user types, supports Backspace/Arrow-key navigation, and splits a pasted code across every box. 3 sizes, 4 or 6 digits.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={VerificationCodeInputStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className="flex flex-col p-6 playground-options-list">
+      <Controls of={VerificationCodeInputStories.Playground} include={['Size', 'Digits', 'Error', 'Disabled']} />
+      <Controls of={VerificationCodeInputStories.Playground} include={['Label', 'Error Message']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- To collect a short, fixed-length numeric code sent by SMS, email or an authenticator app.
+- When you want the browser's native one-time-code autofill to work — the first box sets `autoComplete="one-time-code"`.
+
+### 🚫 When not to use
+- For free-form or variable-length text — use `Input`.
+- For codes that mix letters and numbers with no fixed pattern — a single `Input` with clear formatting guidance in the hint text is usually clearer than forcing letters into digit boxes.
+
+<Canvas of={VerificationCodeInputStories.FourDigits} withToolbar={false} sourceState="none" />
+<Canvas of={VerificationCodeInputStories.Sizes} withToolbar={false} sourceState="none" />
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Interaction
+- ✅ Typing a digit auto-advances focus to the next box; `Backspace` on an empty box moves focus back and clears the previous digit.
+- ✅ Pasting a full code into any box distributes it across the remaining boxes automatically.
+- Use `onComplete` to trigger verification as soon as every box is filled — don't require a separate "Submit" click for a code this short.
+
+### Digits
+- Use `4` digits for SMS-style OTPs, `6` for TOTP/authenticator-app codes — match whatever length your backend actually issues.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Placeholder</strong></td>
+      <td>Empty box, <code>border-primary</code>, 1px.</td>
+    </tr>
+    <tr>
+      <td><strong>Filled</strong></td>
+      <td>Has a digit, <code>border-brand</code>, 2px — even when not focused.</td>
+    </tr>
+    <tr>
+      <td><strong>Focused</strong></td>
+      <td><code>border-brand</code>, 2px, plus the standard 4px focus ring.</td>
+    </tr>
+    <tr>
+      <td><strong>Disabled</strong></td>
+      <td><code>bg-disabled-subtle</code>, <code>border-disabled</code>, reduced opacity.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={VerificationCodeInputStories.Disabled} withToolbar={false} sourceState="none" />
+</div>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={VerificationCodeInputStories.ErrorState} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Grouping:** the boxes are wrapped in `role="group"` labelled by the visible label, so screen readers announce them as one field.
+- **Per-box label:** each box carries its own `aria-label` ("Digit 2 of 6") since it's a separate native input.
+- **Numeric keyboard:** `inputMode="numeric"` requests the numeric keyboard on mobile without changing the underlying `type="text"` (needed for single-character `maxLength` behavior across browsers).
+- **Autofill:** the first box sets `autoComplete="one-time-code"`, so browsers/OS can offer to fill in an SMS-delivered code.
+- **Error announcement:** `aria-describedby` on every box points to the error message when `error` is active.

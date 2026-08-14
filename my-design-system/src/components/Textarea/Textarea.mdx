@@ -1,0 +1,112 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import * as TextareaStories from './Textarea.stories';
+
+<Meta of={TextareaStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Textarea
+
+Multi-line text field for longer free-form content, sharing the same border/focus/destructive language as `Input`. 2 structural variants — Default and Tags (chip compose area).
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <div className="w-full max-w-[480px]">
+        <Story of={TextareaStories.Playground} inline />
+      </div>
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className="flex flex-col p-6 playground-options-list">
+      <Controls of={TextareaStories.Playground} include={['Destructive', 'Required', 'Help Icon', 'Resize Handle', 'Disabled']} />
+      <Controls of={TextareaStories.Playground} include={['Label', 'Placeholder', 'Hint Text', 'Error Message']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- To collect multi-line content — messages, descriptions, comments, feedback.
+- With `type="tags"` when the user is composing a set of discrete keywords/labels rather than a paragraph.
+
+### 🚫 When not to use
+- For a single line of text — use `Input`, which is more compact and scans faster.
+- For a fixed set of predefined options — use `Dropdown`.
+
+<Canvas of={TextareaStories.Tags} withToolbar={false} sourceState="none" />
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Sizing
+- The field has a single fixed size — 128px tall, 14px/12px padding — there's no `size` variant, unlike `Input`.
+- `resizeHandle` (on by default) lets the user drag to grow the field beyond 128px; turn it off only when the surrounding layout can't tolerate a taller field.
+
+### Label row
+- `required` (asterisk) and `helpIcon` render in the **label row**, not inside the field itself — unlike `Input`, where the help icon sits inside the bordered container.
+
+### Tags mode
+- ✅ Enter turns the current compose text into a chip; Backspace on an empty compose line removes the last chip — mirrors the behavior of most email "To:" fields.
+- 🚫 Don't mix Tags mode with long free-form paragraphs — if the content is prose, use the Default variant instead.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Placeholder / Default (filled)</strong></td>
+      <td><code>border-primary</code>, 1px, <code>shadow-xs</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Focus</strong></td>
+      <td><code>border-brand</code>, 2px, plus a 4px focus ring — triggered by <code>focus-within</code> on the field wrapper.</td>
+    </tr>
+    <tr>
+      <td><strong>Disabled</strong></td>
+      <td><code>bg-disabled-subtle</code>, <code>border-primary</code> (unchanged), reduced opacity, chip remove buttons are hidden. Destructive styling is suppressed while disabled.</td>
+    </tr>
+    <tr>
+      <td><strong>Destructive</strong></td>
+      <td><code>border-error</code> at rest, 2px on focus, optional <code>errorMessage</code> below the field, help icon swaps to an alert icon.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={TextareaStories.Disabled} withToolbar={false} sourceState="none" />
+</div>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={TextareaStories.DestructiveState} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Label association:** the label is linked via `htmlFor`/`id` (auto-generated with `useId` when no `id` is provided).
+- **Error announcement:** `aria-invalid` and `aria-describedby` point to the error message so screen readers announce it as part of the field.
+- **Chip removal:** every chip's remove button has an explicit `aria-label` ("Remove design-system") — never rely on the "×" glyph alone.
+- **Visible focus:** the focus ring must never be disabled — it's the primary visual cue for keyboard navigation.

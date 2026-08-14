@@ -1,0 +1,68 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Spacing" />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+export const spacingTokens = [
+  { name: 'spacing-none', px: 0, cls: 'w-none' },
+  { name: 'spacing-xxs', px: 2, cls: 'w-xxs' },
+  { name: 'spacing-xs', px: 4, cls: 'w-xs' },
+  { name: 'spacing-sm', px: 6, cls: 'w-sm' },
+  { name: 'spacing-md', px: 8, cls: 'w-md' },
+  { name: 'spacing-lg', px: 12, cls: 'w-lg' },
+  { name: 'spacing-xl', px: 16, cls: 'w-xl' },
+  { name: 'spacing-2xl', px: 20, cls: 'w-2xl' },
+  { name: 'spacing-3xl', px: 24, cls: 'w-3xl' },
+  { name: 'spacing-4xl', px: 32, cls: 'w-4xl' },
+  { name: 'spacing-5xl', px: 40, cls: 'w-5xl' },
+  { name: 'spacing-6xl', px: 48, cls: 'w-6xl' },
+  { name: 'spacing-7xl', px: 64, cls: 'w-7xl' },
+  { name: 'spacing-8xl', px: 80, cls: 'w-8xl' },
+  { name: 'spacing-9xl', px: 96, cls: 'w-9xl' },
+  { name: 'spacing-10xl', px: 128, cls: 'w-10xl' },
+  { name: 'spacing-11xl', px: 160, cls: 'w-11xl' },
+];
+
+# Spacing
+
+Full semantic scale, from `spacing-none` (0px) to `spacing-11xl` (160px) — each bar reflects the token's actual width via the corresponding Tailwind utility. Source of truth: [`docs/foundations/spacing-radius.md`](../../../docs/foundations/spacing-radius.md).
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#scale" onClick={(e) => scrollToSection(e, 'scale')} className="text-brand-secondary font-semibold">Scale</a>
+  <a href="#usage" onClick={(e) => scrollToSection(e, 'usage')} className="text-brand-secondary font-semibold">Usage by Case</a>
+</nav>
+
+<h2 id="scale" className="mt-4 mb-6 text-2xl font-semibold">Scale</h2>
+
+<div className="border border-secondary rounded-lg p-6">
+  {spacingTokens.map((t) => (
+    <div key={t.name} className="flex items-center gap-xl py-2 border-b border-tertiary last:border-b-0">
+      <span className="w-32 shrink-0 text-sm font-mono text-secondary">{t.name}</span>
+      <span className="w-12 shrink-0 text-sm text-tertiary">{t.px}px</span>
+      <div className={`h-3 bg-brand-solid rounded-xs ${t.cls}`} />
+    </div>
+  ))}
+</div>
+
+<h2 id="usage" className="mt-16 mb-6 text-2xl font-semibold">Usage by Case</h2>
+
+<table>
+  <thead>
+    <tr><th>Use case</th><th>Typical token</th><th>px</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Icon ↔ text gap (compact)</td><td><code>spacing-xxs</code> / <code>spacing-xs</code></td><td>2 / 4</td></tr>
+    <tr><td>Label ↔ input, input ↔ hint gap</td><td><code>spacing-sm</code></td><td>6</td></tr>
+    <tr><td>Badge/tag inner padding (sm)</td><td><code>spacing-md</code></td><td>8</td></tr>
+    <tr><td>List/dropdown item spacing</td><td><code>spacing-lg</code></td><td>12</td></tr>
+    <tr><td>Button horizontal padding (default)</td><td><code>spacing-xl</code></td><td>16</td></tr>
+    <tr><td>Tooltip padding / dropdown header</td><td><code>spacing-lg</code> to <code>spacing-xl</code></td><td>12–16</td></tr>
+    <tr><td>Main container (cards/panels)</td><td><code>spacing-xl</code>+</td><td>16+</td></tr>
+  </tbody>
+</table>

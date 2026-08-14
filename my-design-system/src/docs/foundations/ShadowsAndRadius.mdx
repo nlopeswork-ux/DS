@@ -1,0 +1,75 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Shadows & Radius" />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+export const shadowTokens = [
+  { name: 'shadow-xs', cls: 'shadow-xs' },
+  { name: 'shadow-sm', cls: 'shadow-sm' },
+  { name: 'shadow-md', cls: 'shadow-md' },
+  { name: 'shadow-lg', cls: 'shadow-lg' },
+  { name: 'shadow-xl', cls: 'shadow-xl' },
+  { name: 'shadow-2xl', cls: 'shadow-2xl' },
+  { name: 'shadow-3xl', cls: 'shadow-3xl' },
+];
+
+export const radiusTokens = [
+  { name: 'radius-none', px: 0, cls: 'rounded-none' },
+  { name: 'radius-xxs', px: 2, cls: 'rounded-xxs' },
+  { name: 'radius-xs', px: 4, cls: 'rounded-xs' },
+  { name: 'radius-sm', px: 6, cls: 'rounded-sm' },
+  { name: 'radius-md', px: 8, cls: 'rounded-md' },
+  { name: 'radius-lg', px: 10, cls: 'rounded-lg' },
+  { name: 'radius-xl', px: 12, cls: 'rounded-xl' },
+  { name: 'radius-2xl', px: 16, cls: 'rounded-2xl' },
+  { name: 'radius-3xl', px: 20, cls: 'rounded-3xl' },
+  { name: 'radius-4xl', px: 24, cls: 'rounded-4xl' },
+  { name: 'radius-full', px: null, cls: 'rounded-full' },
+];
+
+# Shadows & Border Radius
+
+Elevation scale (`shadow-xs` to `shadow-3xl`) and border radius scale (`radius-none` to `radius-full`). Source of truth: [`docs/foundations/shadows-elevation.md`](../../../docs/foundations/shadows-elevation.md) and [`docs/foundations/spacing-radius.md §2`](../../../docs/foundations/spacing-radius.md).
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#shadows" onClick={(e) => scrollToSection(e, 'shadows')} className="text-brand-secondary font-semibold">Shadows</a>
+  <a href="#skeuomorphic" onClick={(e) => scrollToSection(e, 'skeuomorphic')} className="text-brand-secondary font-semibold">Skeuomorphic Shadow</a>
+  <a href="#radius" onClick={(e) => scrollToSection(e, 'radius')} className="text-brand-secondary font-semibold">Border Radius</a>
+</nav>
+
+<h2 id="shadows" className="mt-4 mb-6 text-2xl font-semibold">Shadows</h2>
+
+<div className="grid grid-cols-2 md:grid-cols-4 gap-2xl bg-secondary rounded-lg p-8">
+  {shadowTokens.map((t) => (
+    <div key={t.name} className="flex flex-col items-center gap-lg">
+      <div className={`h-16 w-16 rounded-md bg-primary ${t.cls}`} />
+      <span className="text-sm font-mono text-secondary">{t.name}</span>
+    </div>
+  ))}
+</div>
+
+<h2 id="skeuomorphic" className="mt-16 mb-6 text-2xl font-semibold">Skeuomorphic Shadow</h2>
+
+Combination used on components with a "depth" effect — Button Primary, Button group wrapper.
+
+<div className="flex items-center gap-lg bg-secondary rounded-lg p-8">
+  <div className="h-16 w-16 rounded-md bg-brand-solid shadow-xs-skeuomorphic" />
+  <span className="text-sm font-mono text-secondary">shadow-xs-skeuomorphic</span>
+</div>
+
+<h2 id="radius" className="mt-16 mb-6 text-2xl font-semibold">Border Radius</h2>
+
+<div className="grid grid-cols-3 md:grid-cols-6 gap-2xl bg-secondary rounded-lg p-8">
+  {radiusTokens.map((t) => (
+    <div key={t.name} className="flex flex-col items-center gap-lg">
+      <div className={`h-16 w-16 border-2 border-brand bg-brand-secondary ${t.cls}`} />
+      <span className="text-sm font-mono text-secondary text-center">{t.name}{t.px !== null ? ` (${t.px}px)` : ''}</span>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,105 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import * as DropdownStories from './Dropdown.stories';
+
+<Meta of={DropdownStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Dropdown
+
+Floating menu attached to any trigger (`Button`, an icon button, or an `Avatar`). Composed from `DropdownListItem`, `DropdownHeader` and `DropdownDivider`; closes on outside click, `Escape`, or item selection.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-start justify-center min-h-[420px] p-8 pt-12"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={DropdownStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className="flex flex-col p-6 playground-options-list">
+      <Controls of={DropdownStories.Playground} include={['Alignment']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- For a set of actions attached to a trigger — a "..." menu, a user/account menu, a per-row table action menu.
+- For a multi-select filter with more options than comfortably fit as visible `Checkbox`es — use `checkbox` items.
+
+### 🚫 When not to use
+- To let the user pick a single value for a form field — use `InputDropdown`, which shows the current value as the trigger.
+- For 2–6 always-visible mutually exclusive options — a `Radio` group is faster to scan.
+
+<Canvas of={DropdownStories.CheckboxMenu} withToolbar={false} sourceState="none" />
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Trigger
+- ✅ Any interactive element works as `trigger` — `Dropdown` clones it to inject `onClick`, `aria-haspopup` and `aria-expanded`, so a `Button`, a plain icon button, or an `Avatar` all work unmodified.
+- 🚫 Don't pass a non-interactive element (plain text, an image) as `trigger` — it needs to accept `onClick` and receive focus.
+
+### Menu content
+- ✅ Group related actions with a `DropdownHeader`; separate destructive or unrelated actions with a `DropdownDivider`.
+- ✅ Use `shortcut` only for actions that also have a real keyboard shortcut elsewhere in the app — don't invent one just to fill the slot.
+- 🚫 Don't nest another `Dropdown` inside a menu item — for hierarchical actions, prefer a second, separately-triggered menu.
+
+<Canvas of={DropdownStories.DisabledItem} withToolbar={false} sourceState="none" />
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Closed</strong></td>
+      <td>Only the trigger renders; the menu isn't mounted.</td>
+    </tr>
+    <tr>
+      <td><strong>Open</strong></td>
+      <td><code>border-secondary</code>, <code>shadow-lg</code> floating panel, positioned below the trigger. Closes on outside click, <code>Escape</code>, or a non-checkbox item's <code>onSelect</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Item — Hover / Focus</strong></td>
+      <td><code>bg-primary-hover</code> on the row.</td>
+    </tr>
+    <tr>
+      <td><strong>Item — Disabled</strong></td>
+      <td><code>text-disabled</code>, hover fill suppressed, native <code>disabled</code> attribute — the row no longer fires <code>onSelect</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={DropdownStories.ScrollBarLengths} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Roles:** the menu container renders `role="menu"`; items render `role="menuitem"` (or `role="menuitemcheckbox"` with `aria-checked` when `checkbox` is set).
+- **Trigger semantics:** `aria-haspopup="menu"` and `aria-expanded` are set automatically on the cloned trigger.
+- **Dismissal:** `Escape` and clicking outside both close the menu; focus is never trapped, so `Tab` continues past the trigger normally once closed.
+- **Disabled items:** always use the native `disabled` attribute, which removes the row from tab order and communicates the state to screen readers.

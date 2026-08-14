@@ -1,0 +1,110 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import * as RadioStories from './Radio.stories';
+
+<Meta of={RadioStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Radio
+
+Single-select control for mutually exclusive options within a group, sharing a native `name` attribute. Full Light/Dark Mode support, 2 sizes.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={RadioStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className="flex flex-col p-6 playground-options-list">
+      <Controls of={RadioStories.Playground} include={['Size', 'Error', 'Disabled', 'Checked']} />
+      <Controls of={RadioStories.Playground} include={['Label', 'Supporting Text']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- To let the user pick exactly one option among 2–6 mutually exclusive, always-visible choices.
+- When every option should be scannable at a glance, with no extra click to reveal them (unlike a `Dropdown`).
+
+### 🚫 When not to use
+- To select more than one option — use `Checkbox`.
+- For more than ~6 options, or when options are long/dynamic — use a `Dropdown` instead, to avoid an overwhelming list.
+- To toggle a single setting on/off — use `Toggle`.
+
+<Canvas of={RadioStories.Group} withToolbar={false} sourceState="none" />
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Grouping
+- ✅ All radios in the same group **must** share the same `name` — that's what makes the browser enforce single selection natively.
+- ✅ Exactly one option should be selected by default whenever a neutral state doesn't make sense (e.g. a required plan choice).
+- 🚫 Don't use a `Radio` group for a single yes/no choice — a `Checkbox` or `Toggle` communicates that more directly.
+
+### Label & supporting text
+- Same pattern as `Checkbox`: label is required, supporting text is optional and adds context that doesn't fit the label.
+
+<Canvas of={RadioStories.Sizes} withToolbar={false} sourceState="none" />
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Default</strong></td>
+      <td>Unchecked: <code>border-primary</code>, no fill. Checked: <code>border-brand</code> ring with a filled <code>bg-brand-solid</code> center dot.</td>
+    </tr>
+    <tr>
+      <td><strong>Focus</strong></td>
+      <td>Mandatory for keyboard navigation — <code>focus-visible</code> ring, 4px, brand or error color. Must never be removed or suppressed.</td>
+    </tr>
+    <tr>
+      <td><strong>Disabled</strong></td>
+      <td>Reduces contrast and disables interaction via the native <code>disabled</code> attribute. The label dims to communicate the control is unavailable.</td>
+    </tr>
+    <tr>
+      <td><strong>Error</strong></td>
+      <td><code>border-error-subtle</code> on the unchecked control, red focus ring — pairs with a validation message rendered outside the component.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={RadioStories.Disabled} withToolbar={false} sourceState="none" />
+</div>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={RadioStories.ErrorState} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Native semantics:** renders a native `<input type="radio">` — the browser handles single-selection and arrow-key navigation within a shared `name` group automatically.
+- **Label association:** the label is linked via `htmlFor`/`id` (auto-generated with `useId` when no `id` is provided), so clicking the text also selects the control.
+- **Visible focus:** the focus ring must never be disabled — it's the primary visual cue for keyboard navigation.
+- **Disabled state:** always uses the native `disabled` attribute, which removes the control from tab order and communicates the state to screen readers.

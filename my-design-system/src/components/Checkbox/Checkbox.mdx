@@ -1,0 +1,116 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Checkbox
+
+Binary or multi-select control for forms and lists. Supports an independent mixed/indeterminate visual state for "select all" patterns, with full Light/Dark Mode support and 2 sizes.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={CheckboxStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className="flex flex-col p-6 playground-options-list">
+      <Controls of={CheckboxStories.Playground} include={['Size', 'Error', 'Indeterminate', 'Disabled', 'Checked']} />
+      <Controls of={CheckboxStories.Playground} include={['Label', 'Supporting Text']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- To let the user select one or more independent options from a set (e.g. a list of settings, a multi-select filter).
+- For a single binary agreement (e.g. "Accept terms and conditions").
+- As a "select all" control at the top of a list, using the `Indeterminate` state when only some children are selected.
+
+### 🚫 When not to use
+- To pick exactly one option among several mutually exclusive choices — use `Radio`.
+- To toggle a setting that takes effect immediately, with no explicit form submission — use `Toggle`.
+
+<Canvas of={CheckboxStories.Group} withToolbar={false} sourceState="none" />
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Label & supporting text
+- ✅ Label describes the option being selected, in sentence case, without a trailing colon.
+- ✅ Supporting text adds context that doesn't fit in the label (e.g. legal detail, consequence of the choice) — optional, omit when the label is self-explanatory.
+- 🚫 Don't rely on the checkbox alone to convey meaning — every checkbox needs a visible label (or an explicit `aria-label` when the label is rendered elsewhere).
+
+### Indeterminate
+- Use only on a parent/"select all" checkbox whose children are partially selected — never as a resting/default state for a standalone checkbox.
+- The `indeterminate` prop is purely visual (and exposed to assistive tech via the native DOM `indeterminate` property); the underlying `checked` value is unaffected and still drives what happens on the next click.
+
+<Canvas of={CheckboxStories.Sizes} withToolbar={false} sourceState="none" />
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Default</strong></td>
+      <td>Unchecked: <code>border-primary</code>, no fill. Checked: <code>bg-brand-solid</code> fill, white check icon.</td>
+    </tr>
+    <tr>
+      <td><strong>Indeterminate</strong></td>
+      <td>Same fill as checked, but shows a dash instead of a checkmark — signals a partial/mixed child selection.</td>
+    </tr>
+    <tr>
+      <td><strong>Focus</strong></td>
+      <td>Mandatory for keyboard navigation — <code>focus-visible</code> ring, 4px, brand or error color. Must never be removed or suppressed.</td>
+    </tr>
+    <tr>
+      <td><strong>Disabled</strong></td>
+      <td>Reduces contrast and disables interaction via the native <code>disabled</code> attribute. The label dims to communicate the control is unavailable.</td>
+    </tr>
+    <tr>
+      <td><strong>Error</strong></td>
+      <td><code>border-error-subtle</code> on the unchecked control, red focus ring — pairs with a validation message rendered outside the component.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={CheckboxStories.Disabled} withToolbar={false} sourceState="none" />
+</div>
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={CheckboxStories.ErrorState} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Native semantics:** renders a native `<input type="checkbox">` — reachable with `Tab`, toggled with `Space`, with no need for extra `role` or key handling.
+- **Label association:** the label is linked via `htmlFor`/`id` (auto-generated with `useId` when no `id` is provided), so clicking the text also toggles the control.
+- **Indeterminate:** set through the DOM `indeterminate` property (not an HTML attribute), which browsers and screen readers automatically expose as a mixed state — no manual `aria-checked` needed.
+- **Visible focus:** the focus ring must never be disabled — it's the primary visual cue for keyboard navigation.
+- **Disabled state:** always uses the native `disabled` attribute, which removes the control from tab order and communicates the state to screen readers.
