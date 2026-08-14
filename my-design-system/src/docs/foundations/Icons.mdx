@@ -11,46 +11,70 @@ export const scrollToSection = (event, id) => {
 
 {/*
   Curated sample of the icon set — Material Symbols has thousands of glyphs,
-  this is a representative slice grouped by common UI purpose, not the full
-  catalog. Any valid name from fonts.google.com/icons works with the `Icon`
-  component even if it isn't listed here.
+  this is a wide (but still partial) slice grouped by common UI purpose, not
+  the full catalog. Any valid name from fonts.google.com/icons works with
+  the `Icon` component even if it isn't listed here.
 */}
 export const iconGroups = [
   {
     label: 'Navigation',
-    icons: ['home', 'menu', 'search', 'close', 'arrow_back', 'arrow_forward', 'expand_more', 'expand_less', 'chevron_left', 'chevron_right', 'more_vert', 'more_horiz'],
+    icons: ['home', 'menu', 'search', 'close', 'arrow_back', 'arrow_forward', 'arrow_upward', 'arrow_downward', 'expand_more', 'expand_less', 'chevron_left', 'chevron_right', 'more_vert', 'more_horiz'],
   },
   {
     label: 'Actions',
-    icons: ['add', 'remove', 'edit', 'delete', 'save', 'download', 'upload', 'share', 'content_copy', 'refresh', 'filter_list', 'sort', 'settings', 'visibility', 'visibility_off', 'lock', 'lock_open'],
+    icons: ['add', 'add_circle', 'remove', 'remove_circle', 'edit', 'delete', 'delete_forever', 'save', 'download', 'upload', 'share', 'content_copy', 'content_paste', 'refresh', 'sync', 'filter_list', 'sort', 'settings', 'tune', 'print'],
+  },
+  {
+    label: 'Visibility & Security',
+    icons: ['visibility', 'visibility_off', 'lock', 'lock_open', 'block', 'verified_user', 'admin_panel_settings', 'key', 'shield', 'security'],
   },
   {
     label: 'Status & Feedback',
-    icons: ['check_circle', 'cancel', 'error', 'warning', 'info', 'help', 'notifications', 'notifications_off', 'star', 'favorite', 'thumb_up', 'thumb_down'],
+    icons: ['check_circle', 'cancel', 'error', 'warning', 'info', 'help', 'help_outline', 'notifications', 'notifications_off', 'notifications_active', 'star', 'star_border', 'favorite', 'favorite_border', 'thumb_up', 'thumb_down', 'report', 'new_releases'],
   },
   {
     label: 'Communication',
-    icons: ['mail', 'chat', 'call', 'send', 'forum', 'campaign'],
+    icons: ['mail', 'mail_outline', 'chat', 'chat_bubble', 'call', 'call_end', 'send', 'forum', 'campaign', 'sms', 'alternate_email', 'video_call'],
   },
   {
     label: 'Media',
-    icons: ['play_arrow', 'pause', 'stop', 'volume_up', 'volume_off', 'image', 'videocam', 'mic', 'mic_off'],
+    icons: ['play_arrow', 'play_circle', 'pause', 'stop', 'skip_next', 'skip_previous', 'fast_forward', 'fast_rewind', 'volume_up', 'volume_off', 'image', 'photo_camera', 'videocam', 'mic', 'mic_off', 'music_note'],
   },
   {
     label: 'Files & Data',
-    icons: ['folder', 'description', 'attach_file', 'cloud_upload', 'cloud_download', 'insert_drive_file', 'table_chart', 'bar_chart', 'pie_chart'],
+    icons: ['folder', 'folder_open', 'description', 'article', 'attach_file', 'cloud_upload', 'cloud_download', 'insert_drive_file', 'table_chart', 'bar_chart', 'pie_chart', 'analytics', 'backup', 'save_alt', 'folder_zip', 'insert_chart'],
   },
   {
     label: 'User & Account',
-    icons: ['person', 'group', 'account_circle', 'badge', 'logout', 'login'],
+    icons: ['person', 'person_add', 'group', 'groups', 'account_circle', 'badge', 'logout', 'login', 'manage_accounts', 'switch_account', 'face', 'contacts'],
   },
   {
     label: 'Commerce',
-    icons: ['shopping_cart', 'credit_card', 'local_shipping', 'storefront', 'receipt_long'],
+    icons: ['shopping_cart', 'shopping_bag', 'add_shopping_cart', 'credit_card', 'payments', 'local_shipping', 'storefront', 'receipt_long', 'sell', 'discount', 'loyalty', 'wallet'],
   },
   {
     label: 'Layout & Misc',
-    icons: ['dashboard', 'calendar_today', 'schedule', 'location_on', 'link', 'apps', 'grid_view', 'list', 'view_module'],
+    icons: ['dashboard', 'calendar_today', 'calendar_month', 'event', 'schedule', 'alarm', 'timer', 'location_on', 'my_location', 'link', 'apps', 'grid_view', 'list', 'view_module', 'dark_mode', 'light_mode'],
+  },
+  {
+    label: 'Devices & Tech',
+    icons: ['computer', 'laptop', 'smartphone', 'tablet_mac', 'tv', 'watch', 'keyboard', 'mouse', 'wifi', 'bluetooth', 'battery_full', 'memory', 'storage', 'router'],
+  },
+  {
+    label: 'Travel & Places',
+    icons: ['flight', 'directions_car', 'directions_bus', 'directions_walk', 'directions_bike', 'train', 'hotel', 'restaurant', 'local_cafe', 'beach_access', 'hiking', 'map', 'place', 'near_me', 'luggage', 'sailing'],
+  },
+  {
+    label: 'Health & Science',
+    icons: ['local_hospital', 'medical_services', 'healing', 'vaccines', 'science', 'biotech', 'psychology', 'fitness_center', 'spa', 'monitor_heart'],
+  },
+  {
+    label: 'Weather & Nature',
+    icons: ['wb_sunny', 'nights_stay', 'umbrella', 'ac_unit', 'thermostat', 'water_drop', 'eco', 'park', 'pets', 'forest'],
+  },
+  {
+    label: 'Language & Region',
+    icons: ['language', 'translate', 'public', 'flag', 'home_work', 'business'],
   },
 ];
 
@@ -89,7 +113,7 @@ export const IconLibrary = () => {
         filteredGroups.map((group) => (
           <div key={group.label} className="mb-10">
             <span className="mb-4 block text-sm font-semibold text-primary">{group.label}</span>
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
+            <div className="grid grid-cols-3 gap-x-2 gap-y-5 sm:grid-cols-4 md:grid-cols-6">
               {group.icons.map((name) => (
                 <button
                   key={name}
@@ -123,7 +147,7 @@ The Design System's single, official icon set — [Google Material Symbols](http
   <a href="#library" onClick={(e) => scrollToSection(e, 'library')} className="text-brand-secondary font-semibold">Icon Library</a>
 </nav>
 
-<h2 id="usage" className="mt-4 mb-6 text-2xl font-semibold">Usage</h2>
+<h2 id="usage" className="text-2xl font-semibold">Usage</h2>
 
 ```jsx
 import { Icon } from 'my-design-system';
@@ -135,6 +159,6 @@ import { Icon } from 'my-design-system';
 
 This is a representative sample, not the full catalog — Material Symbols has thousands of glyphs. Any valid name from [fonts.google.com/icons](https://fonts.google.com/icons) works with `<Icon name="..." />`, listed here or not. For the full API (`size`, `filled`, `weight`, `color`, `label`) and accessibility guidance, see the [`Icon` component page](?path=/docs/components-icon--docs).
 
-<h2 id="library" className="mt-16 mb-6 text-2xl font-semibold">Icon Library</h2>
+<h2 id="library" className="text-2xl font-semibold">Icon Library</h2>
 
 <IconLibrary />
