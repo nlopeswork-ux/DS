@@ -1,0 +1,109 @@
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as IconStories from './Icon.stories';
+
+<Meta of={IconStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+# Icon
+
+The single, official icon set for the Design System, built on Google's [Material Symbols](https://fonts.google.com/icons) variable font. Every component that needs an icon — Button, Input, Dropdown, cards, navigation — renders it through this wrapper, never a static SVG or emoji.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={IconStories.Playground} inline />
+    </div>
+  </div>
+
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={IconStories.Playground} include={['Size', 'Filled', 'Weight']} />
+      <Controls of={IconStories.Playground} include={['Color']} />
+      <Controls of={IconStories.Playground} include={['Icon Name']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- Any place the system needs a pictogram — inside a Button, an Input's leading/trailing slot, a card, a nav item, a status badge.
+- To reinforce or replace a text label when space is limited, as long as the meaning stays recoverable (see [Accessibility](#accessibility)).
+- Consistently across the whole product — one icon set, one visual language.
+
+### 🚫 When not to use
+- Never use raw emoji (🎨, ✅, 🔥…) as UI icons — inconsistent rendering across OS/browsers and no control over weight or optical size.
+- Never hand-draw a one-off SVG for something Material Symbols already covers — check [fonts.google.com/icons](https://fonts.google.com/icons) first.
+- Don't rely on an icon alone to communicate a critical action with no text label or `label` prop nearby — see [Accessibility](#accessibility).
+
+<Canvas of={IconStories.Gallery} withToolbar={false} sourceState="none" />
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Sizing
+- `Icon` renders the glyph at a box size matched 1:1 to its font-size (`xs`=16px, `sm`=20px, `md`=24px, `lg`=28px, `xl`=32px) and drives the font's `opsz` (optical size) axis to the nearest supported stop, so strokes stay crisp instead of just scaling up a 24px design.
+- Match the icon size to the text it sits next to — `sm`/`md` inside buttons and inputs, `lg`/`xl` for standalone or decorative use (empty states, feature cards).
+
+<Canvas of={IconStories.Sizes} withToolbar={false} sourceState="none" />
+
+### Filled vs. Outlined
+- **Outlined** (default, `filled={false}`) is the resting state for most UI icons — lighter visual weight, consistent with the outlined strokes used elsewhere in the system (see `Checkbox`).
+- **Filled** (`filled`) communicates an active/selected/toggled state — a filled heart after "favorite", a filled star after "rate" — the same role `:checked` plays on a Checkbox.
+
+<Canvas of={IconStories.FilledVsOutlined} withToolbar={false} sourceState="none" />
+
+### Color
+- By default the icon inherits `currentColor` from its surrounding text — no `color` needed inside a Button or a label, it already matches.
+- To assign a specific semantic meaning, pass one of the `fg-*` utility classes (`fg-success`, `fg-error`, `fg-warning`, `fg-brand-primary`, etc. — see `foundations/colors.md`) via `className`, or a raw CSS value via the `color` prop for one-off cases.
+
+<Canvas of={IconStories.SemanticColors} withToolbar={false} sourceState="none" />
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Outlined (default)</strong></td>
+      <td><code>filled=false</code> — the stroke-only glyph, used for the resting/unselected state of a toggleable icon.</td>
+    </tr>
+    <tr>
+      <td><strong>Filled</strong></td>
+      <td><code>filled=true</code> — used to represent an active, selected or "on" state. Never use interchangeably with Outlined purely for decoration.</td>
+    </tr>
+    <tr>
+      <td><strong>Weight</strong></td>
+      <td>The <code>weight</code> prop (100–700) fine-tunes stroke thickness independently of fill — mainly useful to match a heavier/lighter surrounding font weight, not as a state on its own.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Decorative by default:** with no `label`, `Icon` renders `aria-hidden="true"` — this is correct whenever the icon sits next to visible text that already carries the meaning (e.g. inside a Button).
+- **Meaningful icons need a `label`:** when an icon is the *only* content conveying meaning (an icon-only button, a status glyph with no adjacent text), pass `label` — it switches the icon to `role="img"` + `aria-label`, exposing it to screen readers.
+- **Never encode meaning by color alone:** a filled red icon should be paired with a text state (e.g. "Error") somewhere nearby — color reinforces, it doesn't replace, the accessible label.
+- **Font loading:** the Material Symbols stylesheet is loaded once, globally (`.storybook/preview-head.html` for Storybook, `index.html` for the app) — components never load their own copy of the font.
