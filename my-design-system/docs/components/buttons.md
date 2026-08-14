@@ -45,6 +45,25 @@ type ButtonProps = {
 | Focused | Anel de foco (`focus-ring`) |
 | Disabled | Opacidade reduzida, interação desabilitada |
 
+### 1.4 Diretrizes de UX (transversais a Button e Button destructive)
+
+**Affordance.** Um botão deve sempre parecer um botão — retângulos ou retângulos arredondados (incluindo pílula, `radius-full`) são sempre uma escolha segura, porque o utilizador já reconhece essa forma como clicável de forma subconsciente. À medida que o estilo se afasta desse contentor (texto sublinhado, texto com seta, texto simples sem qualquer container), a affordance de "isto é clicável" degrada-se progressivamente — evitar hierarquias que removam por completo o contentor visual do botão, exceto `Link gray`/`Link color`, que assumem deliberadamente o padrão visual de hiperligação.
+
+**Hierarquia.** A maioria dos ecrãs/secções tem apenas **uma** ação primária — a ação mais provável ou desejada. As restantes são secundárias (pode haver mais do que uma) e, quando necessário, terciárias ou quaternárias. O estilo do botão (`hierarchy`) é o mecanismo que diferencia visualmente essas ações — nunca usar o mesmo `hierarchy` (ex.: várias `Secondary gray` lado a lado) para ações com pesos de decisão diferentes, sob pena de forçar o utilizador a ler cada label para perceber qual é a ação principal.
+
+**Ações destrutivas.** `destructive` (paleta Error) só deve ser aplicado quando a ação destrutiva é, ela própria, a ação **primária** do ecrã/modal (ex.: confirmar "Delete" num modal de eliminação). Quando a ação destrutiva é apenas uma alternativa secundária (ex.: "Discard" ao lado de "Save changes"), um `Secondary gray`/`Tertiary gray` sem paleta de erro já comunica a opção com clareza, sem competir visualmente com a ação primária real. Ver `foundations/colors.md §1.5` (escala Error).
+
+**Equilíbrio óptico de ícones.** Ícones vivem numa grelha de 24px com ~2px de padding entre a live area e o frame — esse padding extra desalinha opticamente um botão com ícone (o lado do ícone "parece" ter mais espaço do que o lado do texto). Para compensar, o padding horizontal nominal do botão (`spacing-xl`/16px em `md`) é reduzido em 2px, e o texto é envolvido num wrapper com +2px de padding horizontal — o total visual sem ícone mantém-se igual (14+2=16), e com ícone fica opticamente centrado (14 botão + 2 wrapper = 16, alinhado ao lado sem ícone). Ver `src/components/Button/Button.tsx` (`sizeStyles` + wrapper `px-0.5` à volta de `children`).
+
+| Componente | Padding nominal | Padding aplicado (KDS) |
+|---|---|---|
+| Botão (`px` horizontal) | 16px (`md`) | 14px (`px-3.5`) |
+| Wrapper do texto (`px` horizontal) | 0px | 2px (`px-0.5`) |
+| Total visual sem ícone | 16px | 14 + 2 = 16px |
+| Total visual com ícone | 16 + ~2px do frame do ícone = ~18px | 14 + 2 (ícone) = 16px |
+
+**Esqueumorfismo.** O botão usa o token composto `shadow-xs-skeuomorphic` (drop-shadow + inner-shadow inferior + inner-shadow de borda, ver `foundations/shadows-elevation.md §2`) em vez de um `shadow-xs` plano, em toda hierarquia com fill ou borda visível (`Primary`, `Secondary gray`, `Secondary color`, e os equivalentes `destructive`). Isto simula uma profundidade subtil (o botão parece ligeiramente elevado da superfície) sem comprometer contraste/acessibilidade. `Tertiary`/`Link` permanecem planos (sem fill nem sombra), por não terem um contentor a "elevar".
+
 ---
 
 ## 2. Button destructive

@@ -155,6 +155,48 @@ export const Destructive: Story = {
 };
 
 /**
+ * A realistic action bar showing the 4-level hierarchy in context: a
+ * Tertiary/text-only action, two Secondary actions, and one Primary action.
+ * Outside the sidebar (`!dev`) — embedded in Button.mdx via `<Canvas of={ButtonStories.HierarchyInContext} />`.
+ */
+export const HierarchyInContext: Story = {
+  tags: ['!dev'],
+  render: () => (
+    <div className="flex flex-wrap items-center gap-md">
+      <Button hierarchy="Link gray">Cancel</Button>
+      <Button hierarchy="Secondary gray">Save as draft</Button>
+      <Button hierarchy="Secondary gray">Stage for publish</Button>
+      <Button hierarchy="Primary" iconLeading iconLeadingSwap={<Icon name="check" size="sm" />}>
+        Publish now
+      </Button>
+    </div>
+  ),
+};
+
+/**
+ * Destructive action in context: reserved for when the destructive action
+ * is itself the primary action of the screen (e.g. a delete confirmation).
+ * Outside the sidebar (`!dev`) — embedded in Button.mdx via `<Canvas of={ButtonStories.DestructiveInContext} />`.
+ */
+export const DestructiveInContext: Story = {
+  tags: ['!dev'],
+  render: () => (
+    <div className="flex flex-col gap-xl">
+      <div className="flex flex-wrap items-center gap-md">
+        <Button hierarchy="Secondary gray">Discard</Button>
+        <Button hierarchy="Primary">Save changes</Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-md">
+        <Button hierarchy="Secondary gray">Cancel</Button>
+        <Button hierarchy="Primary" destructive>
+          Delete
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/**
  * Size options, from sm to 2xl.
  * Outside the sidebar (`!dev`) — embedded in Button.mdx via `<Canvas of={ButtonStories.Sizes} />`.
  */
@@ -196,6 +238,61 @@ export const WithIcons: Story = {
       >
         Both
       </Button>
+    </div>
+  ),
+};
+
+/**
+ * Icon optical-balancing comparison: a naive button (nominal 16px padding,
+ * no text wrapper) reads as off-center once an icon is added, next to the
+ * real Button (14px padding + a 2px text wrapper — see Button.tsx
+ * `sizeStyles`), which stays visually centered.
+ * Outside the sidebar (`!dev`) — embedded in Button.mdx via `<Canvas of={ButtonStories.OpticalBalance} />`.
+ */
+export const OpticalBalance: Story = {
+  tags: ['!dev'],
+  render: () => (
+    <div className="flex flex-col gap-lg">
+      <div className="flex items-center gap-md">
+        <button
+          type="button"
+          className="inline-flex items-center gap-md rounded-md bg-brand-solid px-4 py-2.5 text-sm font-semibold text-primary-on-brand"
+        >
+          <Icon name="add" size="sm" />
+          Add team member
+        </button>
+        <span className="text-sm text-tertiary">Without compensation — 16px both sides, icon side reads heavier</span>
+      </div>
+      <div className="flex items-center gap-md">
+        <Button hierarchy="Primary" iconLeading iconLeadingSwap={<Icon name="add" size="sm" />}>
+          Add team member
+        </Button>
+        <span className="text-sm text-tertiary">Button component — optically centered</span>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Flat vs. skeuomorphic shadow comparison — the flat button uses a plain
+ * `shadow-xs`, the real Button uses the composite `shadow-xs-skeuomorphic`
+ * token (drop-shadow + inner-shadow + inner-shadow border).
+ * Outside the sidebar (`!dev`) — embedded in Button.mdx via `<Canvas of={ButtonStories.SkeuomorphicComparison} />`.
+ */
+export const SkeuomorphicComparison: Story = {
+  tags: ['!dev'],
+  render: () => (
+    <div className="flex flex-wrap items-center gap-2xl">
+      <div className="flex flex-col items-center gap-md">
+        <button type="button" className="rounded-md bg-brand-solid px-3.5 py-2.5 text-sm font-semibold text-primary-on-brand shadow-xs">
+          Publish now
+        </button>
+        <span className="text-xs text-tertiary">Flat (shadow-xs)</span>
+      </div>
+      <div className="flex flex-col items-center gap-md">
+        <Button hierarchy="Primary">Publish now</Button>
+        <span className="text-xs text-tertiary">Skeuomorphic (shadow-xs-skeuomorphic)</span>
+      </div>
     </div>
   ),
 };

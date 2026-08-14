@@ -117,6 +117,12 @@ Primary action button for the Design System. Communicates a screen's decision hi
 - To pick one among several options — use `Radio` or `Dropdown`.
 - For purely informational text with no associated action — it shouldn't be a button.
 
+### Buttons should look like buttons
+
+A button is an interactive element that results in an action described in it — one of the most essential components in UI design, so it's important to get it right. The most important rule when designing a button is that it should be **obvious** that it's a button. Users are already familiar with what buttons look like and how they behave; the more a button "looks like" a button, the easier it is to discover subconsciously — rectangles or rounded rectangles (including pill shapes) are always a safe choice.
+
+As soon as a style strays too far from that container — an underline, an arrow with no container, plain text with no visual cue — buttons lose their actionable quality and users have to actively search for the action. This is exactly why `Link gray`/`Link color` are a deliberate exception: they intentionally borrow the hyperlink pattern for the lowest-priority actions, never a substitute for a real button that just "forgot" its container.
+
 ### Visual hierarchy
 
 <table>
@@ -143,12 +149,20 @@ Primary action button for the Design System. Communicates a screen's decision hi
   </tbody>
 </table>
 
-The **destructive** variant (`destructive`, Error palette) applies on top of any hierarchy, but should be reserved for irreversible or risky actions — delete, remove, cancel subscription. Never use the error palette as purely decorative styling.
+Without a clear hierarchy — visually and structurally — there's no visual cue, and the user is forced to read every label carefully to figure out which action matters. Reusing the same hierarchy for actions with different decision weight (e.g. several `Secondary gray` side by side with no `Primary`) creates exactly that friction.
+
+### Destructive actions
+
+There's a common notion that every "negative" or "destructive" action needs to be a big red button — in most cases that's not necessary, and it can make a screen look and feel busier than it needs to. When a destructive action is just one alternative among others (e.g. "Discard" next to "Save changes"), a plain `Secondary gray` already communicates the option clearly, without competing visually with the real primary action.
+
+That said, when the destructive action **is** the primary action of the screen or modal (e.g. confirming "Delete" in a delete-confirmation dialog), flagging it with the `destructive` variant is the right call — it makes the consequence of that action unmistakable before the user commits to it.
 
 <ExampleGallery
   tabs={[
     { label: 'Hierarchies', content: <Canvas of={ButtonStories.AllHierarchies} withToolbar={false} sourceState="none" /> },
+    { label: 'Hierarchy in context', content: <Canvas of={ButtonStories.HierarchyInContext} withToolbar={false} sourceState="none" /> },
     { label: 'Destructive', content: <Canvas of={ButtonStories.Destructive} withToolbar={false} sourceState="none" /> },
+    { label: 'Destructive in context', content: <Canvas of={ButtonStories.DestructiveInContext} withToolbar={false} sourceState="none" /> },
     { label: 'Sizes', content: <Canvas of={ButtonStories.Sizes} withToolbar={false} sourceState="none" /> },
     { label: 'Icons', content: <Canvas of={ButtonStories.WithIcons} withToolbar={false} sourceState="none" /> },
   ]}
@@ -169,6 +183,22 @@ The **destructive** variant (`destructive`, Error palette) applies on top of any
 - Icons are always decorative (`aria-hidden`) — the button text is the only source of accessible meaning. An icon-only button needs an explicit `aria-label`.
 
 See size and icon examples in the tab gallery under [UX Guidelines](#ux-guidelines).
+
+### Optically balancing icons
+
+Icons live on a 24px grid with a couple of pixels of padding between their "live area" and the frame — that extra padding throws a button with an icon slightly off-center, even though the numbers on paper (16px + 16px) look even. To counter this, `Button` shaves 2px off its nominal horizontal padding and wraps the text in a `px-0.5` frame that gives those 2px back — the total stays identical when there's no icon, and reads as centered once an icon is added (docs/components/buttons.md §1.4).
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={ButtonStories.OpticalBalance} withToolbar={false} sourceState="none" />
+</div>
+
+### Skeuomorphic style
+
+Buttons use the composite `shadow-xs-skeuomorphic` token (drop-shadow + a darker inner-shadow along the bottom edge + a subtle inner-shadow border) instead of a flat `shadow-xs`, on every hierarchy with a visible fill or border (`Primary`, `Secondary gray`, `Secondary color`, and their `destructive` equivalents). It's a deliberately subtle effect — just enough depth for the button to read as slightly raised off the surface, without touching contrast or accessibility (`foundations/shadows-elevation.md §2`).
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={ButtonStories.SkeuomorphicComparison} withToolbar={false} sourceState="none" />
+</div>
 
 <h2 id="states" className="text-2xl font-semibold">States</h2>
 

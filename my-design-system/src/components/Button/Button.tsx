@@ -9,13 +9,20 @@ import type { ButtonHierarchy, ButtonProps, ButtonSize } from './Button.types';
  * tamanhos abaixo extrapolam essa base numa progressão consistente com a
  * grelha de 4px do sistema (a escala numérica px/py do Tailwind coincide
  * com a escala primitiva em docs/foundations/spacing-radius.md §1.1).
+ *
+ * O padding horizontal de cada tamanho já vem 2px abaixo do valor "nominal"
+ * documentado (ex.: `md` nominal é 16px, aqui é 14px/`px-3.5`) — ver secção
+ * "Optically balancing buttons" em Button.mdx. Esse 2px é devolvido pelo
+ * wrapper `px-0.5` à volta do texto (ver render abaixo), o que mantém o
+ * total visual igual ao nominal sem ícone, e equilibra opticamente o botão
+ * quando há um ícone (cujo próprio frame já inclui ~2px de padding interno).
  */
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: 'h-9 px-3.5 py-2 text-sm',
-  md: 'h-10 px-4 py-2.5 text-sm',
-  lg: 'h-11 px-4 py-2.5 text-base',
-  xl: 'h-12 px-[18px] py-3 text-base',
-  '2xl': 'h-[60px] px-[22px] py-4 text-lg',
+  sm: 'h-9 px-3 py-2 text-sm',
+  md: 'h-10 px-3.5 py-2.5 text-sm',
+  lg: 'h-11 px-3.5 py-2.5 text-base',
+  xl: 'h-12 px-4 py-3 text-base',
+  '2xl': 'h-[60px] px-5 py-4 text-lg',
 };
 
 const linkSizeStyles: Record<ButtonSize, string> = {
@@ -38,6 +45,18 @@ const isLinkHierarchy = (hierarchy: ButtonHierarchy) =>
   hierarchy === 'Link gray' || hierarchy === 'Link color';
 
 /**
+ * docs/foundations/shadows-elevation.md §2 / Button.mdx "Skeuomorphic style
+ * components" — todo botão com fill ou borda visível (Primary, Secondary
+ * gray, Secondary color) usa o token composto `shadow-xs-skeuomorphic`
+ * (drop-shadow + inner-shadow inferior + inner-shadow de borda) em vez do
+ * `shadow-xs` plano. Referenciado via `var(--shadow-xs-skeuomorphic)` para
+ * compor corretamente com `--tw-shadow`/o `focus-visible:ring-*` do botão
+ * (o `@utility shadow-xs-skeuomorphic` em index.css escreve `box-shadow`
+ * diretamente e por isso sobrepõe-se ao ring em vez de compor com ele).
+ */
+const SKEUOMORPHIC_SHADOW = 'shadow-[var(--shadow-xs-skeuomorphic)]';
+
+/**
  * docs/components/buttons.md §1.2/§2.2 — fill, borda e hover por hierarquia.
  * `destructive` troca a escala Brand pela escala Error (§2 Button destructive),
  * mantendo a mesma lógica de hierarquia.
@@ -46,10 +65,10 @@ function getHierarchyStyles(hierarchy: ButtonHierarchy, destructive: boolean) {
   if (destructive) {
     switch (hierarchy) {
       case 'Primary':
-        return 'bg-error-solid text-white border border-transparent shadow-xs hover:bg-error-700';
+        return cn('bg-error-solid text-white border border-transparent hover:bg-error-700', SKEUOMORPHIC_SHADOW);
       case 'Secondary gray':
       case 'Secondary color':
-        return 'bg-primary text-error border border-error shadow-xs hover:bg-error-primary';
+        return cn('bg-primary text-error border border-error hover:bg-error-primary', SKEUOMORPHIC_SHADOW);
       case 'Tertiary gray':
       case 'Tertiary color':
         return 'bg-transparent text-error border border-transparent hover:bg-error-primary';
@@ -61,11 +80,14 @@ function getHierarchyStyles(hierarchy: ButtonHierarchy, destructive: boolean) {
 
   switch (hierarchy) {
     case 'Primary':
-      return 'bg-brand-solid text-primary-on-brand border border-transparent shadow-xs hover:bg-brand-solid-hover';
+      return cn(
+        'bg-brand-solid text-primary-on-brand border border-transparent hover:bg-brand-solid-hover',
+        SKEUOMORPHIC_SHADOW,
+      );
     case 'Secondary gray':
-      return 'bg-primary text-secondary border border-primary shadow-xs hover:bg-primary-hover';
+      return cn('bg-primary text-secondary border border-primary hover:bg-primary-hover', SKEUOMORPHIC_SHADOW);
     case 'Secondary color':
-      return 'bg-primary text-brand-secondary border border-brand shadow-xs hover:bg-brand-primary';
+      return cn('bg-primary text-brand-secondary border border-brand hover:bg-brand-primary', SKEUOMORPHIC_SHADOW);
     case 'Tertiary gray':
       return 'bg-transparent text-secondary border border-transparent hover:bg-primary-hover';
     case 'Tertiary color':
@@ -136,7 +158,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             {iconLeadingSwap}
           </span>
         ) : null}
-        {children}
+        {/* Wrapper +2px que devolve o padding retirado de `sizeStyles` — ver comentário acima. Hierarquias Link não têm frame de botão para equilibrar. */}
+        {isLink ? children : <span className="px-0.5">{children}</span>}
         {iconTrailing && iconTrailingSwap ? (
           <span aria-hidden="true" className={cn('inline-flex shrink-0', iconSizeStyles[size])}>
             {iconTrailingSwap}
