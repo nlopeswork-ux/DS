@@ -6,6 +6,18 @@
  * Ver CLAUDE.md — "Espaçamentos verticais em MDX são regidos centralmente".
  */
 
+/*
+ * Storybook's own Docs page CSS (`.sbdocs-content *`) sets a base
+ * font-family at the same specificity as Google's `.material-symbols-outlined`
+ * rule from `preview-head.html` — and loads after it, so it silently wins
+ * the tie and the icon renders as literal text (its ligature name) instead
+ * of the glyph. `!important` here forces the icon font regardless of load
+ * order, matching the pattern already used above for h2/h3/table spacing.
+ */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+}
+
 /* --- VERTICAL RHYTHM GRID (Escala de 8px) --- */
 .sbdocs-content h2 {
   margin-top: 3rem !important; /* 48px - Separação de Seção Principal */
