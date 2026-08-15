@@ -84,13 +84,15 @@ const meta = {
       description: 'Icon after the text.',
       control: 'boolean',
     },
-    disabled: {
-      name: 'Disabled',
-      description: 'Disables interaction via the native disabled attribute.',
-      control: 'boolean',
-    },
     // Technical noise — kept out of the Live Playground (callback, native
     // HTML attributes, and the internal React nodes for the icon slots).
+    // `disabled` specifically duplicates `state: 'Disabled'` (Button.tsx:
+    // `isDisabled = disabled || state === 'Disabled'`) — showing both as
+    // separate Playground rows reads as two different controls for the
+    // same outcome, so only `State` (which already offers a "Disabled"
+    // option) is exposed here. The real `disabled` prop stays usable in
+    // code — it's a real, distinct prop — just not duplicated in the demo.
+    disabled: { table: { disable: true } },
     onClick: { table: { disable: true } },
     type: { table: { disable: true } },
     iconLeadingSwap: { table: { disable: true } },
