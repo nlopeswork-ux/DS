@@ -1,13 +1,8 @@
 import { forwardRef, useId, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { cn } from '../../utils/cn';
+import { Tag } from '../Tag';
 import type { TextareaProps } from './Textarea.types';
-
-const CloseIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.7} className="size-3">
-    <path d="m4 4 8 8M12 4l-8 8" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
 
 const HelpCircleIcon = () => (
   <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} className="size-4">
@@ -124,22 +119,14 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {isTagsType && tags && tags.length > 0 ? (
             <div className="flex flex-wrap gap-xs">
               {tags.map((tag) => (
-                <span
+                <Tag
                   key={tag.id}
-                  className="inline-flex items-center gap-xxs rounded-sm border border-primary bg-primary py-0.5 pl-[9px] pr-1 text-sm font-medium text-secondary"
+                  size="md"
+                  action={isDisabled ? 'Text only' : 'X close'}
+                  onClose={() => removeTag(tag.id)}
                 >
                   {tag.label}
-                  {!isDisabled ? (
-                    <button
-                      type="button"
-                      onClick={() => removeTag(tag.id)}
-                      aria-label={`Remove ${tag.label}`}
-                      className="inline-flex fg-quinary hover:text-tertiary"
-                    >
-                      <CloseIcon />
-                    </button>
-                  ) : null}
-                </span>
+                </Tag>
               ))}
             </div>
           ) : null}

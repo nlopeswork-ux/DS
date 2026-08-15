@@ -2,6 +2,7 @@ import { forwardRef, useId, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { cn } from '../../utils/cn';
 import { Icon } from '../Icon';
+import { Tag } from '../Tag';
 import type { InputDropdownSlot, InputProps } from './Input.types';
 
 /** Figma spec — sizes §1: height 44/40px, padding 10px 14px / 8px 12px. */
@@ -205,22 +206,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {isTagsType && tags && tags.length > 0 ? (
               <div className="flex shrink-0 flex-wrap items-center gap-xs">
                 {tags.map((tag) => (
-                  <span
+                  <Tag
                     key={tag.id}
-                    className="inline-flex items-center gap-xxs rounded-sm border border-primary bg-primary py-0.5 pl-[9px] pr-1 text-sm font-medium text-secondary"
+                    size="md"
+                    action={isDisabled ? 'Text only' : 'X close'}
+                    onClose={() => removeTag(tag.id)}
                   >
                     {tag.label}
-                    {!isDisabled ? (
-                      <button
-                        type="button"
-                        onClick={() => removeTag(tag.id)}
-                        aria-label={`Remove ${tag.label}`}
-                        className="inline-flex fg-quinary hover:text-tertiary"
-                      >
-                        <Icon name="close" size="xs" />
-                      </button>
-                    ) : null}
-                  </span>
+                  </Tag>
                 ))}
               </div>
             ) : null}
