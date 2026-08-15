@@ -421,6 +421,9 @@
 @utility text-warning { color: var(--color-text-warning); }
 @utility text-success { color: var(--color-text-success); }
 
+/* Component colors */
+@utility text-tooltip-supporting { color: var(--color-tooltip-supporting-text); }
+
 /* Foreground (ícones/strokes) */
 @utility fg-primary { color: var(--color-fg-primary); }
 @utility fg-secondary { color: var(--color-fg-secondary); }

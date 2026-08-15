@@ -432,6 +432,9 @@
   --color-balady-accent: #046f6d;
   --color-balady-foreground: #080808;
 
+  /* 2.6 Component colors */
+  --color-tooltip-supporting-text: var(--color-gray-300);
+
   /* ============================================
    * 3. ESPAÇAMENTO
    * ============================================ */
@@ -652,6 +655,9 @@
     /* Balady (Custom Brand Overrides) */
     --color-balady-accent: #ffffff;
     --color-balady-foreground: #ffffff;
+
+    /* Component colors */
+    --color-tooltip-supporting-text: var(--color-gray-dark-300);
 
     /* Alpha Colors (Dark Mode) */
     --color-alpha-white-10: rgba(12, 17, 29, 0.10);

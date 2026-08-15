@@ -1,6 +1,7 @@
-import { forwardRef, type ButtonHTMLAttributes } from 'react';
+import { forwardRef, useId, type ButtonHTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 import type { AvatarSize } from './Avatar.types';
 
 /** Reuses the Avatar size scale so the add button sits flush at the end of an Avatar group. */
@@ -19,42 +20,51 @@ export interface AvatarAddButtonProps extends Omit<ButtonHTMLAttributes<HTMLButt
 
 /**
  * `_Avatar add button` — docs (Avatar spec) §5. Default/Hover/Focus/Disabled,
- * a "Add user" tooltip on hover (real `:hover`/`:focus-visible`, CSS-only —
- * no JS positioning library needed for a fixed top-center tooltip).
+ * an "Add user" tooltip on hover (real `:hover`/`:focus-visible`, CSS-only)
+ * built from the shared `Tooltip` component — same pattern as `HelpIcon`.
  */
 export const AvatarAddButton = forwardRef<HTMLButtonElement, AvatarAddButtonProps>(
-  ({ size = 'md', className, disabled, ...rest }, ref) => (
-    <span className="group relative inline-flex shrink-0">
-      <button
-        ref={ref}
-        type="button"
-        disabled={disabled}
-        aria-label="Add user"
-        className={cn(
-          'inline-flex shrink-0 items-center justify-center rounded-full border border-primary bg-primary text-utility-gray-400 transition-colors duration-150',
-          'hover:bg-primary-hover hover:text-utility-gray-600',
-          'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
-          'disabled:border-disabled disabled:bg-disabled-subtle disabled:text-disabled disabled:pointer-events-none',
-          boxSizeStyles[size],
-          className,
-        )}
-        {...rest}
-      >
-        <Icon name="add" size="sm" />
-      </button>
-      {!disabled && (
-        <span
-          role="tooltip"
+  ({ size = 'md', className, disabled, ...rest }, ref) => {
+    const tooltipId = useId();
+
+    return (
+      <span className="group relative inline-flex shrink-0">
+        <button
+          ref={ref}
+          type="button"
+          disabled={disabled}
+          aria-label="Add user"
+          aria-describedby={disabled ? undefined : tooltipId}
           className={cn(
-            'pointer-events-none absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-md bg-utility-gray-900 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity duration-150',
-            'group-hover:opacity-100 group-focus-within:opacity-100',
+            'inline-flex shrink-0 items-center justify-center rounded-full border border-primary bg-primary text-utility-gray-400 transition-colors duration-150',
+            'hover:bg-primary-hover hover:text-utility-gray-600',
+            'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
+            'disabled:border-disabled disabled:bg-disabled-subtle disabled:text-disabled disabled:pointer-events-none',
+            boxSizeStyles[size],
+            className,
           )}
+          {...rest}
         >
-          Add user
-        </span>
-      )}
-    </span>
-  ),
+          <Icon name="add" size="sm" />
+        </button>
+        {!disabled && (
+          <span
+            id={tooltipId}
+            className={cn(
+              // `w-max` — see the same comment in HelpIcon.tsx: without it,
+              // this `absolute`+`auto`-width box's shrink-to-fit width is
+              // computed against the button's own small containing block
+              // instead of the Tooltip's content, wrapping the text.
+              'pointer-events-none invisible absolute bottom-full left-1/2 z-10 mb-2.5 w-max -translate-x-1/2 opacity-0 transition-opacity duration-150',
+              'group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100',
+            )}
+          >
+            <Tooltip text="Add user" arrow="Bottom" />
+          </span>
+        )}
+      </span>
+    );
+  },
 );
 
 AvatarAddButton.displayName = 'AvatarAddButton';

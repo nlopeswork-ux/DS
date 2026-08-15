@@ -1,0 +1,139 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as TooltipStories from './Tooltip.stories';
+
+<Meta of={TooltipStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Tooltip
+
+A small overlay bubble that describes or identifies an element. Static and non-interactive — its visibility and position are always owned by the consumer (see [Help Icon](?path=/docs/components-help-icon--docs)).
+
+<div className="border-b border-secondary mb-8" />
+
+{/*
+  Mini table of contents — pure relative anchors (`href="#id"`), navigation
+  done via scrollIntoView on onClick (never window.location.href/absolute
+  URLs), so it never escapes the Storybook iframe/shell.
+*/}
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+{/*
+  OutSystems UI-style 2-column layout (see CLAUDE.md — mandatory rule):
+  1.6fr/1fr grid, a single shared outline (border + rounded-lg +
+  overflow-hidden), `relative isolate z-10` to isolate the stacking
+  context from any internal Storybook overlay. `items-stretch` makes both
+  columns share the same height. 1 column on narrow screens, 1.6fr/1fr
+  from `md:` up.
+*/}
+<div className="relative isolate z-10 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] items-stretch border border-secondary rounded-lg overflow-hidden mb-8 bg-primary">
+  {/* Left column — Preview */}
+  <div className="flex flex-col border-b md:border-b-0 md:border-r border-secondary">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Preview</div>
+    <div
+      className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+      style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
+    >
+      <Story of={TooltipStories.Playground} inline />
+    </div>
+  </div>
+
+  {/* Right column — Options */}
+  <div className="flex flex-col">
+    <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
+    <div className={cn('flex flex-col p-6', 'playground-options-list')}>
+      <Controls of={TooltipStories.Playground} include={['Arrow', 'Supporting Text']} />
+      <Controls of={TooltipStories.Playground} include={['Text']} />
+    </div>
+  </div>
+</div>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### ✅ When to use
+- To reveal a short explanation for an icon, truncated label or unfamiliar control on hover/focus.
+- Alongside a `HelpIcon` to give optional, non-critical context without cluttering the layout.
+- To confirm what an icon-only action does before the user commits to it.
+
+### 🚫 When not to use
+- For information required to complete a task — tooltips are easy to miss (no keyboard-only discovery without a focusable trigger) and disappear on blur; put essential content inline instead.
+- On touch-only interfaces as the only way to reveal content — there's no hover state to trigger it.
+- For long-form text — keep the title to a short phrase; use `supportingText` sparingly, for one extra sentence at most.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Arrow positions', content: <Canvas of={TooltipStories.Arrows} withToolbar={false} sourceState="none" /> },
+    { label: 'Supporting text', content: <Canvas of={TooltipStories.SupportingText} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Title (`text`)** — the tooltip's main message. Keep it to a short phrase ("Add user", "Copy link").
+- **Supporting text (`supportingText`)** — an optional second line with extra context, shown below the title with a 4px gap.
+- **Arrow (`arrow`)** — a pointer triangle on the box edge closest to the trigger element (`'None'` to omit it, e.g. inside a wider overlay).
+
+### Best practices
+- ✅ Position the tooltip so its arrow always points back at the element that triggered it.
+- ✅ Pair with a real interactive/focusable trigger (see `HelpIcon`) so keyboard users can reach it too.
+- 🚫 Don't rely on a tooltip for content that changes the outcome of a task — treat it as supplementary only.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Static</strong></td>
+      <td>Tooltip has no hover/focus/disabled states of its own (docs/components/feedback-visuals.md §2.3) — it's a pure overlay. Visibility is controlled by the consumer, e.g. `HelpIcon`'s real `:hover`/`:focus-within`.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Role:** rendered with `role="tooltip"` by default, so assistive technology announces it as a tooltip when linked via `aria-describedby` from its trigger.
+- **Keyboard discovery:** the Tooltip itself doesn't manage focus — always attach it to a real focusable trigger (button, link) so `:focus-visible` can reveal it, not just `:hover`. See `HelpIcon` for the reference pattern.
+- **Contrast:** `text-white` on `bg-primary-solid` and `text-tooltip-supporting` on `bg-primary-solid` both meet WCAG AA for small text in both color themes.

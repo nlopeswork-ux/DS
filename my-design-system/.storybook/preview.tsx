@@ -41,6 +41,8 @@ const preview: Preview = {
             'Country Icon',
             'Avatar',
             'Avatar Group',
+            'Tooltip',
+            'Help Icon',
           ],
           '*',
         ],
