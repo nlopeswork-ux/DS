@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { Icon } from '../Icon';
 import { Input } from './Input';
-import type { InputSize, InputType } from './Input.types';
+import type { InputProps, InputSize, InputType } from './Input.types';
 
 const sizeOptions = ['sm', 'md'] satisfies InputSize[];
 const typeOptions = [
@@ -15,6 +15,26 @@ const typeOptions = [
   'tags',
   'trailingButton',
 ] satisfies InputType[];
+
+/** Curated Material Symbols sample for the `iconSwapName` pseudo-arg below — same list as Icon.stories.tsx. */
+const iconNameOptions = ['mail', 'search', 'person', 'home', 'settings', 'favorite', 'flag', 'domain'];
+
+/**
+ * Playground-only wrapper — adds `trailingButtonLabel` (editable text for
+ * the trailing button without exposing the whole `trailingButton` object)
+ * and `iconSwapName` (a Material Symbols name driving `iconSwap` via a
+ * dropdown instead of a hidden ReactNode prop) as pseudo-args, neither of
+ * which are real Input props.
+ */
+type InputPlaygroundProps = InputProps & { trailingButtonLabel?: string; iconSwapName?: string };
+
+const InputPlayground = ({ trailingButtonLabel, trailingButton, iconSwapName, iconSwap, ...rest }: InputPlaygroundProps) => (
+  <Input
+    {...rest}
+    trailingButton={trailingButton && { ...trailingButton, label: trailingButtonLabel ?? trailingButton.label }}
+    iconSwap={iconSwapName ? <Icon name={iconSwapName} size="sm" /> : iconSwap}
+  />
+);
 
 /** Stylized card graphic, not a pictogram — kept as a one-off SVG (not a Material Symbols glyph). */
 const CardIcon = () => (
@@ -39,7 +59,7 @@ const currencyOptions = [
 
 const meta = {
   title: 'Components/Input',
-  component: Input,
+  component: InputPlayground,
   // The Docs page comes from Input.mdx — no 'autodocs' tag.
   parameters: {
     layout: 'centered',
@@ -54,7 +74,7 @@ const meta = {
     // "Type" in the Playground shows real content instead of an empty
     // field — each slot only renders when its matching `type` is active.
     errorMessage: 'Please enter a valid email address.',
-    iconSwap: <Icon name="mail" size="sm" />,
+    iconSwapName: 'mail',
     leadingDropdown: { options: countryOptions, defaultValue: 'us', ariaLabel: 'Country code' },
     trailingDropdown: { options: currencyOptions, defaultValue: 'usd', ariaLabel: 'Currency' },
     leadingTextAddon: 'http://',
@@ -93,10 +113,14 @@ const meta = {
       description: 'Activates the destructive/error visual state.',
       control: 'boolean',
     },
+    // Sequential disclosure — only relevant once Destructive is on
+    // (CLAUDE.md's Playground sequencing rule: a field gated behind
+    // another variant only appears once that variant is actually active).
     errorMessage: {
       name: 'Error Message',
       description: 'Message rendered below the field when Destructive is active.',
       control: 'text',
+      if: { arg: 'destructive', truthy: true },
     },
     required: {
       name: 'Required',
@@ -118,18 +142,31 @@ const meta = {
       description: 'Placeholder text shown when the field is empty.',
       control: 'text',
     },
+    // Pseudo-arg, not a real Input prop — drives `iconSwap` via a Material
+    // Symbols name dropdown. Sequential disclosure — only shown once Type
+    // is actually "iconLeading".
+    iconSwapName: {
+      name: 'Leading Icon',
+      description: 'Icon shown when Type is "iconLeading".',
+      control: { type: 'select' },
+      options: iconNameOptions,
+      if: { arg: 'type', eq: 'iconLeading' },
+    },
     leadingTextAddon: {
       name: 'Leading Text',
       description: 'Text add-on content — only visible when Type is "leadingText".',
       control: 'text',
+      if: { arg: 'type', eq: 'leadingText' },
     },
     // Not a real Input prop — only exists in this story so the trailing
     // button's label is editable in the Playground without exposing the
     // whole `trailingButton` object (icon + onClick) as a control.
+    // Sequential disclosure — only visible once Type is "trailingButton".
     trailingButtonLabel: {
       name: 'Trailing Button Label',
       description: 'Button text — only visible when Type is "trailingButton".',
       control: 'text',
+      if: { arg: 'type', eq: 'trailingButton' },
     },
     onChange: { table: { disable: true } },
     state: { table: { disable: true } },
@@ -142,7 +179,7 @@ const meta = {
     trailingButton: { table: { disable: true } },
     className: { table: { disable: true } },
   },
-} satisfies Meta<typeof Input>;
+} satisfies Meta<typeof InputPlayground>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -158,9 +195,6 @@ export const Playground: Story = {
     disabled: false,
     trailingButtonLabel: 'Copy',
   },
-  render: ({ trailingButtonLabel, trailingButton, ...args }) => (
-    <Input {...args} trailingButton={{ ...trailingButton, label: trailingButtonLabel ?? trailingButton?.label }} />
-  ),
 };
 
 /**
@@ -277,7 +311,7 @@ export const Sizes: Story = {
   render: (args) => (
     <div className="flex flex-col gap-lg">
       {sizeOptions.map((size) => (
-        <Input key={size} {...args} size={size} label={`Input ${size}`} hint={undefined} />
+        <InputPlayground key={size} {...args} size={size} label={`Input ${size}`} hint={undefined} />
       ))}
     </div>
   ),

@@ -2,13 +2,33 @@ import { forwardRef } from 'react';
 import { cn } from '../../utils/cn';
 import type { IconProps, IconSize } from './Icon.types';
 
-/** Box size in px, matched 1:1 to the glyph's font-size — Tailwind's size-4..8 scale (4px steps). */
+/** Box size in px — Tailwind's size-4..8 scale (4px steps). Font-size is set inline (see below), not here. */
 const sizeStyles: Record<IconSize, string> = {
-  xs: 'size-4 text-[16px]',
-  sm: 'size-5 text-[20px]',
-  md: 'size-6 text-[24px]',
-  lg: 'size-7 text-[28px]',
-  xl: 'size-8 text-[32px]',
+  xs: 'size-4',
+  sm: 'size-5',
+  md: 'size-6',
+  lg: 'size-7',
+  xl: 'size-8',
+};
+
+/**
+ * Font-size in px, matched 1:1 to the box. Applied via inline `style`
+ * rather than a `text-[Npx]` Tailwind class — Google Fonts' icon stylesheet
+ * ships a legacy "fallback" `.material-symbols-outlined { font-size: 24px; ... }`
+ * rule for browsers it detects as lacking variable-font support. That rule
+ * is unlayered plain CSS, which the CSS cascade always ranks above ANY
+ * `@layer`-wrapped rule (Tailwind's utilities are `@layer utilities`)
+ * regardless of specificity or source order — so it silently wins over
+ * `text-[16px]` etc. and every icon renders at a fixed 24px, oversized and
+ * off-center in smaller boxes (`xs`/`sm`). An inline style has no such
+ * competition — it always wins short of `!important`.
+ */
+const fontSizeStyles: Record<IconSize, number> = {
+  xs: 16,
+  sm: 20,
+  md: 24,
+  lg: 28,
+  xl: 32,
 };
 
 /** Material Symbols opsz axis is only defined for 20–48 — clamp the smallest box to the font's own floor. */
@@ -28,9 +48,11 @@ export const Icon = forwardRef<HTMLSpanElement, IconProps>(
       <span
         ref={ref}
         {...a11yProps}
-        className={cn('material-symbols-outlined inline-block shrink-0 select-none leading-none', sizeStyles[size], className)}
+        className={cn('material-symbols-outlined inline-block shrink-0 select-none', sizeStyles[size], className)}
         style={{
           color,
+          fontSize: fontSizeStyles[size],
+          lineHeight: 1,
           fontVariationSettings: `'FILL' ${filled ? 1 : 0}, 'wght' ${weight}, 'GRAD' 0, 'opsz' ${opticalSize[size]}`,
           ...style,
         }}

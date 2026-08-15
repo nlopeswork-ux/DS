@@ -6,7 +6,7 @@ import type { VerificationCodeSize } from './VerificationCodeInput.types';
 const sizeOptions = ['sm', 'md', 'lg'] satisfies VerificationCodeSize[];
 
 const meta = {
-  title: 'Components/VerificationCodeInput',
+  title: 'Components/Verification Code Input',
   component: VerificationCodeInput,
   // The Docs page comes from VerificationCodeInput.mdx — no 'autodocs' tag.
   parameters: {

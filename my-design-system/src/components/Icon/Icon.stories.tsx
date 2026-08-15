@@ -19,6 +19,45 @@ const sampleNames = [
   'notifications',
 ];
 
+/**
+ * Curated list for the Playground's `name` control — every Material Symbols
+ * name actually used somewhere in this design system, plus a handful of
+ * other common ones. Not exhaustive (the full set has 3000+ names, see
+ * fonts.google.com/icons) — `Icon` itself still accepts any valid name via
+ * code, this is just so the Playground offers a dropdown instead of a
+ * free-text field a typo could silently break (CLAUDE.md — "icon-name-like
+ * props use a select, not free text").
+ */
+const nameOptions = [
+  'add',
+  'arrow_forward',
+  'arrow_selector_tool',
+  'check',
+  'check_circle',
+  'close',
+  'content_copy',
+  'delete',
+  'domain',
+  'error',
+  'expand_more',
+  'favorite',
+  'flag',
+  'help',
+  'home',
+  'info',
+  'logout',
+  'mail',
+  'menu',
+  'notifications',
+  'person',
+  'plan',
+  'public',
+  'search',
+  'settings',
+  'star',
+  'warning',
+];
+
 const meta = {
   title: 'Components/Icon',
   component: Icon,
@@ -37,8 +76,9 @@ const meta = {
   argTypes: {
     name: {
       name: 'Icon Name',
-      description: 'Material Symbols icon name (see fonts.google.com/icons).',
-      control: 'text',
+      description: 'Material Symbols icon name — curated sample, any valid name from fonts.google.com/icons works in code.',
+      control: { type: 'select' },
+      options: nameOptions,
     },
     size: {
       name: 'Size',

@@ -1,7 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from './Badge';
 import { Icon } from '../Icon';
-import type { BadgeColor, BadgeIcon, BadgeSize, BadgeType } from './Badge.types';
+import { CountryIcon } from '../CountryIcon';
+import { countryCodeOptions } from '../CountryIcon/CountryIcon.stories';
+import type { BadgeColor, BadgeIcon, BadgeProps, BadgeSize, BadgeType } from './Badge.types';
+
+/**
+ * Playground-only wrapper — adds a `countryCode` pseudo-arg (not a real
+ * Badge prop) so picking `icon: 'Country'` in Controls shows a real flag
+ * via `flagSwap` instead of the generic globe fallback. Kept separate from
+ * `Badge` itself so the component's public API stays exactly as documented.
+ */
+type BadgePlaygroundProps = BadgeProps & { countryCode?: string };
+
+const BadgePlayground = ({ countryCode = 'PT', icon, flagSwap, ...rest }: BadgePlaygroundProps) => (
+  <Badge {...rest} icon={icon} flagSwap={icon === 'Country' ? <CountryIcon code={countryCode} /> : flagSwap} />
+);
 
 const typeOptions = ['Pill color', 'Pill outline', 'Badge color', 'Badge modern'] satisfies BadgeType[];
 
@@ -35,7 +49,7 @@ const colorOptions = [
 
 const meta = {
   title: 'Components/Badge',
-  component: Badge,
+  component: BadgePlayground,
   // The Docs page comes from Badge.mdx (<Meta of={BadgeStories} />) — no
   // 'autodocs' tag, so it doesn't generate a second, conflicting page.
   parameters: {
@@ -46,6 +60,8 @@ const meta = {
     children: 'Label',
     iconLeadingSwap: <Icon name="add" size="xs" />,
     iconTrailingSwap: <Icon name="arrow_forward" size="xs" />,
+    // Pseudo-arg (not a real Badge prop) — see `countryCode` argType below.
+    countryCode: 'PT',
   },
   argTypes: {
     children: {
@@ -77,6 +93,18 @@ const meta = {
       control: { type: 'select' },
       options: colorOptions,
     },
+    // Pseudo-arg, not a real Badge prop — drives `flagSwap` in the
+    // Playground's `render` below so picking `icon: 'Country'` shows a
+    // real flag instead of the generic globe fallback. Only shown when
+    // `icon` is actually `'Country'` (Storybook's native conditional
+    // `if`) — see CLAUDE.md's Playground sequencing rule.
+    countryCode: {
+      name: 'Country',
+      description: 'Flag shown when Icon is "Country".',
+      control: { type: 'select' },
+      options: countryCodeOptions,
+      if: { arg: 'icon', eq: 'Country' },
+    },
     // Technical noise — kept out of the Live Playground (internal React
     // nodes for the instance-swap slots and the close callback).
     flagSwap: { table: { disable: true } },
@@ -85,7 +113,7 @@ const meta = {
     iconTrailingSwap: { table: { disable: true } },
     onClose: { table: { disable: true } },
   },
-} satisfies Meta<typeof Badge>;
+} satisfies Meta<typeof BadgePlayground>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -110,9 +138,9 @@ export const AllTypes: Story = {
   render: (args) => (
     <div className="flex flex-wrap items-center gap-lg">
       {typeOptions.map((type) => (
-        <Badge key={type} {...args} type={type}>
+        <BadgePlayground key={type} {...args} type={type}>
           {type}
-        </Badge>
+        </BadgePlayground>
       ))}
     </div>
   ),
@@ -128,9 +156,9 @@ export const Colors: Story = {
   render: (args) => (
     <div className="flex flex-wrap items-center gap-md">
       {colorOptions.map((color) => (
-        <Badge key={color} {...args} color={color}>
+        <BadgePlayground key={color} {...args} color={color}>
           {color}
-        </Badge>
+        </BadgePlayground>
       ))}
     </div>
   ),
@@ -146,9 +174,9 @@ export const Sizes: Story = {
   render: (args) => (
     <div className="flex flex-wrap items-end gap-lg">
       {sizeOptions.map((size) => (
-        <Badge key={size} {...args} size={size}>
+        <BadgePlayground key={size} {...args} size={size}>
           Badge {size}
-        </Badge>
+        </BadgePlayground>
       ))}
     </div>
   ),
@@ -163,12 +191,12 @@ export const Sizes: Story = {
 export const IconSlots: Story = {
   tags: ['!dev'],
   args: { color: 'Brand', type: 'Pill color' },
-  render: (args) => (
+  render: ({ countryCode: _countryCode, ...args }) => (
     <div className="flex flex-wrap items-center gap-lg">
       <Badge {...args} icon="Dot">
         Dot
       </Badge>
-      <Badge {...args} icon="Country">
+      <Badge {...args} icon="Country" flagSwap={<CountryIcon code="PT" />}>
         Country
       </Badge>
       <Badge {...args} icon="Avatar">
@@ -195,7 +223,7 @@ export const IconSlots: Story = {
 export const Dismissible: Story = {
   tags: ['!dev'],
   args: { color: 'Gray', type: 'Badge color', icon: 'X close', children: 'Remove me' },
-  render: (args) => <Badge {...args} onClose={() => alert('onClose fired')} />,
+  render: ({ countryCode: _countryCode, ...args }) => <Badge {...args} onClose={() => alert('onClose fired')} />,
 };
 
 /**

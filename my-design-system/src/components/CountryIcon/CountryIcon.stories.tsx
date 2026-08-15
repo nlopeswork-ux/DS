@@ -1,6 +1,59 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { CountryIcon } from './CountryIcon';
 
+/**
+ * Curated subset of the 431 flags vendored in `public/flags` (see
+ * CountryIcon.tsx's `SPECIAL_SLUGS` comment) — the full set mixes real
+ * ISO 3166-1 countries with subdivisions, historical and fictional flags
+ * (e.g. "US-TX", "SOVIET_UNION", "SEALAND"), which would make a single
+ * flat dropdown unusable. This list keeps the common, real countries
+ * (matching CLAUDE.md's "icon-name-like props use a select, not free
+ * text" rule) plus the 2 documented special values.
+ */
+export const countryCodeOptions = [
+  'earth',
+  'PT',
+  'ES',
+  'FR',
+  'DE',
+  'IT',
+  'GB',
+  'GB-2',
+  'IE',
+  'NL',
+  'BE',
+  'CH',
+  'AT',
+  'SE',
+  'NO',
+  'DK',
+  'FI',
+  'PL',
+  'GR',
+  'TR',
+  'US',
+  'CA',
+  'MX',
+  'BR',
+  'AR',
+  'CL',
+  'CO',
+  'PE',
+  'JP',
+  'CN',
+  'KR',
+  'IN',
+  'AU',
+  'NZ',
+  'ZA',
+  'EG',
+  'NG',
+  'KE',
+  'AE',
+  'SA',
+  'IL',
+];
+
 const meta = {
   title: 'Components/Country Icon',
   component: CountryIcon,
@@ -13,8 +66,9 @@ const meta = {
   argTypes: {
     code: {
       name: 'Country Code',
-      description: 'ISO 3166-1 alpha-2 code (e.g. "PT", "US"), plus "GB-2" and "earth".',
-      control: 'text',
+      description: 'ISO 3166-1 alpha-2 code, plus "GB-2" and "earth" — curated sample, see CountryIcon.mdx for the full 431-flag set.',
+      control: { type: 'select' },
+      options: countryCodeOptions,
     },
     size: {
       name: 'Size',

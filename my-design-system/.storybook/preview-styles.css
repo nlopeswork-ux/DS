@@ -151,3 +151,22 @@ table {
 .playground-options-list button[aria-label='Resetting controls...'] {
   display: none !important;
 }
+
+/*
+ * Fixed floor for the Options column, applied centrally here (not per
+ * `.mdx`) so it's automatic for every current and future component. Several
+ * Playgrounds now use Storybook's conditional `argTypes.if` to show/hide
+ * rows sequentially (e.g. Tag's "Checked"/"Disabled" only appear once
+ * "Checkbox" is on) — without a floor, toggling those controls shrinks
+ * `.playground-options-list`'s own height, and since the grid container
+ * uses `items-stretch`, the *whole* Preview+Options row shrinks and grows
+ * with it, producing a visible reflow/glitch as the user experiments.
+ * 420px comfortably fits the busiest current Playground (Tag/Input, ~8
+ * simultaneous rows across their `<Controls>` blocks) with no visible
+ * jump; a future component with meaningfully more options can override it
+ * locally, but should not go lower than this shared value.
+ */
+.playground-options-list {
+  min-height: 420px !important;
+  box-sizing: border-box !important;
+}

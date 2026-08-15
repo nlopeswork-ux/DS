@@ -8,7 +8,7 @@ const providerOptions = ['Google', 'Facebook', 'Apple', 'Twitter', 'Figma', 'Dri
 const themeOptions = ['Brand', 'Color', 'Gray'] satisfies SocialButtonTheme[];
 
 const meta = {
-  title: 'Components/SocialButton',
+  title: 'Components/Social Button',
   component: SocialButton,
   // The Docs page comes from SocialButton.mdx (<Meta of={SocialButtonStories} />) —
   // no 'autodocs' tag, so it doesn't generate a second, conflicting page.

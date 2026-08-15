@@ -22,31 +22,17 @@ const preview: Preview = {
     layout: 'centered',
 
     // Ordem fixa da sidebar: Introduction → Foundations (Colors, Typography,
-    // Spacing, Shadows & Radius) → Components. Grupos/páginas fora desta
-    // lista (novos componentes, etc.) caem no fim por ordem alfabética
-    // (comportamento default do `storySort` quando o item não está listado).
+    // Spacing, Shadows & Radius) → Components. Dentro de "Components" não há
+    // sub-lista explícita — cai no comportamento default do `storySort`, que
+    // ordena por ordem alfabética qualquer nível não listado. Isto é
+    // deliberado (não um esquecimento): uma lista manual desalinha-se do
+    // menu real sempre que um componente novo é adicionado, e cada `title`
+    // de `*.stories.tsx` já usa espaço entre palavras (ex.: "Input Dropdown",
+    // nunca "InputDropdown") precisamente para que a ordenação alfabética
+    // automática fique legível na sidebar.
     options: {
       storySort: {
-        order: [
-          'Introduction',
-          'Foundations',
-          ['Colors', 'Typography', 'Spacing', 'Shadows & Radius', 'Icons'],
-          'Components',
-          [
-            'Icon',
-            'Button',
-            'Badge',
-            'Badge Group',
-            'Social Icon',
-            'Country Icon',
-            'Avatar',
-            'Avatar Group',
-            'Tag',
-            'Tooltip',
-            'Help Icon',
-          ],
-          '*',
-        ],
+        order: ['Introduction', 'Foundations', ['Colors', 'Typography', 'Spacing', 'Shadows & Radius', 'Icons'], 'Components'],
       },
     },
   },

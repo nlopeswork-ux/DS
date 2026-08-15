@@ -26,7 +26,7 @@ const countryOptions: InputDropdownOption[] = Array.from({ length: 12 }, (_, i) 
 }));
 
 const meta = {
-  title: 'Components/InputDropdown',
+  title: 'Components/Input Dropdown',
   component: InputDropdown,
   // The Docs page comes from InputDropdown.mdx — no 'autodocs' tag.
   parameters: {

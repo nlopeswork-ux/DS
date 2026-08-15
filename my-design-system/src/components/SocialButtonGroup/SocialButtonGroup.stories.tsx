@@ -7,7 +7,7 @@ const styleOptions = ['Buttons', 'Icons'] satisfies SocialButtonGroupStyle[];
 const themeOptions = ['Brand', 'Color', 'Gray'] satisfies SocialButtonTheme[];
 
 const meta = {
-  title: 'Components/SocialButtonGroup',
+  title: 'Components/Social Button Group',
   component: SocialButtonGroup,
   // The Docs page comes from SocialButtonGroup.mdx (<Meta of={SocialButtonGroupStories} />) —
   // no 'autodocs' tag, so it doesn't generate a second, conflicting page.
