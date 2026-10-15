@@ -26,6 +26,7 @@ Todas as especificações técnicas de Design Tokens e Componentes estão dividi
   * Form Controls (Input Field, Dropdown, Checkbox, Toggle, Groups): `docs/components/form-controls.md`
   * Navegação (Dropdown Menus, Button Group): `docs/components/navigation.md`
   * Feedback & Visuals (Avatar, Tooltip, Help Icon, Progress, Slider): `docs/components/feedback-visuals.md`
+  * Feedback & Overlays (Modal, Alert): `docs/components/feedback-overlays.md`
 
 ---
 

@@ -51,3 +51,37 @@ Sem prop de estado: Default/Hover/Focus/Disabled pertencem aos botões internos.
 ### 1.5 Dependências / placeholders
 
 `Button`, `Icon` reutilizados. **Em falta (placeholders internos em `Modal/`)**: Button close X (`buttons.md` §6) e Featured icon — promover a componentes próprios.
+
+---
+
+## 2. Alert
+
+> Fonte: Figma KDS — Design System, frame "Alerts" (`1130:81134`).
+
+### 2.1 Props (TypeScript)
+
+```ts
+type AlertProps = {
+  color: 'informative' | 'success' | 'warning' | 'error';
+  size: 'floating' | 'full-width';
+  breakpoint: 'Desktop' | 'Mobile';   // responsivo por CSS (< 640px = Mobile)
+  title; supportingText?; actionLabel?; dismissLabel?;
+  onAction?; onDismiss?; showCloseButton?; actionLoading?;
+};
+```
+
+Sem prop de estado: Default/Hover/Focus/Disabled pertencem aos botões internos.
+
+### 2.2 Variantes
+
+| Size | Desktop | Mobile |
+|---|---|---|
+| `floating` | Cartão (`radius-xl`, borda `border-primary`, `shadow-xs`, padding `spacing-xl`); ícone + título + texto + ações; X no canto superior direito | Igual, largura 100% |
+| `full-width` | Banner com `border-b`, conteúdo máx. 1280px, texto inline, ações + X à direita | `border-t`, sem ícone, ações por baixo; informativo empilha Primary acima de Secondary (100% largura) |
+
+Ações: `Link gray` (Dismiss) + `Link color` (ação principal); o banner `informative` usa `Secondary gray` + `Primary`.
+
+### 2.3 Regras de comportamento
+- Não bloqueia a página nem prende o foco; não esconder automaticamente alertas com ações essenciais.
+- X e "Dismiss" apenas dispensam — nunca resolvem nem desfazem.
+- `role="alert"` em error/warning, `role="status"` nos restantes; cor sempre acompanhada de ícone semântico.

@@ -1,0 +1,130 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as AlertStories from './Alert.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={AlertStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Alert
+
+Communicates information, success, risk or failure without interrupting the workflow. Combines a semantic icon, a title, optional supporting text and an action group, in two presentations: **floating** (a delimited card) and **full-width** (a banner across the page or section). On mobile (< 640px) the full-width banner drops its icon and stacks its actions.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={AlertStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={AlertStories.Playground} include={['Color', 'Size', 'Close Button']} />
+      <Controls of={AlertStories.Playground} include={['Supporting Text', 'Actions', 'Action Loading']} />
+      <Controls of={AlertStories.Playground} include={['Title', 'Supporting Text Content', 'Action Label', 'Dismiss Label']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- **Informative** — news, changes or contextual information that is not a failure. Actions: "View changes", "Learn more".
+- **Success** — confirmation of a completed operation. Actions: view the profile or the result.
+- **Warning** — risks, limitations or conditions that may cause a problem. Actions: review the configuration, update data.
+- **Error** — an operation failed or a problem needs correcting. Actions: "Try again", "View details".
+- **Floating** — a delimited area of the interface with a title, an explanation and actions.
+- **Full-width** — a banner that spans the whole page or section.
+
+### What to avoid
+- Several alerts competing for attention without a clear priority.
+- Using Warning for a failure that already happened — that is an Error.
+- Treating "Dismiss" as "Resolve" or "Undo".
+
+<ExampleGallery
+  tabs={[
+    { label: 'Colors', content: <Canvas of={AlertStories.Colors} withToolbar={false} sourceState="none" /> },
+    { label: 'Minimal', content: <Canvas of={AlertStories.Minimal} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Featured icon** — a semantic glyph (info, check, alert) in the alert colour with two soft rings. Hidden on the mobile full-width banner.
+- **Title** — short and descriptive, `text-sm` semibold.
+- **Supporting text** — optional; may contain an inline link. Below the title in a floating alert, inline after it in a full-width banner.
+- **Actions** — "Dismiss" plus one primary action, as link-style buttons. The informative full-width banner uses a secondary + primary button pair, stacked on mobile.
+- **Close (X) button** — optional, top-right.
+
+### Best practices
+- Show the alert close to the context it affects. It is not a modal: it never blocks the page and never traps focus.
+- Do not auto-hide alerts that contain essential actions.
+- The close button and "Dismiss" only hide the message — they never undo an operation or solve the underlying problem.
+- Use labels that describe the result ("Try again", "View changes"), and set `actionLoading` while an asynchronous action runs to prevent duplicate submissions.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>Part</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Alert</strong></td>
+      <td>No state prop — the consumer renders it or not, and handles <code>onDismiss</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Actions</strong></td>
+      <td>Default, hover, focus and disabled are states of the internal <code>Button</code> and close button. <code>actionLoading</code> disables the primary action.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Semantics:** `role="alert"` for error and warning, `role="status"` for informative and success.
+- **Not only color:** every alert pairs its color with a semantic icon and text.
+- **Close button:** icon-only, with an `aria-label` (default "Dismiss alert").
+- **Focus:** actions and the close button have a visible focus ring; the alert itself is never a focus trap.
+- **Async actions:** the primary action is disabled and `aria-busy` while loading.
+
+> Implementation note: the featured icon and close (X) button are internal placeholders until their own components exist.
