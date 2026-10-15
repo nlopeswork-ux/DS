@@ -22,8 +22,8 @@ export type BadgeGroupTheme = 'Light' | 'Outline' | 'Modern';
  */
 export type BadgeGroupState = 'Default' | 'Hover';
 
-/** docs/components/badges-tags.md §2 — only the 5 semantic colors are documented for Badge group. */
-export type BadgeGroupColor = Extract<BadgeColor, 'Gray' | 'Brand' | 'Error' | 'Warning' | 'Success'>;
+/** docs/components/badges-tags.md §2 — only the 6 semantic colors are documented for Badge group. */
+export type BadgeGroupColor = Extract<BadgeColor, 'Gray' | 'Brand' | 'Error' | 'Warning' | 'Success' | 'Info'>;
 
 export interface BadgeGroupProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'color'> {
   badge?: BadgeGroupBadgePosition;

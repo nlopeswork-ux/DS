@@ -6,7 +6,7 @@ const themeOptions = ['Light', 'Outline', 'Modern'] satisfies BadgeGroupTheme[];
 
 const sizeOptions = ['md', 'lg'] satisfies BadgeGroupSize[];
 
-const colorOptions = ['Gray', 'Brand', 'Error', 'Warning', 'Success'] satisfies BadgeGroupColor[];
+const colorOptions = ['Gray', 'Brand', 'Error', 'Warning', 'Success', 'Info'] satisfies BadgeGroupColor[];
 
 const meta = {
   title: 'Components/Badge Group',
@@ -102,7 +102,7 @@ export const Themes: Story = {
 };
 
 /**
- * The 5 semantic colors, in the Light theme.
+ * The 6 semantic colors, in the Light theme.
  * Outside the sidebar (`!dev`) — embedded in BadgeGroup.mdx via `<Canvas of={BadgeGroupStories.Colors} />`.
  */
 export const Colors: Story = {

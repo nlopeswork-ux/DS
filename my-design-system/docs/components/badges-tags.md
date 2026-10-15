@@ -15,7 +15,7 @@ type BadgeProps = {
   Type: "Pill color" | "Pill outline" | "Badge color" | "Badge modern";
   Icon: "False" | "Dot" | "Country" | "X close" | "Avatar"
       | "Icon trailing" | "Icon leading" | "Only";
-  Color: "Gray" | "Brand" | "Error" | "Warning" | "Success"
+  Color: "Gray" | "Brand" | "Error" | "Warning" | "Success" | "Info"
        | "Blue light" | "Blue" | "Indigo" | "Purple"
        | "Pink" | "Orange" | "Blue gray" | "Gray blue";
   /** Instance swap slots (quando Icon ≠ "False") */
@@ -66,6 +66,7 @@ Layout: Horizontal, item spacing `0`. Stroke align: `INSIDE`, weight `1px` (exce
 | Error | `#FEF3F2` | `#FECDCA` | `#B42318` | `utility-error-50` | `utility-error-200` |
 | Warning | `#FFFAEB` | `#FEDF89` | `#B54708` | `utility-warning-50` | `utility-warning-200` |
 | Success | `#ECFDF3` | `#ABEFC6` | `#067647` | `utility-success-50` | `utility-success-200` |
+| Info | `#EFF4FF` | `#B2CCFF` | `#004EEB` | `utility-info-50` | `utility-info-200` |
 | Blue light | `#F0F9FF` | `#B9E6FE` | `#026AA2` | `utility-blue-light-50` | `utility-blue-light-200` |
 | Blue | `#EFF8FF` | `#B2DDFF` | `#175CD3` | `utility-blue-50` | `utility-blue-200` |
 | Indigo | `#EEF4FF` | `#C7D7FE` | `#3538CD` | `utility-indigo-50` | `utility-indigo-200` |

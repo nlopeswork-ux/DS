@@ -44,6 +44,7 @@ export type BadgeColor =
   | 'Error'
   | 'Warning'
   | 'Success'
+  | 'Info'
   | 'Blue light'
   | 'Blue'
   | 'Indigo'

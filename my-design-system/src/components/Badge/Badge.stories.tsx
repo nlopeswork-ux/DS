@@ -38,6 +38,7 @@ const colorOptions = [
   'Error',
   'Warning',
   'Success',
+  'Info',
   'Blue light',
   'Blue',
   'Indigo',
@@ -147,7 +148,7 @@ export const AllTypes: Story = {
 };
 
 /**
- * All 12 colors, in the default Pill color type.
+ * All 13 colors, in the default Pill color type.
  * Outside the sidebar (`!dev`) — embedded in Badge.mdx via `<Canvas of={BadgeStories.Colors} />`.
  */
 export const Colors: Story = {

@@ -84,6 +84,17 @@ export const colorStyles: Record<BadgeColor, BadgeColorStyleSet> = {
     hoverBg: 'hover:bg-utility-success-100',
     closeHoverText: 'hover:text-utility-success-600',
   },
+  Info: {
+    fillBg: 'bg-utility-info-50',
+    fillBorder: 'border-utility-info-200',
+    outlineBorder: 'border-utility-info-600',
+    text: 'text-utility-info-700',
+    dot: 'bg-utility-info-500',
+    hoverFillBg: 'bg-utility-info-100',
+    closeIdle: 'text-utility-info-400',
+    hoverBg: 'hover:bg-utility-info-100',
+    closeHoverText: 'hover:text-utility-info-600',
+  },
   'Blue light': {
     fillBg: 'bg-utility-blue-light-50',
     fillBorder: 'border-utility-blue-light-200',
