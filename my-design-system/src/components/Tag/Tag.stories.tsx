@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tag } from './Tag';
 import { CountryIcon } from '../CountryIcon';
-import { countryCodeOptions } from '../CountryIcon/CountryIcon.stories';
+import { countryCodeOptions } from '../CountryIcon/CountryIcon.data';
 import { Avatar } from '../Avatar';
 import type { TagAction, TagIcon, TagProps, TagSize } from './Tag.types';
 

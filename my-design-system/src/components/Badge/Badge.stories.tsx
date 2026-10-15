@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from './Badge';
 import { Icon } from '../Icon';
 import { CountryIcon } from '../CountryIcon';
-import { countryCodeOptions } from '../CountryIcon/CountryIcon.stories';
+import { countryCodeOptions } from '../CountryIcon/CountryIcon.data';
 import type { BadgeColor, BadgeIcon, BadgeProps, BadgeSize, BadgeType } from './Badge.types';
 
 /**
