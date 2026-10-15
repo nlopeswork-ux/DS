@@ -7,6 +7,7 @@ const toneStyles: Record<ModalIconTone, string> = {
   success: 'bg-success-secondary fg-success',
   error: 'bg-error-secondary fg-error',
   warning: 'bg-warning-secondary fg-warning',
+  info: 'bg-info-secondary fg-info',
   gray: 'bg-secondary fg-secondary',
 };
 

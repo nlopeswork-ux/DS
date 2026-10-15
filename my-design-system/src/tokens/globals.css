@@ -4,7 +4,7 @@
  * docs/foundations/shadows-elevation.md
  *
  * Camadas:
- * 1. Cores primitivas (Base, Gray, Gray dark, Brand, Error, Warning, Success, paleta estendida,
+ * 1. Cores primitivas (Base, Gray, Gray dark, Brand, Error, Warning, Success, Info, paleta estendida,
  *    Alpha, Utility — estas duas últimas com overrides de Dark Mode)
  * 2. Tokens semânticos de cor (Light mode em :root; Dark mode via .dark / [data-theme="dark"])
  * 3. Espaçamento (escala primitiva + escala semântica)
@@ -107,7 +107,21 @@
   --color-success-900: #074d31;
   --color-success-950: #053321;
 
-  /* 1.8 Paleta estendida (uso em Badges/Tags multi-cor) */
+  /* 1.8 Info (escala Blue dark — estados informativos) */
+  --color-info-25: #f5f8ff;
+  --color-info-50: #eff4ff;
+  --color-info-100: #d1e0ff;
+  --color-info-200: #b2ccff;
+  --color-info-300: #84adff;
+  --color-info-400: #528bff;
+  --color-info-500: #2970ff;
+  --color-info-600: #155eef;
+  --color-info-700: #004eeb;
+  --color-info-800: #0040c1;
+  --color-info-900: #00359e;
+  --color-info-950: #002266;
+
+  /* 1.9 Paleta estendida (uso em Badges/Tags multi-cor) */
   --color-blue-50: #eff8ff;
   --color-blue-200: #b2ddff;
   --color-blue-500: #2e90fa;
@@ -256,6 +270,15 @@
   --color-utility-success-600: #079455;
   --color-utility-success-700: #067647;
 
+  --color-utility-info-50: #eff4ff;
+  --color-utility-info-100: #d1e0ff;
+  --color-utility-info-200: #b2ccff;
+  --color-utility-info-300: #84adff;
+  --color-utility-info-400: #528bff;
+  --color-utility-info-500: #2970ff;
+  --color-utility-info-600: #155eef;
+  --color-utility-info-700: #004eeb;
+
   --color-utility-gray-blue-50: #f8f9fc;
   --color-utility-gray-blue-100: #eaecf5;
   --color-utility-gray-blue-200: #d5d9eb;
@@ -282,15 +305,6 @@
   --color-utility-blue-500: #2e90fa;
   --color-utility-blue-600: #1570ef;
   --color-utility-blue-700: #175cd3;
-
-  --color-utility-blue-dark-50: #eff4ff;
-  --color-utility-blue-dark-100: #d1e0ff;
-  --color-utility-blue-dark-200: #b2ccff;
-  --color-utility-blue-dark-300: #84adff;
-  --color-utility-blue-dark-400: #528bff;
-  --color-utility-blue-dark-500: #2970ff;
-  --color-utility-blue-dark-600: #155eef;
-  --color-utility-blue-dark-700: #004eeb;
 
   --color-utility-indigo-50: #eef4ff;
   --color-utility-indigo-100: #e0eaff;
@@ -368,6 +382,7 @@
   --color-text-error: var(--color-error-600);
   --color-text-warning: var(--color-warning-600);
   --color-text-success: var(--color-success-600);
+  --color-text-info: var(--color-info-600);
 
   /* 2.2 Foreground (ícones/strokes decorativos) */
   --color-fg-primary: var(--color-gray-900);
@@ -382,8 +397,13 @@
   --color-fg-brand-primary: var(--color-brand-600);
   --color-fg-brand-secondary: var(--color-brand-500);
   --color-fg-error: var(--color-error-600);
+  --color-fg-error-secondary: var(--color-error-500);
   --color-fg-warning: var(--color-warning-600);
+  --color-fg-warning-secondary: var(--color-warning-500);
   --color-fg-success: var(--color-success-600);
+  --color-fg-success-secondary: var(--color-success-500);
+  --color-fg-info: var(--color-info-600);
+  --color-fg-info-secondary: var(--color-info-500);
 
   /* 2.3 Background */
   --color-bg-primary: var(--color-base-white);
@@ -416,6 +436,9 @@
   --color-bg-success-primary: var(--color-success-50);
   --color-bg-success-secondary: var(--color-success-100);
   --color-bg-success-solid: var(--color-success-600);
+  --color-bg-info-primary: var(--color-info-50);
+  --color-bg-info-secondary: var(--color-info-100);
+  --color-bg-info-solid: var(--color-info-600);
 
   /* 2.4 Border */
   --color-border-primary: var(--color-gray-300);
@@ -427,6 +450,8 @@
   --color-border-brand-alt: var(--color-brand-600);
   --color-border-error: var(--color-error-500);
   --color-border-error-subtle: var(--color-error-300);
+  --color-border-info: var(--color-info-500);
+  --color-border-info-subtle: var(--color-info-300);
 
   /* 2.5 Balady (Custom Brand Overrides) */
   --color-balady-accent: #046f6d;
@@ -592,6 +617,7 @@
     --color-text-error: var(--color-error-400);
     --color-text-warning: var(--color-warning-400);
     --color-text-success: var(--color-success-400);
+    --color-text-info: var(--color-info-400);
 
     /* Foreground */
     --color-fg-primary: var(--color-base-white);
@@ -606,8 +632,13 @@
     --color-fg-brand-primary: var(--color-brand-500);
     --color-fg-brand-secondary: var(--color-brand-500);
     --color-fg-error: var(--color-error-500);
+    --color-fg-error-secondary: var(--color-error-400);
     --color-fg-warning: var(--color-warning-500);
+    --color-fg-warning-secondary: var(--color-warning-400);
     --color-fg-success: var(--color-success-500);
+    --color-fg-success-secondary: var(--color-success-400);
+    --color-fg-info: var(--color-info-500);
+    --color-fg-info-secondary: var(--color-info-400);
 
     /* Background */
     --color-bg-primary: var(--color-gray-dark-950);
@@ -640,6 +671,9 @@
     --color-bg-success-primary: var(--color-success-500);
     --color-bg-success-secondary: var(--color-success-600);
     --color-bg-success-solid: var(--color-success-600);
+    --color-bg-info-primary: var(--color-info-500);
+    --color-bg-info-secondary: var(--color-info-600);
+    --color-bg-info-solid: var(--color-info-600);
 
     /* Border */
     --color-border-primary: var(--color-gray-dark-700);
@@ -651,6 +685,8 @@
     --color-border-brand-alt: var(--color-gray-dark-700);
     --color-border-error: var(--color-error-400);
     --color-border-error-subtle: var(--color-error-400);
+    --color-border-info: var(--color-info-400);
+    --color-border-info-subtle: var(--color-info-400);
 
     /* Balady (Custom Brand Overrides) */
     --color-balady-accent: #ffffff;
@@ -742,6 +778,15 @@
     --color-utility-success-600: #47cd89;
     --color-utility-success-700: #75e0a7;
 
+    --color-utility-info-50: #002266;
+    --color-utility-info-100: #00359e;
+    --color-utility-info-200: #0040c1;
+    --color-utility-info-300: #004eeb;
+    --color-utility-info-400: #155eef;
+    --color-utility-info-500: #2970ff;
+    --color-utility-info-600: #528bff;
+    --color-utility-info-700: #84adff;
+
     --color-utility-gray-blue-50: #101323;
     --color-utility-gray-blue-100: #101323;
     --color-utility-gray-blue-200: #293056;
@@ -768,15 +813,6 @@
     --color-utility-blue-500: #2e90fa;
     --color-utility-blue-600: #53b1fd;
     --color-utility-blue-700: #84caff;
-
-    --color-utility-blue-dark-50: #002266;
-    --color-utility-blue-dark-100: #00359e;
-    --color-utility-blue-dark-200: #0040c1;
-    --color-utility-blue-dark-300: #004eeb;
-    --color-utility-blue-dark-400: #155eef;
-    --color-utility-blue-dark-500: #2970ff;
-    --color-utility-blue-dark-600: #528bff;
-    --color-utility-blue-dark-700: #84adff;
 
     --color-utility-indigo-50: #1f235b;
     --color-utility-indigo-100: #2d3282;

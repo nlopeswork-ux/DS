@@ -164,7 +164,8 @@ export const SemanticColors: Story = {
       <Icon name="check_circle" size="lg" filled className="fg-success" />
       <Icon name="error" size="lg" filled className="fg-error" />
       <Icon name="warning" size="lg" filled className="fg-warning" />
-      <Icon name="info" size="lg" filled className="fg-brand-primary" />
+      <Icon name="info" size="lg" filled className="fg-info" />
+      <Icon name="auto_awesome" size="lg" filled className="fg-brand-primary" />
     </div>
   ),
 };

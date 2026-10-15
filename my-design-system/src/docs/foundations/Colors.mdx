@@ -64,10 +64,10 @@ export const utilityGroups = [
   { title: 'Utility Error', colors: { 50: '#fef3f2', 100: '#fee4e2', 200: '#fecdca', 300: '#fda29b', 400: '#f97066', 500: '#f04438', 600: '#d92d20', 700: '#b42318' } },
   { title: 'Utility Warning', colors: { 50: '#fffaeb', 100: '#fef0c7', 200: '#fedf89', 300: '#fec84b', 400: '#fdb022', 500: '#f79009', 600: '#dc6803', 700: '#b54708' } },
   { title: 'Utility Success', colors: { 50: '#ecfdf3', 100: '#dcfae6', 200: '#abefc6', 300: '#75e0a7', 400: '#47cd89', 500: '#17b26a', 600: '#079455', 700: '#067647' } },
+  { title: 'Utility Info', colors: { 50: '#eff4ff', 100: '#d1e0ff', 200: '#b2ccff', 300: '#84adff', 400: '#528bff', 500: '#2970ff', 600: '#155eef', 700: '#004eeb' } },
   { title: 'Utility Gray Blue', colors: { 50: '#f8f9fc', 100: '#eaecf5', 200: '#d5d9eb', 300: '#b3b8db', 400: '#717bbc', 500: '#4e5ba6', 600: '#3e4784', 700: '#363f72' } },
   { title: 'Utility Blue Light', colors: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#b9e6fe', 300: '#7cd4fd', 400: '#36bffa', 500: '#0ba5ec', 600: '#0086c9', 700: '#026aa2' } },
   { title: 'Utility Blue', colors: { 50: '#eff8ff', 100: '#d1e9ff', 200: '#b2ddff', 300: '#84caff', 400: '#53b1fd', 500: '#2e90fa', 600: '#1570ef', 700: '#175cd3' } },
-  { title: 'Utility Blue Dark', colors: { 50: '#eff4ff', 100: '#d1e0ff', 200: '#b2ccff', 300: '#84adff', 400: '#528bff', 500: '#2970ff', 600: '#155eef', 700: '#004eeb' } },
   { title: 'Utility Indigo', colors: { 50: '#eef4ff', 100: '#e0eaff', 200: '#c7d7fe', 300: '#a4bcfd', 400: '#8098f9', 500: '#6172f3', 600: '#444ce7', 700: '#3538cd' } },
   { title: 'Utility Purple', colors: { 50: '#f4f3ff', 100: '#ebe9fe', 200: '#d9d6fe', 300: '#bdb4fe', 400: '#9b8afb', 500: '#7a5af8', 600: '#6938ef', 700: '#5925dc' } },
   { title: 'Utility Fuchsia', colors: { 50: '#fdf4ff', 100: '#fbe8ff', 200: '#f6d0fe', 300: '#eeaafd', 400: '#e478fa', 500: '#d444f1', 600: '#ba24d5', 700: '#9f1ab1' } },
@@ -82,10 +82,10 @@ export const utilityGroupsDark = [
   { title: 'Utility Error', colors: { 50: '#55160c', 100: '#7a271a', 200: '#912018', 300: '#b42318', 400: '#d92d20', 500: '#f04438', 600: '#f97066', 700: '#fda29b' } },
   { title: 'Utility Warning', colors: { 50: '#4e1d09', 100: '#7a2e0e', 200: '#93370d', 300: '#b54708', 400: '#dc6803', 500: '#f79009', 600: '#fdb022', 700: '#fec84b' } },
   { title: 'Utility Success', colors: { 50: '#053321', 100: '#074d31', 200: '#085d3a', 300: '#067647', 400: '#079455', 500: '#17b26a', 600: '#47cd89', 700: '#75e0a7' } },
+  { title: 'Utility Info', colors: { 50: '#002266', 100: '#00359e', 200: '#0040c1', 300: '#004eeb', 400: '#155eef', 500: '#2970ff', 600: '#528bff', 700: '#84adff' } },
   { title: 'Utility Gray Blue', colors: { 50: '#101323', 100: '#101323', 200: '#293056', 300: '#363f72', 400: '#3e4784', 500: '#4e5ba6', 600: '#717bbc', 700: '#b3b8db' } },
   { title: 'Utility Blue Light', colors: { 50: '#062c41', 100: '#0b4a6f', 200: '#065986', 300: '#026aa2', 400: '#0086c9', 500: '#0ba5ec', 600: '#36bffa', 700: '#7cd4fd' } },
   { title: 'Utility Blue', colors: { 50: '#102a56', 100: '#194185', 200: '#1849a9', 300: '#175cd3', 400: '#1570ef', 500: '#2e90fa', 600: '#53b1fd', 700: '#84caff' } },
-  { title: 'Utility Blue Dark', colors: { 50: '#002266', 100: '#00359e', 200: '#0040c1', 300: '#004eeb', 400: '#155eef', 500: '#2970ff', 600: '#528bff', 700: '#84adff' } },
   { title: 'Utility Indigo', colors: { 50: '#1f235b', 100: '#2d3282', 200: '#2d31a6', 300: '#3538cd', 400: '#444ce7', 500: '#6172f3', 600: '#8098f9', 700: '#a4bcfd' } },
   { title: 'Utility Purple', colors: { 50: '#27115f', 100: '#3e1c96', 200: '#4a1fb8', 300: '#5925dc', 400: '#6938ef', 500: '#7a5af8', 600: '#9b8afb', 700: '#bdb4fe' } },
   { title: 'Utility Fuchsia', colors: { 50: '#47104c', 100: '#6f1877', 200: '#821890', 300: '#9f1ab1', 400: '#ba24d5', 500: '#d444f1', 600: '#e478fa', 700: '#eeaafd' } },
@@ -145,7 +145,7 @@ Neutral, brand and feedback palettes, plus the semantic tokens components consum
 
 <h2 id="feedback" className="text-2xl font-semibold">Feedback</h2>
 
-<p className="mb-5">State palettes — success, warning and error — used in badges, form validation and destructive actions.</p>
+<p className="mb-5">State palettes — success, warning, error and info — used in badges, form validation and destructive actions.</p>
 
 <ColorRamp
   title="Error"
@@ -169,6 +169,14 @@ Neutral, brand and feedback palettes, plus the semantic tokens components consum
   colors={{
     25: '#f6fef9', 50: '#ecfdf3', 100: '#dcfae6', 200: '#abefc6', 300: '#75e0a7', 400: '#47cd89',
     500: '#17b26a', 600: '#079455', 700: '#067647', 800: '#085d3a', 900: '#074d31', 950: '#053321',
+  }}
+/>
+<ColorRamp
+  title="Info"
+  subtitle="Informational states, neutral notices"
+  colors={{
+    25: '#f5f8ff', 50: '#eff4ff', 100: '#d1e0ff', 200: '#b2ccff', 300: '#84adff', 400: '#528bff',
+    500: '#2970ff', 600: '#155eef', 700: '#004eeb', 800: '#0040c1', 900: '#00359e', 950: '#002266',
   }}
 />
 
@@ -215,7 +223,7 @@ Neutral, brand and feedback palettes, plus the semantic tokens components consum
 
 <h2 id="utility" className="text-2xl font-semibold">Utility</h2>
 
-<p className="mb-5">Flat <code>utility-\*</code> ramps for direct component-level use (Badges, Tags, data-visualization) — a mix of the palettes already documented above under a component-facing naming convention, plus additional families (Gray Blue, Blue, Blue Dark, Blue Light, Indigo, Purple, Fuchsia, Pink, Orange, Orange Dark) not otherwise exposed as ramps. Every family has a Dark Mode override, shown right below its Light Mode ramp.</p>
+<p className="mb-5">Flat <code>utility-\*</code> ramps for direct component-level use (Badges, Tags, data-visualization) — a mix of the palettes already documented above under a component-facing naming convention (Error, Warning, Success and Info — the latter is the Blue Dark scale), plus additional families (Gray Blue, Blue, Blue Light, Indigo, Purple, Fuchsia, Pink, Orange, Orange Dark) not otherwise exposed as ramps. Every family has a Dark Mode override, shown right below its Light Mode ramp.</p>
 
 {utilityGroups.flatMap((group, i) => ([
   <ColorRamp key={`${group.title}-light`} title={group.title} subtitle="Light mode" colors={group.colors} />,
@@ -242,6 +250,25 @@ Neutral, brand and feedback palettes, plus the semantic tokens components consum
     <tr><td>text-error</td><td><code>--color-text-error</code></td><td><SwatchHex hex="#D92D20" /></td><td><SwatchHex hex="#F97066" /></td></tr>
     <tr><td>text-warning</td><td><code>--color-text-warning</code></td><td><SwatchHex hex="#DC6803" /></td><td><SwatchHex hex="#FDB022" /></td></tr>
     <tr><td>text-success</td><td><code>--color-text-success</code></td><td><SwatchHex hex="#079455" /></td><td><SwatchHex hex="#47CD89" /></td></tr>
+    <tr><td>text-info</td><td><code>--color-text-info</code></td><td><SwatchHex hex="#155EEF" /></td><td><SwatchHex hex="#528BFF" /></td></tr>
+  </tbody>
+</table>
+
+### Foreground
+
+<table className="mb-10 [&_td]:py-[10px] [&_td]:px-[14px] [&_th]:py-[10px] [&_th]:px-[14px]">
+  <thead>
+    <tr><th>Token Name</th><th>CSS Variable</th><th>Light</th><th>Dark</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>fg-error-primary</td><td><code>--color-fg-error</code></td><td><SwatchHex hex="#D92D20" /></td><td><SwatchHex hex="#F04438" /></td></tr>
+    <tr><td>fg-error-secondary</td><td><code>--color-fg-error-secondary</code></td><td><SwatchHex hex="#F04438" /></td><td><SwatchHex hex="#F97066" /></td></tr>
+    <tr><td>fg-warning-primary</td><td><code>--color-fg-warning</code></td><td><SwatchHex hex="#DC6803" /></td><td><SwatchHex hex="#F79009" /></td></tr>
+    <tr><td>fg-warning-secondary</td><td><code>--color-fg-warning-secondary</code></td><td><SwatchHex hex="#F79009" /></td><td><SwatchHex hex="#FDB022" /></td></tr>
+    <tr><td>fg-success-primary</td><td><code>--color-fg-success</code></td><td><SwatchHex hex="#079455" /></td><td><SwatchHex hex="#17B26A" /></td></tr>
+    <tr><td>fg-success-secondary</td><td><code>--color-fg-success-secondary</code></td><td><SwatchHex hex="#17B26A" /></td><td><SwatchHex hex="#47CD89" /></td></tr>
+    <tr><td>fg-info-primary</td><td><code>--color-fg-info</code></td><td><SwatchHex hex="#155EEF" /></td><td><SwatchHex hex="#2970FF" /></td></tr>
+    <tr><td>fg-info-secondary</td><td><code>--color-fg-info-secondary</code></td><td><SwatchHex hex="#2970FF" /></td><td><SwatchHex hex="#528BFF" /></td></tr>
   </tbody>
 </table>
 
@@ -260,6 +287,7 @@ Neutral, brand and feedback palettes, plus the semantic tokens components consum
     <tr><td>bg-error-solid</td><td><code>--color-bg-error-solid</code></td><td><SwatchHex hex="#D92D20" /></td><td><SwatchHex hex="#D92D20" /></td></tr>
     <tr><td>bg-warning-solid</td><td><code>--color-bg-warning-solid</code></td><td><SwatchHex hex="#DC6803" /></td><td><SwatchHex hex="#DC6803" /></td></tr>
     <tr><td>bg-success-solid</td><td><code>--color-bg-success-solid</code></td><td><SwatchHex hex="#079455" /></td><td><SwatchHex hex="#079455" /></td></tr>
+    <tr><td>bg-info-solid</td><td><code>--color-bg-info-solid</code></td><td><SwatchHex hex="#155EEF" /></td><td><SwatchHex hex="#155EEF" /></td></tr>
     <tr><td>bg-disabled</td><td><code>--color-bg-disabled</code></td><td><SwatchHex hex="#F2F4F7" /></td><td><SwatchHex hex="#1F242F" /></td></tr>
   </tbody>
 </table>
@@ -276,6 +304,7 @@ Neutral, brand and feedback palettes, plus the semantic tokens components consum
     <tr><td>border-tertiary</td><td><code>--color-border-tertiary</code></td><td><SwatchHex hex="#F2F4F7" borderOnly /></td><td><SwatchHex hex="#1F242F" borderOnly /></td></tr>
     <tr><td>border-brand</td><td><code>--color-border-brand</code></td><td><SwatchHex hex="#2E9A92" borderOnly /></td><td><SwatchHex hex="#4BB7AE" borderOnly /></td></tr>
     <tr><td>border-error</td><td><code>--color-border-error</code></td><td><SwatchHex hex="#F04438" borderOnly /></td><td><SwatchHex hex="#F97066" borderOnly /></td></tr>
+    <tr><td>border-info</td><td><code>--color-border-info</code></td><td><SwatchHex hex="#2970FF" borderOnly /></td><td><SwatchHex hex="#528BFF" borderOnly /></td></tr>
     <tr><td>border-disabled</td><td><code>--color-border-disabled</code></td><td><SwatchHex hex="#D0D5DD" borderOnly /></td><td><SwatchHex hex="#333741" borderOnly /></td></tr>
   </tbody>
 </table>

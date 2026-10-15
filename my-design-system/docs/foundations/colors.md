@@ -1,6 +1,6 @@
 # Fundações — Cores
 
-> Cobre: Neutros, Marca, Feedback (Success/Warning/Error), paleta estendida e Tokens Semânticos com suporte total a Light/Dark Mode.
+> Cobre: Neutros, Marca, Feedback (Success/Warning/Error/Info), paleta estendida e Tokens Semânticos com suporte total a Light/Dark Mode.
 
 ---
 
@@ -118,7 +118,24 @@
 | 900 | `#074d31` | `--color-success-900` |
 | 950 | `#053321` | `--color-success-950` |
 
-### 1.8 Paleta estendida (uso em Badges/Tags multi-cor)
+### 1.8 Info (escala Blue dark — estados informativos)
+
+| Step | Hex | Token CSS |
+|---|---|---|
+| 25 | `#f5f8ff` | `--color-info-25` |
+| 50 | `#eff4ff` | `--color-info-50` |
+| 100 | `#d1e0ff` | `--color-info-100` |
+| 200 | `#b2ccff` | `--color-info-200` |
+| 300 | `#84adff` | `--color-info-300` |
+| 400 | `#528bff` | `--color-info-400` |
+| 500 | `#2970ff` | `--color-info-500` |
+| 600 | `#155eef` | `--color-info-600` |
+| 700 | `#004eeb` | `--color-info-700` |
+| 800 | `#0040c1` | `--color-info-800` |
+| 900 | `#00359e` | `--color-info-900` |
+| 950 | `#002266` | `--color-info-950` |
+
+### 1.9 Paleta estendida (uso em Badges/Tags multi-cor)
 
 Cada família segue o mesmo padrão 25–950. Valores completos disponíveis nos `_Primitives` do Figma; os passos usados nos componentes (Badge) estão realçados abaixo.
 
@@ -165,6 +182,7 @@ Cada família segue o mesmo padrão 25–950. Valores completos disponíveis nos
 | text-error-primary (600) | Error 600 `#d92d20` | Error 400 `#f97066` | `--color-text-error` |
 | text-warning-primary (600) | Warning 600 `#dc6803` | Warning 400 `#fdb022` | `--color-text-warning` |
 | text-success-primary (600) | Success 600 `#079455` | Success 400 `#47cd89` | `--color-text-success` |
+| text-info-primary (600) | Info 600 `#155eef` | Info 400 `#528bff` | `--color-text-info` |
 
 ### 2.2 Foreground (ícones/strokes decorativos)
 
@@ -182,8 +200,13 @@ Cada família segue o mesmo padrão 25–950. Valores completos disponíveis nos
 | fg-brand-primary (600) | Brand 600 `#1c7e78` | Brand 500 `#2e9a92` | `--color-fg-brand-primary` |
 | fg-brand-secondary (500) | Brand 500 | Brand 500 | `--color-fg-brand-secondary` |
 | fg-error-primary | Error 600 | Error 500 | `--color-fg-error` |
+| fg-error-secondary | Error 500 | Error 400 | `--color-fg-error-secondary` |
 | fg-warning-primary | Warning 600 | Warning 500 | `--color-fg-warning` |
+| fg-warning-secondary | Warning 500 | Warning 400 | `--color-fg-warning-secondary` |
 | fg-success-primary | Success 600 | Success 500 | `--color-fg-success` |
+| fg-success-secondary | Success 500 | Success 400 | `--color-fg-success-secondary` |
+| fg-info-primary | Info 600 | Info 500 | `--color-fg-info` |
+| fg-info-secondary | Info 500 | Info 400 | `--color-fg-info-secondary` |
 
 ### 2.3 Background
 
@@ -219,6 +242,9 @@ Cada família segue o mesmo padrão 25–950. Valores completos disponíveis nos
 | bg-success-primary | Success 50 | Success 500 | `--color-bg-success-primary` |
 | bg-success-secondary | Success 100 | Success 600 | `--color-bg-success-secondary` |
 | bg-success-solid | Success 600 | Success 600 | `--color-bg-success-solid` |
+| bg-info-primary | Info 50 | Info 500 | `--color-bg-info-primary` |
+| bg-info-secondary | Info 100 | Info 600 | `--color-bg-info-secondary` |
+| bg-info-solid | Info 600 | Info 600 | `--color-bg-info-solid` |
 
 ### 2.4 Border
 
@@ -233,6 +259,8 @@ Cada família segue o mesmo padrão 25–950. Valores completos disponíveis nos
 | border-brand_alt | Brand 600 | Gray-dark 700 | `--color-border-brand-alt` |
 | border-error | Error 500 | Error 400 | `--color-border-error` |
 | border-error_subtle | Error 300 | Error 400 | `--color-border-error-subtle` |
+| border-info | Info 500 | Info 400 | `--color-border-info` |
+| border-info_subtle | Info 300 | Info 400 | `--color-border-info-subtle` |
 
 ### 2.5 Balady (Custom Brand Overrides)
 
@@ -256,6 +284,7 @@ Escala `Brand` (teal `#2e9a92` / `#1c7e78`) — usada em: fill do Button Primary
 |---|---|---|
 | **Success** | Success 500/600 (`#17b26a` / `#079455`) | Badges de sucesso, `bg-success-solid`, `fg-success-primary`, indicador online do Avatar |
 | **Warning** | Warning 500/600 (`#f79009` / `#dc6803`) | Badges de aviso, `bg-warning-solid` |
+| **Info** | Info 500/600 (`#2970ff` / `#155eef`) | Banners/alertas informativos, `bg-info-solid`, `fg-info-primary`, `border-info` |
 | **Error** | Error 500/600 (`#f04438` / `#d92d20`) | Button destructive (`button-primary-error-bg` ≈ `#da2d20`), estados de validação (`border-error_subtle`), badges de erro |
 
 ### 3.4 Estados de Interação

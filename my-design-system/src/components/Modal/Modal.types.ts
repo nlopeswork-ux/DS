@@ -4,7 +4,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 export type ModalSize = 'sm' | 'md' | 'lg' | 'full';
 
 /** Tone of the featured icon circle. */
-export type ModalIconTone = 'brand' | 'success' | 'error' | 'warning' | 'gray';
+export type ModalIconTone = 'brand' | 'success' | 'error' | 'warning' | 'info' | 'gray';
 
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Controls visibility. The Modal is fully controlled — pair it with `onClose`. */

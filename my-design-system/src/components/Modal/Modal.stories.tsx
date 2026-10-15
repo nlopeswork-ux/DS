@@ -6,7 +6,7 @@ import { Modal } from './Modal';
 import type { ModalIconTone, ModalProps, ModalSize } from './Modal.types';
 
 const sizeOptions = ['sm', 'md', 'lg', 'full'] satisfies ModalSize[];
-const toneOptions = ['brand', 'success', 'error', 'warning', 'gray'] satisfies ModalIconTone[];
+const toneOptions = ['brand', 'success', 'error', 'warning', 'info', 'gray'] satisfies ModalIconTone[];
 const iconOptions = ['check_circle', 'layers', 'delete', 'warning', 'info', 'edit'];
 
 /** Placeholder for the optional body slot (md / lg / full) until the real content components exist. */

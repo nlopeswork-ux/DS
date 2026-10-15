@@ -103,6 +103,20 @@
   --color-success-900: var(--color-success-900);
   --color-success-950: var(--color-success-950);
 
+  /* Info */
+  --color-info-25: var(--color-info-25);
+  --color-info-50: var(--color-info-50);
+  --color-info-100: var(--color-info-100);
+  --color-info-200: var(--color-info-200);
+  --color-info-300: var(--color-info-300);
+  --color-info-400: var(--color-info-400);
+  --color-info-500: var(--color-info-500);
+  --color-info-600: var(--color-info-600);
+  --color-info-700: var(--color-info-700);
+  --color-info-800: var(--color-info-800);
+  --color-info-900: var(--color-info-900);
+  --color-info-950: var(--color-info-950);
+
   /* Paleta estendida (Badges/Tags) */
   --color-blue-50: var(--color-blue-50);
   --color-blue-200: var(--color-blue-200);
@@ -238,6 +252,16 @@
   --color-utility-success-500: var(--color-utility-success-500);
   --color-utility-success-600: var(--color-utility-success-600);
   --color-utility-success-700: var(--color-utility-success-700);
+
+  --color-utility-info-50: var(--color-utility-info-50);
+  --color-utility-info-100: var(--color-utility-info-100);
+  --color-utility-info-200: var(--color-utility-info-200);
+  --color-utility-info-300: var(--color-utility-info-300);
+  --color-utility-info-400: var(--color-utility-info-400);
+  --color-utility-info-500: var(--color-utility-info-500);
+  --color-utility-info-600: var(--color-utility-info-600);
+  --color-utility-info-700: var(--color-utility-info-700);
+
   --color-utility-gray-blue-50: var(--color-utility-gray-blue-50);
   --color-utility-gray-blue-100: var(--color-utility-gray-blue-100);
   --color-utility-gray-blue-200: var(--color-utility-gray-blue-200);
@@ -262,14 +286,6 @@
   --color-utility-blue-500: var(--color-utility-blue-500);
   --color-utility-blue-600: var(--color-utility-blue-600);
   --color-utility-blue-700: var(--color-utility-blue-700);
-  --color-utility-blue-dark-50: var(--color-utility-blue-dark-50);
-  --color-utility-blue-dark-100: var(--color-utility-blue-dark-100);
-  --color-utility-blue-dark-200: var(--color-utility-blue-dark-200);
-  --color-utility-blue-dark-300: var(--color-utility-blue-dark-300);
-  --color-utility-blue-dark-400: var(--color-utility-blue-dark-400);
-  --color-utility-blue-dark-500: var(--color-utility-blue-dark-500);
-  --color-utility-blue-dark-600: var(--color-utility-blue-dark-600);
-  --color-utility-blue-dark-700: var(--color-utility-blue-dark-700);
   --color-utility-indigo-50: var(--color-utility-indigo-50);
   --color-utility-indigo-100: var(--color-utility-indigo-100);
   --color-utility-indigo-200: var(--color-utility-indigo-200);
@@ -420,6 +436,7 @@
 @utility text-error { color: var(--color-text-error); }
 @utility text-warning { color: var(--color-text-warning); }
 @utility text-success { color: var(--color-text-success); }
+@utility text-info { color: var(--color-text-info); }
 
 /* Component colors */
 @utility text-tooltip-supporting { color: var(--color-tooltip-supporting-text); }
@@ -437,8 +454,13 @@
 @utility fg-brand-primary { color: var(--color-fg-brand-primary); }
 @utility fg-brand-secondary { color: var(--color-fg-brand-secondary); }
 @utility fg-error { color: var(--color-fg-error); }
+@utility fg-error-secondary { color: var(--color-fg-error-secondary); }
 @utility fg-warning { color: var(--color-fg-warning); }
+@utility fg-warning-secondary { color: var(--color-fg-warning-secondary); }
 @utility fg-success { color: var(--color-fg-success); }
+@utility fg-success-secondary { color: var(--color-fg-success-secondary); }
+@utility fg-info { color: var(--color-fg-info); }
+@utility fg-info-secondary { color: var(--color-fg-info-secondary); }
 
 /* Background */
 @utility bg-primary { background-color: var(--color-bg-primary); }
@@ -471,6 +493,9 @@
 @utility bg-success-primary { background-color: var(--color-bg-success-primary); }
 @utility bg-success-secondary { background-color: var(--color-bg-success-secondary); }
 @utility bg-success-solid { background-color: var(--color-bg-success-solid); }
+@utility bg-info-primary { background-color: var(--color-bg-info-primary); }
+@utility bg-info-secondary { background-color: var(--color-bg-info-secondary); }
+@utility bg-info-solid { background-color: var(--color-bg-info-solid); }
 
 /* Border */
 @utility border-primary { border-color: var(--color-border-primary); }
@@ -482,6 +507,8 @@
 @utility border-brand-alt { border-color: var(--color-border-brand-alt); }
 @utility border-error { border-color: var(--color-border-error); }
 @utility border-error-subtle { border-color: var(--color-border-error-subtle); }
+@utility border-info { border-color: var(--color-border-info); }
+@utility border-info-subtle { border-color: var(--color-border-info-subtle); }
 
 /* Sombra composta (não cabe na escala `shadow-*` de valor único) */
 @utility shadow-xs-skeuomorphic { box-shadow: var(--shadow-xs-skeuomorphic); }
