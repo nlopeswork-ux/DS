@@ -1,0 +1,131 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as ModalStories from './Modal.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={ModalStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div data-scale-container className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Modal
+
+A blocking dialog that interrupts the flow to confirm an action, collect short input or review information. Four sizes (`sm`, `md`, `lg`, `full`), responsive: `sm` and `md` become a bottom sheet on mobile, while `lg` and `full` become full screen.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={ModalStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={ModalStories.Playground} include={['Size', 'Featured Icon', 'Icon Tone', 'Dividers', 'Destructive']} />
+      <Controls of={ModalStories.Playground} include={['Dismiss on Esc', 'Dismiss on Overlay']} />
+      <Controls of={ModalStories.Playground} include={['Title', 'Supporting Text', 'Footer Start Action', 'Confirm Label', 'Cancel Label']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- **Simple action confirmation** — quick decisions with little content (`sm`, desktop and mobile).
+- **Publication confirmation** — when a contextual featured icon helps validate status.
+- **Short form** — `md`, with validation before completion and data preserved on error.
+- **Settings editing** — `md` or `lg`, with clearly separated Save and Cancel and unsaved-change handling.
+- **Information selection or review** — `lg`, using the body for lists, tables or summaries.
+- **Extensive, focused task** — `full`; always check whether a dedicated page would fit better.
+- **Destructive action** — compact composition with the consequences spelled out and direct labels such as "Delete item".
+
+### When not to use
+- Nested modals, excessively long forms, routine messages that fit in non-blocking feedback, and redundant confirmations for easily reversible actions.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Sizes', content: <Canvas of={ModalStories.Sizes} withToolbar={false} sourceState="none" /> },
+    { label: 'Destructive', content: <Canvas of={ModalStories.Destructive} withToolbar={false} sourceState="none" /> },
+    { label: 'Interactive', content: <Canvas of={ModalStories.Interactive} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Overlay** — `bg-overlay` at 70% with an 8px backdrop blur, on the modal z-index layer (`z-50`).
+- **Header** — optional featured icon, title, supporting text and the close (X) button. Hidden icon on mobile for `md`/`lg`/`full`.
+- **Body slot** — free content area (`md`, `lg`, `full`); scrolls when it overflows.
+- **Footer** — optional start action (e.g. "Chat to us") and the action group. On mobile the actions stack with the primary action on top and the start action is hidden.
+
+### Best practices
+- Keep a clear hierarchy between header, body and footer; avoid visual clutter.
+- The close button (X) and Cancel only *request* closure. If it would discard unsaved work, ask for confirmation first.
+- For `md`/`lg`/`full`, a compact confirmation modal may open on top ("Discard changes", "Delete item") — a deliberate exception to the no-nesting rule. Keep the original modal and its data intact; only the confirmation is interactive.
+- Esc and overlay clicks follow a risk-based policy (`dismissOnEsc`, `dismissOnOverlay`) and must never bypass a required confirmation.
+- Prevent duplicate submissions with a loading state on the primary action; keep the modal open and show errors next to the fields.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>Part</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Modal</strong></td>
+      <td>No state prop — it is either open or closed (controlled via <code>open</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Buttons</strong></td>
+      <td>Default, hover, focus and disabled are states of the internal <code>Button</code> and close button, not of the modal.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Semantics:** `role="dialog"` + `aria-modal="true"`, labelled by the title and described by the supporting text.
+- **Focus:** the dialog receives focus on open, Tab/Shift+Tab are trapped inside, and focus returns to the trigger on close.
+- **Scroll:** page scroll is locked while open.
+- **Keyboard:** Esc requests closure (unless `dismissOnEsc` is off).
+- **Close button:** icon-only, with an `aria-label` (default "Close").
+- **Previews:** the `inline` prop renders in place for docs only — it skips the portal, scroll lock and focus trap, so don't use it in product code.
+
+> Implementation note: the featured icon and close (X) button are internal placeholders until their own components exist.
