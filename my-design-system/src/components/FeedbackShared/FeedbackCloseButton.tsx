@@ -5,10 +5,10 @@ import { Icon } from '../Icon';
 
 /**
  * Placeholder for the "Button close X" component (docs/components/buttons.md §6),
- * which doesn't exist in the Design System yet — 36px variant used by Alert.
- * Internal for now — promote to `src/components/CloseButton` when it is built.
+ * which doesn't exist in the Design System yet — 36px variant shared by Alert,
+ * Banner and Toast. Promote to `src/components/CloseButton` when it is built.
  */
-export const AlertCloseButton = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>>(
+export const FeedbackCloseButton = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>>(
   ({ className, type = 'button', ...rest }, ref) => (
     <button
       ref={ref}
@@ -26,4 +26,4 @@ export const AlertCloseButton = forwardRef<HTMLButtonElement, ButtonHTMLAttribut
   ),
 );
 
-AlertCloseButton.displayName = 'AlertCloseButton';
+FeedbackCloseButton.displayName = 'FeedbackCloseButton';

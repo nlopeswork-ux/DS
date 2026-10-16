@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Alert } from './Alert';
-import type { AlertColor, AlertProps, AlertSize } from './Alert.types';
+import type { AlertColor, AlertProps } from './Alert.types';
 
-const colorOptions = ['informative', 'success', 'warning', 'error'] satisfies AlertColor[];
-const sizeOptions = ['floating', 'full-width'] satisfies AlertSize[];
+const colorOptions = ['info', 'success', 'warning', 'error'] satisfies AlertColor[];
 
 /** Copy taken from the Figma frames, per colour. */
 const copy: Record<AlertColor, { title: string; action: string }> = {
-  informative: { title: 'We’ve just released a new feature', action: 'View changes' },
+  info: { title: 'We’ve just released a new feature', action: 'View changes' },
   success: { title: 'Successfully updated profile', action: 'View profile' },
   warning: { title: 'Just to let you know this might be a problem', action: 'Review settings' },
   error: { title: 'There was a problem with that action', action: 'Try again' },
@@ -50,11 +49,10 @@ const meta = {
     controls: { expanded: false },
   },
   args: {
-    color: 'informative',
-    size: 'floating',
-    title: copy.informative.title,
+    color: 'info',
+    title: copy.info.title,
     supportingText: SUPPORTING,
-    actionLabel: copy.informative.action,
+    actionLabel: copy.info.action,
     dismissLabel: 'Dismiss',
     showSupportingText: true,
     showActions: true,
@@ -68,17 +66,11 @@ const meta = {
       control: { type: 'select' },
       options: colorOptions,
     },
-    size: {
-      name: 'Size',
-      description: 'Floating card, or a full-width banner across the page or section.',
-      control: { type: 'select' },
-      options: sizeOptions,
-    },
     title: { name: 'Title', description: 'Short heading of the message.', control: 'text' },
     showSupportingText: { name: 'Supporting Text', description: 'Shows the supporting text.', control: 'boolean' },
     supportingText: {
       name: 'Supporting Text Content',
-      description: 'Text below (or next to) the title.',
+      description: 'Text below the title.',
       control: 'text',
       if: { arg: 'showSupportingText', truthy: true },
     },
@@ -118,29 +110,24 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {};
 
 /**
- * The four semantic colours, floating and full-width.
+ * The four semantic colours.
  * Outside the sidebar (`!dev`) — embedded in Alert.mdx via `<Canvas of={AlertStories.Colors} />`.
  */
 export const Colors: Story = {
   tags: ['!dev'],
   parameters: { layout: 'padded' },
   render: () => (
-    <div className="flex w-full max-w-[900px] flex-col gap-2xl">
-      {sizeOptions.map((size) => (
-        <div key={size} className="flex flex-col gap-xl">
-          {colorOptions.map((color) => (
-            <Alert
-              key={color}
-              size={size}
-              color={color}
-              title={copy[color].title}
-              supportingText={SUPPORTING}
-              actionLabel={copy[color].action}
-              onAction={() => {}}
-              onDismiss={() => {}}
-            />
-          ))}
-        </div>
+    <div className="flex w-full max-w-[900px] flex-col gap-xl">
+      {colorOptions.map((color) => (
+        <Alert
+          key={color}
+          color={color}
+          title={copy[color].title}
+          supportingText={SUPPORTING}
+          actionLabel={copy[color].action}
+          onAction={() => {}}
+          onDismiss={() => {}}
+        />
       ))}
     </div>
   ),
@@ -155,9 +142,8 @@ export const Minimal: Story = {
   parameters: { layout: 'padded' },
   render: () => (
     <div className="flex w-full max-w-[900px] flex-col gap-xl">
-      <Alert color="success" title="Successfully updated profile" onDismiss={() => {}} />
-      <Alert color="error" title="There was a problem with that action" supportingText={SUPPORTING} showCloseButton={false} />
-      <Alert color="warning" size="full-width" title="Scheduled maintenance tonight at 22:00" showCloseButton={false} />
+      <Alert color="success" title="Successfully updated profile" dismissLabel="" onDismiss={() => {}} />
+      <Alert color="error" title="There was a problem with that action" supportingText={SUPPORTING} showCloseButton={false} dismissLabel="" actionLabel="Try again" />
     </div>
   ),
 };

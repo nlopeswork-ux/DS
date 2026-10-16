@@ -40,7 +40,7 @@ export const ExampleGallery = ({ tabs }) => {
 
 # Alert
 
-Communicates information, success, risk or failure without interrupting the workflow. Combines a semantic icon, a title, optional supporting text and an action group, in two presentations: **floating** (a delimited card) and **full-width** (a banner across the page or section). On mobile (< 640px) the full-width banner drops its icon and stacks its actions.
+Contextual messages inside a delimited interface area. Communicates information, success, risk or failure without necessarily interrupting the workflow, combining a semantic icon, a title, optional supporting text and action groups. Use [Banner](?path=/docs/components-banner--docs) for page-wide or section-wide messages and [Toast](?path=/docs/components-toast--docs) for brief feedback that can disappear on its own.
 
 <div className="border-b border-secondary mb-8" />
 
@@ -58,7 +58,7 @@ Communicates information, success, risk or failure without interrupting the work
   preview={<Story of={AlertStories.Playground} inline />}
   options={
     <>
-      <Controls of={AlertStories.Playground} include={['Color', 'Size', 'Close Button']} />
+      <Controls of={AlertStories.Playground} include={['Color', 'Close Button']} />
       <Controls of={AlertStories.Playground} include={['Supporting Text', 'Actions', 'Action Loading']} />
       <Controls of={AlertStories.Playground} include={['Title', 'Supporting Text Content', 'Action Label', 'Dismiss Label']} />
     </>
@@ -67,17 +67,19 @@ Communicates information, success, risk or failure without interrupting the work
 
 <h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
 
+There are eight variants: four semantic colors (Info, Error, Warning, Success) across two breakpoints (Desktop, Mobile). There is no Size property — the component is sized by content and breakpoint.
+
 ### When to use
-- **Informative** — news, changes or contextual information that is not a failure. Actions: "View changes", "Learn more".
+- **Info** — news, changes or contextual information without failure. Actions: "View changes", "Learn more".
 - **Success** — confirmation of a completed operation. Actions: view the profile or the result.
 - **Warning** — risks, limitations or conditions that may cause a problem. Actions: review the configuration, update data.
 - **Error** — an operation failed or a problem needs correcting. Actions: "Try again", "View details".
-- **Floating** — a delimited area of the interface with a title, an explanation and actions.
-- **Full-width** — a banner that spans the whole page or section.
+- **Presentation choice** — Alert (contextual), Banner (page or section), Toast (brief feedback).
 
 ### What to avoid
-- Several alerts competing for attention without a clear priority.
-- Using Warning for a failure that already happened — that is an Error.
+- Multiple alerts competing for attention without clear priority.
+- Using Warning for past failures.
+- Using an alert for a page-wide message that belongs in a Banner.
 - Treating "Dismiss" as "Resolve" or "Undo".
 
 <ExampleGallery
@@ -90,17 +92,19 @@ Communicates information, success, risk or failure without interrupting the work
 <h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
 
 ### Structure
-- **Featured icon** — a semantic glyph (info, check, alert) in the alert colour with two soft rings. Hidden on the mobile full-width banner.
+- **Featured icon** — a 32px tinted circle with a semantic glyph (info, check, alert) in the alert colour.
 - **Title** — short and descriptive, `text-sm` semibold.
-- **Supporting text** — optional; may contain an inline link. Below the title in a floating alert, inline after it in a full-width banner.
-- **Actions** — "Dismiss" plus one primary action, as link-style buttons. The informative full-width banner uses a secondary + primary button pair, stacked on mobile.
-- **Close (X) button** — optional, top-right.
+- **Supporting text** — optional, below the title.
+- **Actions** — "Dismiss" plus one result-oriented action, as small links.
+- **Close (X) button** — optional. On mobile the icon and the X share a top row and the content sits below.
 
-### Best practices
-- Show the alert close to the context it affects. It is not a modal: it never blocks the page and never traps focus.
-- Do not auto-hide alerts that contain essential actions.
-- The close button and "Dismiss" only hide the message — they never undo an operation or solve the underlying problem.
-- Use labels that describe the result ("Try again", "View changes"), and set `actionLoading` while an asynchronous action runs to prevent duplicate submissions.
+### Recommended behavior
+These are recommendations, not verified runtime behavior.
+1. Display the alert close to the affected context without blocking the page or applying a focus trap, as an alert is not a modal.
+2. Do not automatically hide messages that contain essential actions.
+3. The close button ("X") and "Dismiss" dismiss the message without undoing operations or solving the underlying problem.
+4. Use labels that describe the result (e.g., "Try again", "View changes") and prevent duplicate submissions during asynchronous tasks — set `actionLoading` while the action runs.
+5. Do not rely solely on color; combine text and semantic icons, and ensure accessible names for close buttons and visible focus for actions.
 
 <h2 id="states" className="text-2xl font-semibold">States</h2>
 
@@ -121,10 +125,10 @@ Communicates information, success, risk or failure without interrupting the work
 </table>
 
 <h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
-- **Semantics:** `role="alert"` for error and warning, `role="status"` for informative and success.
+- **Semantics:** `role="alert"` for Error, `role="status"` for Info, Success and Warning.
 - **Not only color:** every alert pairs its color with a semantic icon and text.
 - **Close button:** icon-only, with an `aria-label` (default "Dismiss alert").
 - **Focus:** actions and the close button have a visible focus ring; the alert itself is never a focus trap.
 - **Async actions:** the primary action is disabled and `aria-busy` while loading.
 
-> Implementation note: the featured icon and close (X) button are internal placeholders until their own components exist.
+> Implementation note: the featured icon and close (X) button are shared internal placeholders (`FeedbackShared`) until their own components exist.

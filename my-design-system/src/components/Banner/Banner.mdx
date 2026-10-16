@@ -1,0 +1,136 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as BannerStories from './Banner.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={BannerStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Banner
+
+A message that spans the whole page or a section. Communicates information, success, risk or failure that affects the page, without necessarily requiring a workflow interruption. It stays visible until dismissed or resolved. Shares tokens with Alert.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={BannerStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={BannerStories.Playground} include={['Color', 'Close Button']} />
+      <Controls of={BannerStories.Playground} include={['Supporting Text', 'Actions', 'Action Loading']} />
+      <Controls of={BannerStories.Playground} include={['Title', 'Supporting Text Content', 'Action Label', 'Dismiss Label']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+Eight variants are defined: Info, Error, Warning, Success × Desktop, Mobile. There is no Size property — the component is sized by content and breakpoint.
+
+### Actions
+**Info** uses a secondary `md` Dismiss and a primary `md` action: side by side on desktop, stacked with the primary action first on mobile. **Error, Warning and Success** use two small links: Dismiss and a result-oriented action. Primary and Secondary button styles apply only to Info.
+
+### When to use
+- **Info** — news, changes or contextual information without failure. Actions: "View changes", "Learn more".
+- **Success** — confirmation of a completed operation that affects the page or section. Actions: view the result.
+- **Warning** — risks, limitations or conditions that may cause a problem. Actions: review the configuration, update data.
+- **Error** — an operation failed or a problem needs correcting. Actions: "Try again", "View details".
+- **Presentation choice** — a Banner for a message that spans the page or a section; an Alert for a delimited area; a Toast for brief feedback that can disappear on its own.
+
+### What to avoid
+- Multiple banners competing for attention without clear priority.
+- Using Warning for past failures.
+- Using a banner for feedback about a single field or card.
+- Treating "Dismiss" as "Resolve" or "Undo".
+
+<ExampleGallery
+  tabs={[
+    { label: 'Colors', content: <Canvas of={BannerStories.Colors} withToolbar={false} sourceState="none" /> },
+    { label: 'Critical', content: <Canvas of={BannerStories.Critical} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Featured icon** — a 32px tinted circle with a semantic glyph, also on mobile.
+- **Title and supporting text** — inline on desktop (wrapping when needed), stacked on mobile. Supporting text may contain an inline link.
+- **Actions** — see above. On mobile they move below the text.
+- **Close (X) button** — optional; pinned top-right on mobile.
+
+### Recommended behavior
+Recommendations, not verified runtime behavior: show one global banner at a time, prioritized Error, Warning, Success, Info. Critical banners may hide both X and Dismiss (`showCloseButton={false}` and `dismissLabel=""`). Never auto-dismiss and never trap focus.
+1. Place the banner at the top of the affected page or section without blocking the page or applying a focus trap.
+2. Do not auto-dismiss banners. Critical messages may hide X and Dismiss so they remain visible until resolved.
+3. The close button ("X") and "Dismiss" dismiss the message without undoing operations or solving the underlying problem.
+4. Use labels that describe the result (e.g., "Try again", "View changes") and prevent duplicate submissions during asynchronous tasks.
+5. Do not rely solely on color; combine text and semantic icons, and ensure accessible names for close buttons and visible focus for actions.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>Part</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Banner</strong></td>
+      <td>No state prop — the consumer renders it or not, and handles <code>onDismiss</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Actions</strong></td>
+      <td>Default, hover, focus and disabled are states of the internal <code>Button</code> and close button. <code>actionLoading</code> disables the primary action.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Semantics:** for dynamic content, `role="alert"` for Error and `role="status"` for the other colors (the defaults).
+- **Present on page load:** pass `role="region"` and an accessible `aria-label` instead.
+- **Not only color:** every banner pairs its color with a semantic icon and text.
+- **Close button:** icon-only, with an `aria-label` (default "Dismiss banner").
+- **Focus:** actions and the close button have a visible focus ring; the banner is never a focus trap.
+
+> Implementation note: the documentation label is Info; the Figma Color variant still stores Informative. The featured icon and close (X) button are shared internal placeholders (`FeedbackShared`).

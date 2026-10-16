@@ -1,0 +1,158 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as ToastStories from './Toast.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={ToastStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Toast
+
+Brief, temporary messages that confirm the result of an action without interrupting the user's flow. They appear over the interface, stay visible for a few seconds and dismiss on their own — except errors, which stay until dismissed. For failures that persist or messages that need attention, use an Alert or a Banner instead.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={ToastStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={ToastStories.Playground} include={['Color', 'Close Button']} />
+      <Controls of={ToastStories.Playground} include={['Supporting Text', 'Action', 'Action Loading']} />
+      <Controls of={ToastStories.Playground} include={['Title', 'Supporting Text Content', 'Action Label']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+Toasts confirm the result of an action or share light, passive information without interrupting the workflow. They stay brief and scannable: a semantic icon, a short title, optional supporting text, and **at most one action**. They are visually elevated above the interface. The Playground preview is persistent so it doesn't vanish while you experiment — try the Interactive tab for the real timer.
+
+### When to use
+- **Info** — light, passive updates that need no decision, such as a finished background task or a copied link. Example action: "View".
+- **Success** — confirmation of a completed operation, such as saved changes or a sent message. Actions: "Undo", "View profile".
+- **Warning** — light, non-urgent risks that do not require immediate action, such as an unstable connection. Dismisses after about 8 seconds.
+- **Error** — only transient, recoverable failures that do not block the user, such as a failed save that can be retried. Does not dismiss automatically and should offer "Try again". If the problem persists or the user must act on it, use an Alert or a Banner.
+- **Presentation choice** — a Toast for brief feedback that can disappear without consequence; an Alert for a delimited area; a Banner for a page or section.
+
+### What to avoid
+- Using a toast for failures that persist or that block the user.
+- Putting an essential action inside a toast.
+- Showing several toasts at once without a limit.
+- Confirming success before the operation is really complete.
+- Treating the "X" as "Resolve" or "Undo".
+
+<ExampleGallery
+  tabs={[
+    { label: 'Colors', content: <Canvas of={ToastStories.Colors} withToolbar={false} sourceState="none" /> },
+    { label: 'Interactive', content: <Canvas of={ToastStories.Interactive} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Featured icon** — a bare 20px glyph with two soft rings (30% / 10%) in the toast colour.
+- **Title** — short; optional supporting text below.
+- **Action** — at most one small link. On mobile it sits below the content.
+- **Close (X) button** — optional. On mobile the icon and the X share a top row.
+- **Elevation** — `shadow-lg`; 384px wide on desktop (min 320px), full width on mobile.
+
+### Recommended behavior
+These recommendations describe the intended runtime behavior (implemented by `Toast` and `ToastProvider`).
+
+<table>
+  <thead>
+    <tr><th>Behavior</th><th>Recommendation</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Auto-dismiss</strong></td><td>5s without action, 8s with action, never under 4s. Warning toasts dismiss after about 8 seconds. Error stays until dismissed.</td></tr>
+    <tr><td><strong>Pause</strong></td><td>Pause the timer while the toast is hovered or contains focus, and resume when the user leaves.</td></tr>
+    <tr><td><strong>Max visible</strong></td><td>Show a maximum of three toasts at a time, with the most recent closest to the screen edge. Do not stack duplicates; restart the timer of the existing toast instead.</td></tr>
+    <tr><td><strong>Position</strong></td><td>Desktop upper-right, mobile screen bottom.</td></tr>
+    <tr><td><strong>ARIA</strong></td><td><code>role="status"</code> polite for Info, Success, and Warning; <code>role="alert"</code> assertive for Error.</td></tr>
+    <tr><td><strong>Focus</strong></td><td>Never move focus to the toast. Ensure visible action focus and accessibly named close.</td></tr>
+    <tr><td><strong>Reduced motion</strong></td><td>Respect reduced motion preferences by using a simple fade instead of a slide.</td></tr>
+    <tr><td><strong>Action availability</strong></td><td>The action is also available elsewhere because temporary toasts disappear.</td></tr>
+    <tr><td><strong>Essential actions</strong></td><td>Avoid essential or unique actions in a temporary message and prevent duplicate async submissions.</td></tr>
+    <tr><td><strong>Dismiss X</strong></td><td>Dismiss X does not undo or resolve the underlying problem.</td></tr>
+  </tbody>
+</table>
+
+### Usage
+
+```tsx
+<ToastProvider>{app}</ToastProvider>
+
+const { toast } = useToast();
+toast({ color: 'success', title: 'Successfully updated profile', actionLabel: 'View profile', onAction });
+```
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>Part</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Toast</strong></td>
+      <td>No state prop — it lives in the <code>ToastProvider</code> until its timer expires or the user dismisses it. <code>duration</code> overrides the default delay; <code>null</code> never auto-dismisses.</td>
+    </tr>
+    <tr>
+      <td><strong>Actions</strong></td>
+      <td>Default, hover, focus and disabled are states of the internal <code>Button</code> and close button. <code>actionLoading</code> disables the action.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Live region:** `role="status"` (polite) for Info, Success and Warning; `role="alert"` (assertive) for Error.
+- **Focus:** never moved to the toast; the action and close button have a visible focus ring.
+- **Not only color:** every toast pairs its color with a semantic icon and text.
+- **Close button:** icon-only, with an `aria-label` (default "Dismiss notification").
+- **Motion:** a slide in, or a simple fade under `prefers-reduced-motion`.
+- **Timer:** pauses while hovered or focused, so keyboard and pointer users are never rushed.
+
+> Implementation note: the featured icon and close (X) button are shared internal placeholders (`FeedbackShared`) until their own components exist.

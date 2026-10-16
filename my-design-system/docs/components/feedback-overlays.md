@@ -56,32 +56,92 @@ Sem prop de estado: Default/Hover/Focus/Disabled pertencem aos botões internos.
 
 ## 2. Alert
 
-> Fonte: Figma KDS — Design System, frame "Alerts" (`1130:81134`).
+> Fonte: Figma KDS — Design System, frame "Alert" (`1130:81134`). O Alert ficou só com a apresentação *floating*; as variantes full-width passaram a Banner e o feedback efémero a Toast.
 
 ### 2.1 Props (TypeScript)
 
 ```ts
 type AlertProps = {
-  color: 'informative' | 'success' | 'warning' | 'error';
-  size: 'floating' | 'full-width';
-  breakpoint: 'Desktop' | 'Mobile';   // responsivo por CSS (< 640px = Mobile)
+  color: 'info' | 'success' | 'warning' | 'error';   // Figma guarda "Informative"
+  breakpoint: 'Desktop' | 'Mobile';                  // responsivo por CSS (< 640px = Mobile)
   title; supportingText?; actionLabel?; dismissLabel?;
   onAction?; onDismiss?; showCloseButton?; actionLoading?;
 };
 ```
 
-Sem prop de estado: Default/Hover/Focus/Disabled pertencem aos botões internos.
+Sem prop `size` nem de estado: Default/Hover/Focus/Disabled pertencem aos botões internos.
 
-### 2.2 Variantes
+### 2.2 Anatomia
+Cartão `radius-xl`, borda `border-primary`, `bg-primary-alt`, `shadow-xs`, padding `spacing-xl`, gap `spacing-xl`. Ícone em destaque: círculo de 32px `bg-{cor}-secondary` com glifo de 16px. Ações: `Link gray` (Dismiss) + `Link color` (ação principal).
+- Desktop: ícone · conteúdo · X numa linha.
+- Mobile: ícone e X na linha de topo, conteúdo por baixo.
 
-| Size | Desktop | Mobile |
-|---|---|---|
-| `floating` | Cartão (`radius-xl`, borda `border-primary`, `shadow-xs`, padding `spacing-xl`); ícone + título + texto + ações; X no canto superior direito | Igual, largura 100% |
-| `full-width` | Banner com `border-b`, conteúdo máx. 1280px, texto inline, ações + X à direita | `border-t`, sem ícone, ações por baixo; informativo empilha Primary acima de Secondary (100% largura) |
-
-Ações: `Link gray` (Dismiss) + `Link color` (ação principal); o banner `informative` usa `Secondary gray` + `Primary`.
-
-### 2.3 Regras de comportamento
-- Não bloqueia a página nem prende o foco; não esconder automaticamente alertas com ações essenciais.
+### 2.3 Comportamento
+- Junto ao contexto afetado; não bloqueia a página nem prende o foco. Não esconder automaticamente alertas com ações essenciais.
 - X e "Dismiss" apenas dispensam — nunca resolvem nem desfazem.
-- `role="alert"` em error/warning, `role="status"` nos restantes; cor sempre acompanhada de ícone semântico.
+- `role="alert"` em error, `role="status"` nos restantes; cor sempre acompanhada de ícone semântico.
+
+---
+
+## 3. Banner
+
+> Fonte: Figma KDS — Design System, frame "Banner" (`7781:465680`).
+
+### 3.1 Props (TypeScript)
+
+```ts
+type BannerProps = {
+  color: 'info' | 'success' | 'warning' | 'error';
+  breakpoint: 'Desktop' | 'Mobile';
+  title; supportingText?; actionLabel?; dismissLabel?;
+  onAction?; onDismiss?; showCloseButton?; actionLoading?;
+};
+```
+
+### 3.2 Variantes
+
+| | Desktop | Mobile |
+|---|---|---|
+| Layout | `border-b`, conteúdo máx. 1280px, padding `container-padding-desktop` × `spacing-lg`; ícone · título + texto inline · ações · X | `border-t`, padding `spacing-xl`; ícone + texto, ações por baixo, X no canto superior direito |
+| `info` | `Secondary gray` md + `Primary` md lado a lado | Empilhados, Primary primeiro, 100% largura |
+| `error` / `warning` / `success` | `Link gray` + `Link color` | Idem, por baixo do texto |
+
+### 3.3 Comportamento
+- Um banner global de cada vez, por prioridade Error > Warning > Success > Info. Nunca auto-dismiss, nunca prende o foco.
+- Banners críticos podem esconder X e Dismiss (`showCloseButton={false}`, `dismissLabel=""`).
+- `role="alert"` em error, `role="status"` nos restantes; presente no carregamento da página → região com `aria-label`.
+
+---
+
+## 4. Toast
+
+> Fonte: Figma KDS — Design System, frame "Toast" (`7779:464998`).
+
+### 4.1 Props (TypeScript)
+
+```ts
+type ToastProps = {
+  color: 'info' | 'success' | 'warning' | 'error';
+  breakpoint: 'Desktop' | 'Mobile';
+  title; supportingText?; actionLabel?;              // no máximo uma ação
+  onAction?; onDismiss?; showCloseButton?;
+  duration?: number | null; restartKey?; actionLoading?;
+};
+// ToastProvider + useToast() → toast({...}), dismiss(id), dismissAll()
+```
+
+### 4.2 Anatomia
+Cartão elevado (`shadow-lg`, `radius-xl`, `bg-primary-alt`), 384px (mín. 320px) no desktop e largura total no mobile. Ícone outline de 20px com dois anéis (30% / 10%). Uma só ação `Link color`. Desktop: ícone · conteúdo · X; Mobile: ícone e X em cima, conteúdo e ação por baixo.
+
+### 4.3 Comportamento
+
+| Comportamento | Regra |
+|---|---|
+| Auto-dismiss | 5s sem ação, 8s com ação, nunca < 4s. Warning ≈ 8s. Error persiste até ser dispensado. |
+| Pausa | O timer pausa com hover ou foco dentro do toast e retoma ao sair. |
+| Máx. visíveis | 3; o mais recente junto ao bordo do ecrã. Sem duplicados — reinicia o timer do existente. |
+| Posição | Desktop: canto superior direito. Mobile: fundo do ecrã. |
+| ARIA | `role="status"` (polite) em info/success/warning; `role="alert"` (assertive) em error. |
+| Foco | Nunca move o foco para o toast. |
+| Movimento | Slide de entrada; `prefers-reduced-motion` → fade simples. |
+| Ação | Tem de existir também noutro sítio da interface; evitar ações essenciais; prevenir submissões duplicadas. |

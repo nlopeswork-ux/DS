@@ -512,3 +512,24 @@
 
 /* Sombra composta (não cabe na escala `shadow-*` de valor único) */
 @utility shadow-xs-skeuomorphic { box-shadow: var(--shadow-xs-skeuomorphic); }
+
+/* Toast entrance — slides in from the screen edge; reduced motion gets a plain fade. */
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes toast-in-mobile {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes toast-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.toast-enter { animation: toast-in 200ms ease-out both; }
+@media (max-width: 639px) {
+  .toast-enter { animation-name: toast-in-mobile; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast-enter { animation-name: toast-fade; }
+}

@@ -1,14 +1,11 @@
 import type { HTMLAttributes, ReactNode } from 'react';
+import type { FeedbackColor } from '../FeedbackShared';
 
-/** Semantic colour of the alert — drives the featured icon and its default glyph. */
-export type AlertColor = 'informative' | 'success' | 'warning' | 'error';
+/** Semantic colour of the alert — drives the featured icon. */
+export type AlertColor = FeedbackColor;
 
-/** `floating` — bordered card for a delimited area. `full-width` — banner spanning the page or section. */
-export type AlertSize = 'floating' | 'full-width';
-
-export interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+export interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'color'> {
   color?: AlertColor;
-  size?: AlertSize;
   title: ReactNode;
   /** Optional supporting text. Accepts nodes so it can contain an inline link. */
   supportingText?: ReactNode;
