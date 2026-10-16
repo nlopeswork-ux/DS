@@ -398,3 +398,24 @@ type SliderProps = {
 - Escala de sombras (`shadow-md`, `shadow-lg`): [`foundations/shadows-elevation.md §1`](../foundations/shadows-elevation.md#1-sombras-drop-shadows)
 - Focus rings: [`foundations/shadows-elevation.md §3`](../foundations/shadows-elevation.md#3-focus-rings)
 - Tipografia display (Progress Circle): [`foundations/typography.md §3`](../foundations/typography.md#3-tamanhos-font-sizes--text-xs--display-2xl)
+
+---
+
+## Misc Icons — Featured icon / Featured icon outline
+
+> Fonte: Figma KDS — Design System, frames "Featured icon" (`1102:5338`) e "Featured icon outline" (`4843:410985`). Grupo **Misc Icons** do Storybook.
+
+```ts
+type FeaturedIconProps = {
+  name?: string;                                   // glifo do set Icon (Material Symbols) — nunca o exemplo do Figma
+  color: 'brand' | 'gray' | 'error' | 'warning' | 'success' | 'info';
+  size: 'sm' | 'md' | 'lg' | 'xl';
+};
+```
+
+| Componente | sm | md | lg | xl | Estrutura |
+|---|---|---|---|---|---|
+| `FeaturedIcon` | círculo 32 / glifo 16 | 40 / 20 | 48 / 24 | 56 / 28 | círculo `rounded-full`, fundo `bg-{cor}-secondary` (`bg-tertiary` em gray) |
+| `FeaturedIconOutline` | glifo 16 | 20 | 24 | 28 | dois anéis de 2px: interno a 30% (+4px), externo a 10% (+9px) |
+
+Cores do glifo: `fg-brand-primary`, `fg-quaternary` (gray), `fg-error`, `fg-warning`, `fg-success`, `fg-info`. Decorativos (`aria-hidden`); usados por Modal (`lg`), Alert/Banner (`sm`) e Toast (outline `md`).

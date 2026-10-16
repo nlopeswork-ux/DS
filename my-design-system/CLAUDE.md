@@ -25,7 +25,7 @@ Todas as especificações técnicas de Design Tokens e Componentes estão dividi
   * Badges & Tags (Badge, Badge Group, Tag): `docs/components/badges-tags.md`
   * Form Controls (Input Field, Dropdown, Checkbox, Toggle, Groups): `docs/components/form-controls.md`
   * Navegação (Dropdown Menus, Button Group): `docs/components/navigation.md`
-  * Feedback & Visuals (Avatar, Tooltip, Help Icon, Progress, Slider): `docs/components/feedback-visuals.md`
+  * Feedback & Visuals (Avatar, Tooltip, Help Icon, Progress, Slider, Featured Icon): `docs/components/feedback-visuals.md`
   * Feedback & Overlays (Modal, Alert, Banner, Toast): `docs/components/feedback-overlays.md`
 
 ---
@@ -252,6 +252,10 @@ Estas regras nasceram de bugs reais encontrados e corrigidos em produção — m
 **Nunca desenhes um SVG à mão para um glifo que já existe nos Material Symbols** (ver `fonts.google.com/icons`). `Icon` (`src/components/Icon/Icon.tsx`) é a única fonte de ícones funcionais do design system — `Textarea`'s antigo `HelpCircleIcon`/`AlertCircleIcon` (SVGs à mão, inconsistentes com o `Icon name="help"` já usado em `Input`) foram removidos e substituídos por `Icon` por esta razão. SVGs à mão só se justificam para gráficos genuinamente não-icónicos (ex.: `CardIcon` em `Input.stories.tsx`, um mockup de cartão de crédito, não um glifo).
 
 **Armadilha crítica confirmada (afeta todo o sistema, não só um componente):** o tamanho de fonte de `Icon` é definido via `style={{ fontSize: ... }}` inline — **nunca** através de uma classe Tailwind `text-[Npx]`. Isto não é estético: a stylesheet de fallback que a Google Fonts serve para `Material Symbols Outlined` (servida a alguns navegadores/user-agents, incluindo o Chromium do Playwright usado para QA) inclui a sua própria regra `.material-symbols-outlined { font-size: 24px; ... }`, escrita como CSS **sem `@layer`**. Numa cascata CSS, uma regra sem `@layer` tem sempre prioridade sobre qualquer regra dentro de `@layer` — e as utilities do Tailwind (`text-[16px]`, etc.) vivem todas em `@layer utilities`. O resultado, antes desta correção: todo o ícone renderizava a 24px fixos independentemente do `size` pedido — maior do que devido e descentrado nas caixas menores (`xs`/`sm`). Um `style` inline não tem esta competição (vence qualquer stylesheet externa, `!important` à parte), por isso é o único mecanismo seguro para esta propriedade especificamente. Nunca reintroduzas `text-[Npx]` no `sizeStyles` de `Icon.tsx`.
+
+### Glifos vêm sempre do `Icon` do Storybook — nunca do exemplo do Figma (regra permanente)
+
+O Figma mostra um glifo de exemplo dentro de cada componente (ex.: o `alert-circle` dos Featured icons). **Esse glifo é só ilustrativo e nunca se copia** (nem como SVG, nem como asset exportado): o glifo é sempre um nome do set Material Symbols renderizado pelo componente `Icon`, exposto ao utilizador como `name` + `control: { type: 'select' }` com lista curada (ver "Nomes de ícones…" na secção 2). Isto aplica-se a todo o componente novo ou existente. Os componentes compostos de ícone vivem no grupo **Misc Icons** (`Components/Misc Icons/…`, e a secção "Misc Icons" de `src/docs/foundations/Icons.mdx`): `FeaturedIcon` e `FeaturedIconOutline` — Modal, Alert, Banner e Toast usam-nos em vez de placeholders locais.
 
 ### Nomenclatura da Sidebar — espaço entre palavras + ordem alfabética
 

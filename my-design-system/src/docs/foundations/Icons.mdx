@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Meta } from '@storybook/addon-docs/blocks';
 import { Icon } from '../../components/Icon';
+import { FeaturedIcon, FeaturedIconOutline } from '../../components/FeaturedIcon';
 
 <Meta title="Foundations/Icons" />
 
@@ -136,6 +137,41 @@ export const IconLibrary = () => {
   );
 };
 
+export const miscColors = ['brand', 'gray', 'error', 'warning', 'success', 'info'];
+export const miscSizes = ['sm', 'md', 'lg', 'xl'];
+
+{/* Misc icons — composite icons built on top of `Icon` (glyph always comes from the Icon set). Live, so they follow the components. */}
+export const MiscIcons = () => (
+  <div className="grid gap-x-8 gap-y-10 md:grid-cols-2">
+    {[
+      { label: 'Featured Icon', href: '?path=/docs/components-misc-icons-featured-icon--docs', Component: FeaturedIcon, hint: 'Circle 32 / 40 / 48 / 56px' },
+      { label: 'Featured Icon Outline', href: '?path=/docs/components-misc-icons-featured-icon-outline--docs', Component: FeaturedIconOutline, hint: 'Glyph 16 / 20 / 24 / 28px' },
+    ].map(({ label, href, Component, hint }) => (
+      <div key={label} className="foundation-group-block">
+        <span className="foundation-group-label block text-sm font-semibold text-primary">{label}</span>
+        <p className="mb-4 text-xs text-tertiary">{hint}</p>
+        <div className="grid grid-cols-[auto_repeat(4,1fr)] items-center gap-x-4 gap-y-6 rounded-lg border border-secondary bg-secondary p-6">
+          <span />
+          {miscSizes.map((size) => (
+            <span key={size} className="text-center font-mono text-tertiary" style={{ fontSize: '11px' }}>{size}</span>
+          ))}
+          {miscColors.map((color) => (
+            <div key={color} className="contents">
+              <span className="pr-2 text-xs font-medium text-secondary">{color}</span>
+              {miscSizes.map((size) => (
+                <div key={size} className="flex items-center justify-center">
+                  <Component color={color} size={size} />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <a href={href} className="mt-3 inline-block text-xs font-semibold text-brand-secondary">Open {label} docs</a>
+      </div>
+    ))}
+  </div>
+);
+
 # Icons
 
 The Design System's single, official icon set — [Google Material Symbols](https://fonts.google.com/icons), a variable font loaded once globally (`.storybook/preview-head.html` / `index.html`). No SVG library, no emoji — every icon in the product goes through the [`Icon`](?path=/docs/components-icon--docs) component and a name from this catalog.
@@ -145,6 +181,7 @@ The Design System's single, official icon set — [Google Material Symbols](http
 <nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
   <a href="#usage" onClick={(e) => scrollToSection(e, 'usage')} className="text-brand-secondary font-semibold">Usage</a>
   <a href="#library" onClick={(e) => scrollToSection(e, 'library')} className="text-brand-secondary font-semibold">Icon Library</a>
+  <a href="#misc-icons" onClick={(e) => scrollToSection(e, 'misc-icons')} className="text-brand-secondary font-semibold">Misc Icons</a>
 </nav>
 
 <h2 id="usage" className="text-2xl font-semibold">Usage</h2>
@@ -162,3 +199,9 @@ This is a representative sample, not the full catalog — Material Symbols has t
 <h2 id="library" className="text-2xl font-semibold">Icon Library</h2>
 
 <IconLibrary />
+
+<h2 id="misc-icons" className="text-2xl font-semibold">Misc Icons</h2>
+
+Composite icons built on top of `Icon`: they add a tinted circle or concentric rings around a glyph. In both, **the glyph is always a name from the Icon Library above** — never an ad-hoc SVG.
+
+<MiscIcons />

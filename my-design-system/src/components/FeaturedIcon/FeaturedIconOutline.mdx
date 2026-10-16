@@ -1,0 +1,101 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as FeaturedIconOutlineStories from './FeaturedIconOutline.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={FeaturedIconOutlineStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Featured Icon Outline
+
+Part of **Misc Icons**. A bare glyph from the [`Icon`](?path=/docs/components-icon--docs) set surrounded by two concentric rings (30% and 10% opacity). Used where the icon sits on an elevated surface, such as [Toast](?path=/docs/components-toast--docs). Four glyph sizes (16 / 20 / 24 / 28px) × six colors.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={FeaturedIconOutlineStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={FeaturedIconOutlineStories.Playground} include={['Icon', 'Color', 'Size']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- **Brand** — neutral product emphasis, e.g. a feature or onboarding step.
+- **Gray** — neutral, low emphasis.
+- **Info** — contextual information.
+- **Success** — a completed operation.
+- **Warning** — a risk or limitation.
+- **Error** — a failure or a destructive action.
+
+For a filled circle (Modal, Alert, Banner) use [Featured Icon](?path=/docs/components-misc-icons-featured-icon--docs).
+
+<ExampleGallery
+  tabs={[
+    { label: 'Sizes & Colors', content: <Canvas of={FeaturedIconOutlineStories.Matrix} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Glyph** — any name from the `Icon` set, in the colour's foreground token. The default is `error`.
+- **Inner ring** — 2px, 30% opacity, 4px outside the glyph.
+- **Outer ring** — 2px, 10% opacity, 9px outside the glyph.
+
+### Best practices
+- The rings overflow the component's box: leave about 9px of room around it so they aren't clipped.
+- The glyph is **always** a Material Symbol from the `Icon` set — never an ad-hoc SVG.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+Static and decorative — no interactive states. Hover, focus and disabled belong to whatever control contains it.
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Decorative:** the glyph is `aria-hidden` (the `Icon` default). Always pair it with visible text — never rely on color alone.
+- **Contrast:** glyph and rings use the semantic foreground tokens, which adapt to dark mode.

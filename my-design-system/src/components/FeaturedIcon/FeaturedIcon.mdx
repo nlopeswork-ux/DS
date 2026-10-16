@@ -1,0 +1,100 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as FeaturedIconStories from './FeaturedIcon.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={FeaturedIconStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Featured Icon
+
+Part of **Misc Icons**. A tinted circle around a glyph from the [`Icon`](?path=/docs/components-icon--docs) set, used to give a message, dialog or empty state a semantic visual anchor. Four sizes (32 / 40 / 48 / 56px) × six colors.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={FeaturedIconStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={FeaturedIconStories.Playground} include={['Icon', 'Color', 'Size']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- **Brand** — neutral product emphasis, e.g. a feature or onboarding step.
+- **Gray** — neutral, low emphasis.
+- **Info** — contextual information.
+- **Success** — a completed operation.
+- **Warning** — a risk or limitation.
+- **Error** — a failure or a destructive action.
+
+It is already used by [Modal](?path=/docs/components-modal--docs) (`lg`), [Alert](?path=/docs/components-alert--docs) and [Banner](?path=/docs/components-banner--docs) (`sm`). For a bare glyph with rings (Toast) use [Featured Icon Outline](?path=/docs/components-misc-icons-featured-icon-outline--docs).
+
+<ExampleGallery
+  tabs={[
+    { label: 'Sizes & Colors', content: <Canvas of={FeaturedIconStories.Matrix} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Circle** — `rounded-full`, filled with the colour's secondary background (`bg-tertiary` for gray).
+- **Glyph** — any name from the `Icon` set, centered, at 16 / 20 / 24 / 28px for `sm` / `md` / `lg` / `xl`. The default is `error`; pick the glyph that matches the meaning.
+
+### Best practices
+- The glyph is **always** a Material Symbol from the `Icon` set — never an ad-hoc SVG.
+- Match glyph and color (`check_circle` + success, `error` + warning/error, `info` + info).
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+Static and decorative — no interactive states. Hover, focus and disabled belong to whatever control contains it.
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Decorative:** the glyph is `aria-hidden` (the `Icon` default). Always pair it with visible text — never rely on color alone.
+- **Contrast:** glyph and rings use the semantic foreground tokens, which adapt to dark mode.

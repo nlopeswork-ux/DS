@@ -3,7 +3,7 @@ import type { KeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../utils/cn';
 import { ModalCloseButton } from './ModalCloseButton';
-import { ModalFeaturedIcon } from './ModalFeaturedIcon';
+import { FeaturedIcon } from '../FeaturedIcon';
 import type { ModalProps, ModalSize } from './Modal.types';
 
 /**
@@ -143,7 +143,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               showDividers && 'border-b border-secondary',
             )}
           >
-            {icon && <ModalFeaturedIcon name={icon} tone={iconTone} className={cn(!isCompact && 'max-sm:hidden')} />}
+            {icon && <FeaturedIcon name={icon} color={iconTone} size="lg" className={cn(!isCompact && 'max-sm:hidden')} />}
             <div className={cn('flex min-w-0 flex-1 flex-col gap-xs', !isCompact && 'pr-10')}>
               {/* div+role (not h2/p) so Storybook's global docs heading/paragraph styles never leak into the dialog */}
               <div id={titleId} role="heading" aria-level={2} className="text-lg leading-7 font-semibold text-primary">
