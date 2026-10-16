@@ -1,83 +1,245 @@
+import { useState } from 'react';
 import { Meta } from '@storybook/addon-docs/blocks';
+import { addons } from 'storybook/preview-api';
+import { Alert } from '../components/Alert';
+import { AvatarLabelGroup } from '../components/Avatar';
+import { AvatarGroup } from '../components/AvatarGroup';
+import { Badge } from '../components/Badge';
+import { Breadcrumbs } from '../components/Breadcrumbs';
+import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
+import { Input } from '../components/Input';
+import { Tabs } from '../components/Tabs';
 
 <Meta title="Introduction" />
 
-<div className="relative isolate overflow-hidden rounded-xl bg-brand-section h-fit py-10 px-8 mb-10">
-  <div className="relative z-10 flex flex-col items-start gap-lg">
-    <div className="flex items-center gap-md flex-nowrap">
-      <h1 className="m-0 text-4xl font-extrabold text-white font-display whitespace-nowrap" style={{ color: '#ffffff' }}>My Design System</h1>
-      <span className="shrink-0 rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-700">v1.0.0</span>
+{/*
+  Homepage — built from the system's own components and tokens (Button, Tabs, Alert, Badge,
+  Avatar, Breadcrumbs, Input, Icon) so it doubles as a live smoke test. Layout, motion and the
+  reset of Storybook's docs typography live under `.kds-home` in .storybook/preview-styles.css.
+*/}
+
+export const photo = (name) => `${import.meta.env.BASE_URL}avatars/${name}.jpg`;
+
+{/* Docs entries open through the manager — same event the Storybook `linkTo` addon uses. */}
+export const open = (storyId) => () => addons.getChannel().emit('selectStory', { storyId, viewMode: 'docs' });
+
+export const CopyCommand = ({ command }) => {
+  const [copied, setCopied] = useState(false);
+  const copy = () => {
+    navigator.clipboard
+      ?.writeText(command)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1600);
+      })
+      .catch(() => {}); // clipboard blocked: leave the label as "Copy" rather than claim success
+  };
+  return (
+    <div className="flex items-center justify-between gap-xl rounded-lg bg-primary-solid py-lg pr-lg pl-xl">
+      <pre className="m-0 overflow-x-auto bg-transparent p-0 text-sm text-white">
+        <code>{command}</code>
+      </pre>
+      <Button
+        hierarchy="Secondary gray"
+        size="sm"
+        iconLeading
+        iconLeadingSwap={<Icon name={copied ? 'check' : 'content_copy'} size="sm" />}
+        onClick={copy}
+      >
+        {copied ? 'Copied' : 'Copy'}
+      </Button>
     </div>
-    <p className="max-w-[600px] text-base leading-[1.6] mt-4" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{'Ready-to-use components, tokens and UX guidelines — built for visual consistency, AA accessibility and performance, with full Light and Dark Mode support.'}</p>
+  );
+};
+
+export const members = [
+  { name: 'Olivia Rhye', email: 'olivia@kds.design', photo: 'women-44', role: 'Admin', roleColor: 'Brand' },
+  { name: 'Marcus Hale', email: 'marcus@kds.design', photo: 'men-32', role: 'Editor', roleColor: 'Gray' },
+  { name: 'Amara Osei', email: 'amara@kds.design', photo: 'women-68', role: 'Viewer', roleColor: 'Gray' },
+];
+
+export const TeamPreview = () => (
+  <div
+    className="kds-stage flex flex-col gap-3xl rounded-xl bg-secondary p-3xl"
+    onClickCapture={(event) => {
+      if (event.target.closest('a')) event.preventDefault();
+    }}
+  >
+    <Breadcrumbs items={[{ icon: 'home', ariaLabel: 'Home', href: '#' }, { label: 'Settings', href: '#' }, { label: 'Team' }]} />
+    <div className="flex flex-wrap items-end justify-between gap-xl">
+      <div className="flex flex-col gap-xs">
+        <h3 className="kds-h3 kds-h3-lg">Team members</h3>
+        <div className="text-sm text-tertiary">Manage who can access this workspace and what they can do.</div>
+      </div>
+      <AvatarGroup
+        size="md"
+        avatars={[
+          { src: photo('women-44'), alt: 'Olivia Rhye' },
+          { src: photo('men-32'), alt: 'Marcus Hale' },
+          { src: photo('women-68'), alt: 'Amara Osei' },
+          { src: photo('men-75'), alt: 'Daniel Park' },
+        ]}
+      />
+    </div>
+    <Tabs
+      type="Button"
+      size="sm"
+      aria-label="Team sections"
+      items={[
+        {
+          value: 'members',
+          label: 'Members',
+          badge: 4,
+          content: (
+            <div className="flex flex-col gap-xl pt-xl">
+              <div className="flex flex-wrap items-center gap-lg">
+                <div className="min-w-[200px] flex-1">
+                  <Input type="iconLeading" iconSwap={<Icon name="search" size="sm" className="fg-quaternary" />} placeholder="Search members" aria-label="Search members" helpIcon={false} />
+                </div>
+                <Button hierarchy="Primary" size="md" iconLeading iconLeadingSwap={<Icon name="add" size="sm" />}>Invite member</Button>
+              </div>
+              <ul className="kds-members flex flex-col">
+                {members.map((member) => (
+                  <li key={member.name} className="kds-row flex flex-wrap items-center justify-between gap-lg rounded-md px-lg py-md">
+                    <AvatarLabelGroup size="md" src={photo(member.photo)} alt="" name={member.name} supportingText={member.email} />
+                    <div className="flex items-center gap-md">
+                      <Badge size="sm" type="Pill color" color={member.roleColor}>{member.role}</Badge>
+                      <Badge size="sm" type="Pill color" color="Success" icon="Dot">Active</Badge>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <Alert color="warning" title="Seats are almost full" supportingText="You are using 8 of 10 seats. Add seats before inviting more people." actionLabel="Add seats" showCloseButton={false} dismissLabel="" />
+            </div>
+          ),
+        },
+        { value: 'roles', label: 'Roles', content: <div className="pt-xl text-sm text-tertiary">Roles decide what each member can see and change.</div> },
+        { value: 'invitations', label: 'Invitations', badge: 2, content: <div className="pt-xl text-sm text-tertiary">Two invitations are waiting to be accepted.</div> },
+      ]}
+    />
+  </div>
+);
+
+export const Row = ({ index, title, text, action, storyId }) => (
+  <div className="kds-row kds-reveal flex flex-col items-start gap-lg rounded-xl bg-secondary p-3xl" style={{ '--i': index }}>
+    <h3 className="kds-h3 kds-h3-lg">{title}</h3>
+    <p className="!m-0 max-w-[520px] text-base text-tertiary">{text}</p>
+    <Button hierarchy="Link color" size="md" iconTrailing iconTrailingSwap={<Icon name="arrow_forward" size="sm" />} onClick={open(storyId)}>{action}</Button>
+  </div>
+);
+
+export const Swatches = ({ classes, label }) => (
+  <div className="flex flex-col gap-md">
+    <div className="text-sm font-semibold text-secondary">{label}</div>
+    <div className="flex overflow-hidden rounded-md">
+      {classes.map((cls) => (
+        <span key={cls} className={`h-12 flex-1 ${cls}`} />
+      ))}
+    </div>
+  </div>
+);
+
+<div className="kds-home">
+
+<section className="kds-hero relative isolate overflow-hidden rounded-xl bg-brand-section px-4xl py-9xl max-md:px-3xl max-md:py-7xl">
+  <div className="flex max-w-[760px] flex-col items-start gap-3xl">
+    <h1 className="kds-rise m-0 text-5xl font-semibold text-white max-md:text-4xl" style={{ '--i': 0, color: '#ffffff' }}>Build consistent interfaces, once.</h1>
+    <p className="kds-rise !m-0 max-w-[680px] text-lg text-white" style={{ '--i': 1, color: 'rgba(255, 255, 255, 0.9)' }}>{'Ready-to-use components, tokens and UX guidelines for visual consistency, WCAG AA accessibility and full Light and Dark Mode support.'}</p>
+    <div className="kds-rise flex flex-wrap gap-lg" style={{ '--i': 2 }}>
+      <Button hierarchy="Secondary gray" size="xl" onClick={open('components-button--docs')}>Explore components</Button>
+      <Button hierarchy="Secondary color" size="xl" onClick={open('foundations-colors--docs')}>View foundations</Button>
+    </div>
+  </div>
+</section>
+
+<h2 className="kds-h2">Components, composed</h2>
+
+<p className="kds-lead">Every piece below is a real component from this library — Breadcrumbs, Tabs, Input, Button, Avatar, Badge and Alert — wired together the way a product screen would use them. Try the tabs.</p>
+
+<div className="kds-reveal">
+  <TeamPreview />
+</div>
+
+<h2 className="kds-h2">Where to start</h2>
+
+<div className="grid items-start gap-3xl lg:grid-cols-[1fr_1.4fr]">
+  <p className="kds-lead !m-0">Tokens first, then components. Each page has an interactive Playground, usage guidance and accessibility notes.</p>
+  <div className="flex flex-col gap-lg">
+    <Row index={0} title="Foundations" text="Colors, typography, spacing, shadows and radius — the token layer that underpins every component." action="View foundations" storyId="foundations-colors--docs" />
+    <Row index={1} title="Components" text="Buttons, form controls, navigation and feedback, each with a live Playground and every state documented." action="View components" storyId="components-button--docs" />
+    <Row index={2} title="Sidebar navigation" text="The application shell: Simple, Dual-tier and Slim layouts that turn into a drawer on small screens." action="View sidebar navigation" storyId="components-sidebar-navigation--docs" />
   </div>
 </div>
 
-<h2 className="text-2xl font-semibold">Quick Start</h2>
+<h2 className="kds-h2">Tokens, not hex values</h2>
 
-<div className="rounded-lg border border-secondary overflow-hidden mb-10">
-  <div className="px-4 py-2 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary bg-secondary">Installation</div>
-  <pre className="m-0 overflow-x-auto bg-primary-solid px-4 py-3 text-sm text-white">
-    <code>{`npm install my-design-system\n# or\npnpm add my-design-system`}</code>
-  </pre>
-  <div className="px-4 py-2 text-xs font-semibold tracking-wide text-quaternary border-t border-b border-secondary bg-secondary">Import tokens & global styles</div>
-  <pre className="m-0 overflow-x-auto bg-primary-solid px-4 py-3 text-sm text-white">
-    <code>{`import 'my-design-system/dist/index.css';`}</code>
-  </pre>
+<p className="kds-lead">Color, type and shape come from one semantic token layer. Change a token and every component follows — in Light and Dark.</p>
+
+<div className="kds-reveal grid gap-3xl lg:grid-cols-[1.4fr_1fr]">
+  <div className="flex flex-col gap-3xl rounded-xl bg-secondary p-3xl">
+    <Swatches label="Brand" classes={['bg-brand-50', 'bg-brand-100', 'bg-brand-200', 'bg-brand-300', 'bg-brand-400', 'bg-brand-500', 'bg-brand-600', 'bg-brand-700', 'bg-brand-800', 'bg-brand-900']} />
+    <Swatches label="Gray" classes={['bg-gray-100', 'bg-gray-200', 'bg-gray-300', 'bg-gray-400', 'bg-gray-500', 'bg-gray-600', 'bg-gray-700', 'bg-gray-800', 'bg-gray-900', 'bg-gray-950']} />
+    <Swatches label="Feedback" classes={['bg-success-500', 'bg-warning-500', 'bg-error-500']} />
+    <Button className="self-start" hierarchy="Link color" size="md" iconTrailing iconTrailingSwap={<Icon name="arrow_forward" size="sm" />} onClick={open('foundations-colors--docs')}>All colors</Button>
+  </div>
+  <div className="flex flex-col gap-3xl rounded-xl bg-secondary p-3xl">
+    <div className="flex flex-col gap-md">
+      <div className="text-sm font-semibold text-secondary">Type</div>
+      <div className="font-semibold text-primary" style={{ fontSize: 'var(--text-4xl)', lineHeight: 1.2 }}>Display</div>
+      <div className="font-semibold text-primary" style={{ fontSize: 'var(--text-xl)', lineHeight: 1.4 }}>Heading</div>
+      <div className="text-tertiary" style={{ fontSize: 'var(--text-base)', lineHeight: 1.5 }}>Body text keeps a 16px base with a 1.5 line height.</div>
+    </div>
+    <div className="flex flex-col gap-md">
+      <div className="text-sm font-semibold text-secondary">Radius</div>
+      <div className="flex items-end gap-lg">
+        <span className="size-10 rounded-xs bg-brand-600" />
+        <span className="size-10 rounded-sm bg-brand-600" />
+        <span className="size-10 rounded-md bg-brand-600" />
+        <span className="size-10 rounded-lg bg-brand-600" />
+        <span className="size-10 rounded-xl bg-brand-600" />
+      </div>
+    </div>
+    <Button className="self-start" hierarchy="Link color" size="md" iconTrailing iconTrailingSwap={<Icon name="arrow_forward" size="sm" />} onClick={open('foundations-typography--docs')}>Typography</Button>
+  </div>
 </div>
 
-<p className="text-sm text-tertiary -mt-8 mb-10">
-  <em>Private package — not yet published to an external registry. The commands above reflect the planned installation flow once the library build is published.</em>
-</p>
+<h2 className="kds-h2">Design principles</h2>
 
-<h2 className="text-2xl font-semibold">Explore</h2>
-
-<div className="grid grid-cols-1 md:grid-cols-3 gap-xl mb-16">
-  <a
-    href="?path=/docs/foundations-colors--docs"
-    className="group flex flex-col gap-md rounded-lg border border-secondary p-6 no-underline hover:border-brand hover:shadow-md transition-shadow"
-  >
-    <Icon name="palette" size="xl" className="fg-brand-secondary" />
-    <h3 className="!m-0 text-lg font-semibold text-primary no-underline group-hover:underline">Foundations</h3>
-    <p className="!m-0 text-sm text-secondary no-underline">Colors, typography, spacing, shadows and border radius — the token layer that underpins the whole system.</p>
-    <span className="text-sm font-semibold text-brand-secondary mt-auto no-underline group-hover:underline">View Foundations →</span>
-  </a>
-  <a
-    href="?path=/docs/components-button--docs"
-    className="group flex flex-col gap-md rounded-lg border border-secondary p-6 no-underline hover:border-brand hover:shadow-md transition-shadow"
-  >
-    <Icon name="extension" size="xl" className="fg-brand-secondary" />
-    <h3 className="!m-0 text-lg font-semibold text-primary no-underline group-hover:underline">Components</h3>
-    <p className="!m-0 text-sm text-secondary no-underline">UI library — buttons, form controls, navigation, feedback — each with an interactive Playground.</p>
-    <span className="text-sm font-semibold text-brand-secondary mt-auto no-underline group-hover:underline">View Components →</span>
-  </a>
-  <a
-    href="?path=/docs/components-button--docs#ux-guidelines"
-    className="group flex flex-col gap-md rounded-lg border border-secondary p-6 no-underline hover:border-brand hover:shadow-md transition-shadow"
-  >
-    <Icon name="checklist" size="xl" className="fg-brand-secondary" />
-    <h3 className="!m-0 text-lg font-semibold text-primary no-underline group-hover:underline">UX Guidelines & Accessibility</h3>
-    <p className="!m-0 text-sm text-secondary no-underline">When to use each component, content best practices and WCAG AA compliance, documented page by page.</p>
-    <span className="text-sm font-semibold text-brand-secondary mt-auto no-underline group-hover:underline">View guidelines →</span>
-  </a>
+<div className="kds-reveal grid gap-4xl md:grid-cols-3">
+  <div className="flex flex-col items-start gap-md">
+    <Badge size="md" type="Pill color" color="Success">WCAG AA</Badge>
+    <h3 className="kds-h3">Accessibility</h3>
+    <p className="!m-0 text-sm text-tertiary">AA contrast on every fill and text pair, a visible focus ring everywhere and native keyboard navigation in every interactive component.</p>
+  </div>
+  <div className="flex flex-col items-start gap-md">
+    <Badge size="md" type="Pill color" color="Brand">Semantic tokens</Badge>
+    <h3 className="kds-h3">Consistency</h3>
+    <p className="!m-0 text-sm text-tertiary">One set of semantic tokens — never raw hex or primitives — keeps color, spacing and type behaving the same across the product.</p>
+  </div>
+  <div className="flex flex-col items-start gap-md">
+    <Badge size="md" type="Pill color" color="Gray">Tailwind</Badge>
+    <h3 className="kds-h3">Performance</h3>
+    <p className="!m-0 text-sm text-tertiary">Lightweight components with no unnecessary dependencies, styled through Tailwind utilities with no styling runtime overhead.</p>
+  </div>
 </div>
 
-<h2 className="text-2xl font-semibold">Design Principles</h2>
+<h2 className="kds-h2">Quick start</h2>
 
-<div className="grid grid-cols-1 md:grid-cols-3 gap-xl mb-6">
-  <div className="flex flex-col gap-md">
-    <Icon name="accessibility_new" size="xl" className="fg-brand-secondary" />
-    <span className="text-lg font-semibold text-primary">Accessibility</span>
-    <span className="text-sm text-tertiary">WCAG AA contrast on every fill/text pair, visible focus always present, and native keyboard navigation across all interactive components.</span>
+<div className="kds-reveal flex flex-col gap-xl">
+  <Tabs
+    type="Button"
+    size="sm"
+    aria-label="Package manager"
+    items={[
+      { value: 'npm', label: 'npm', content: <div className="flex flex-col gap-lg pt-xl"><CopyCommand command="npm install my-design-system" /><CopyCommand command="import 'my-design-system/dist/index.css';" /></div> },
+      { value: 'pnpm', label: 'pnpm', content: <div className="flex flex-col gap-lg pt-xl"><CopyCommand command="pnpm add my-design-system" /><CopyCommand command="import 'my-design-system/dist/index.css';" /></div> },
+    ]}
+  />
+  <div className="flex flex-wrap items-center gap-md text-sm text-tertiary">
+    <Badge size="sm" type="Pill color" color="Gray">v1.0.0</Badge>
+    <span>Private package — not yet published to an external registry. The commands reflect the planned installation flow.</span>
   </div>
-  <div className="flex flex-col gap-md">
-    <Icon name="explore" size="xl" className="fg-brand-secondary" />
-    <span className="text-lg font-semibold text-primary">Consistency</span>
-    <span className="text-sm text-tertiary">A single set of semantic tokens — never raw hex or primitives — ensures color, spacing and typography behave the same way across the whole product.</span>
-  </div>
-  <div className="flex flex-col gap-md">
-    <Icon name="bolt" size="xl" className="fg-brand-secondary" />
-    <span className="text-lg font-semibold text-primary">Performance</span>
-    <span className="text-sm text-tertiary">Lightweight components, no unnecessary dependencies, with CSS generated via Tailwind utilities — no styling runtime overhead.</span>
-  </div>
+</div>
+
 </div>

@@ -170,3 +170,139 @@ table {
   min-height: 420px !important;
   box-sizing: border-box !important;
 }
+
+/*
+ * Homepage (`src/docs/Introduction.mdx`) — layout polish and motion, scoped to `.kds-home`.
+ * The page itself is composed from the system's components and tokens; only what Tailwind
+ * utilities can't express lives here: keyframes, the view-driven reveal and Storybook's docs
+ * typography reset. Motion follows Emil Kowalski's rules: strong ease-out, under 500ms,
+ * transform + opacity only, hover gated behind `(hover: hover)`, nothing under reduced motion.
+ */
+.sbdocs-content .kds-home h2.kds-h2 {
+  margin-top: 5rem !important;
+  margin-bottom: 1rem !important;
+  border-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  font-size: var(--text-3xl) !important;
+  line-height: var(--text-3xl--line-height) !important;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.sbdocs-content .kds-home h1 {
+  margin: 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
+  font-size: var(--text-5xl) !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 767px) {
+  .sbdocs-content .kds-home h1 {
+    font-size: var(--text-4xl) !important;
+  }
+}
+
+.sbdocs-content .kds-home .kds-lead {
+  max-width: 640px;
+  margin-bottom: 2rem !important;
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  color: var(--color-text-tertiary);
+}
+
+.sbdocs-content .kds-home p {
+  margin-bottom: 0 !important;
+}
+
+/* Storybook's docs link styling (blue + underline) must not leak into components used inline. */
+.sbdocs-content .kds-home a[class] {
+  text-decoration: none;
+}
+
+.sbdocs-content .kds-home .kds-hero p {
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+}
+
+@keyframes kds-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.kds-home .kds-rise {
+  animation: kds-rise 480ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* Below the fold: reveal as each block scrolls into view (progressive — no-op where unsupported). */
+@supports (animation-timeline: view()) {
+  .kds-home .kds-reveal {
+    animation: kds-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .kds-home .kds-row {
+    transition: background-color 150ms ease;
+  }
+  .kds-home .kds-row:hover {
+    background-color: var(--color-bg-secondary-hover);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kds-home .kds-rise,
+  .kds-home .kds-reveal {
+    animation: none;
+  }
+}
+
+/* Storybook's docs typography resets `div`/`span`/`ul` sizing and spacing — restore what the homepage needs. */
+.sbdocs-content .kds-home h3.kds-h3 {
+  margin: 0 !important;
+  font-size: var(--text-xl) !important;
+  line-height: var(--text-xl--line-height) !important;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.sbdocs-content .kds-home h3.kds-h3-lg {
+  font-size: var(--text-2xl) !important;
+  line-height: var(--text-2xl--line-height) !important;
+}
+
+.sbdocs-content .kds-home ul.kds-members {
+  margin: 0 -0.75rem !important;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.sbdocs-content .kds-home ul.kds-members > li {
+  margin: 0;
+}
+
+.sbdocs-content .kds-home pre code {
+  background: transparent;
+  color: #ffffff;
+}
+
+/* Breadcrumb links keep the component's own colours instead of Storybook's blue. */
+.sbdocs-content .kds-home nav[aria-label='Breadcrumb'] a {
+  color: var(--color-text-tertiary);
+}
+.sbdocs-content .kds-home nav[aria-label='Breadcrumb'] a:hover {
+  color: var(--color-text-secondary);
+}
+.sbdocs-content .kds-home nav[aria-label='Breadcrumb'] li:first-child a {
+  color: var(--color-fg-quaternary);
+}
