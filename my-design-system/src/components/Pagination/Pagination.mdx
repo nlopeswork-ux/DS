@@ -1,0 +1,124 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as PaginationStories from './Pagination.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={PaginationStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Pagination
+
+Navigation between the pages of a long list or table. Desktop shows **Previous**, a row of page numbers and **Next**; on mobile it collapses to two icon-only arrows around "Page n of N". It works controlled (`page` + `onPageChange`) or uncontrolled (`defaultPage`).
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={PaginationStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={PaginationStories.Playground} include={['Page Count', 'Current Page']} />
+      <Controls of={PaginationStories.Playground} include={['Previous Label', 'Next Label']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- A list, table or result set split into **a known number of pages**.
+- When the user benefits from jumping to a specific page, or knowing how far along they are.
+
+### When not to use
+- Endless or unknown-length feeds — prefer "Load more" or infinite scroll.
+- Very short lists that fit on one page: render nothing rather than a single disabled page.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Windowing', content: <Canvas of={PaginationStories.Windowing} withToolbar={false} sourceState="none" /> },
+    { label: 'Controlled', content: <Canvas of={PaginationStories.ControlledExample} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Container** — a `nav` with a top border (`border-secondary`) and `spacing-2xl` of padding above the controls (`spacing-xl` on mobile).
+- **Previous / Next** — link-style buttons with an arrow (`arrow_back` / `arrow_forward` from the Icon set), pinned to each side so the numbers stay centered.
+- **Page numbers** — 40px circles, `text-sm` medium. The current page and the hovered page share the same fill (`bg-primary-hover`).
+- **Ellipsis** — a non-interactive gap standing for the skipped pages.
+- **Mobile** — two 36px secondary icon buttons and "Page **n** of **N**".
+
+### Interactions
+- Activating a number or an arrow calls `onPageChange(page)`; uncontrolled usage updates itself.
+- **Previous** is disabled on the first page and **Next** on the last. Activating the current page does nothing.
+- Up to 7 pages are all shown. Beyond that the row collapses: `1 2 3 … n-2 n-1 n` near either end (as in the Figma default) and `1 … c-1 c c+1 … n` in the middle, so the current page is always visible.
+
+### Best practices
+- Keep the page in the URL or in state the parent owns, so back/forward and reloads land on the same page.
+- Scroll the list back into view after a page change.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>Part</th><th>States</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Page number</strong></td>
+      <td>Default · hover · current (<code>aria-current="page"</code>, same fill as hover) · focus ring.</td>
+    </tr>
+    <tr>
+      <td><strong>Arrows</strong></td>
+      <td>Default · hover · focus · disabled (first / last page).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Landmark:** a `nav` labelled "Pagination" (override with `aria-label` when there are several on a page).
+- **Current page:** `aria-current="page"` on the active number; every number has an accessible name ("Page 3").
+- **Mobile arrows:** icon-only, with the names "Previous page" and "Next page"; the "Page n of N" text is a polite live region.
+- **Keyboard:** every control is a native button — Tab to move, Enter / Space to activate — with a visible focus ring.

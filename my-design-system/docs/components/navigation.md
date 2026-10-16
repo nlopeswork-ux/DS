@@ -239,3 +239,27 @@ O wrapper contém **9 slots** de `_Button group base` (visibilidade ajustável).
 
 - Escala de z-index (dropdown sobre conteúdo): [`foundations/shadows-elevation.md §5`](../foundations/shadows-elevation.md#5-escala-de-z-index--sobreposição-inferido)
 - Sombras `shadow-lg`: [`foundations/shadows-elevation.md §1`](../foundations/shadows-elevation.md#1-sombras-drop-shadows)
+
+---
+
+## Pagination
+
+> Fonte: Figma KDS — Design System, frame "Pagination" (`1115:68622`) — Type "Page default", Shape "Circle", Desktop / Mobile.
+
+```ts
+type PaginationProps = {
+  pageCount: number;
+  page?: number; defaultPage?: number; onPageChange?: (page: number) => void;
+  previousLabel?: string; nextLabel?: string;       // Desktop
+};
+```
+
+| | Desktop | Mobile (< 640px) |
+|---|---|---|
+| Layout | `border-t border-secondary`, `pt-spacing-2xl`, gap `spacing-lg`, centrado; Previous · números · Next | `pt-spacing-xl`, `justify-between`; seta · "Page n of N" · seta |
+| Setas | `Link gray` com `arrow_back` / `arrow_forward` (Icon set) | `Secondary gray` só ícone, 36px |
+| Números | Círculo 40px, `text-sm` medium, `text-tertiary`; hover e atual: `bg-primary-hover` + `text-secondary-hover`; gap `spacing-xxs` (2px) | — |
+
+**Janela de páginas:** até 7 páginas mostram-se todas; acima disso `1 2 3 … n-2 n-1 n` junto às pontas e `1 … c-1 c c+1 … n` no meio (a página atual fica sempre visível).
+
+**Interações:** número ou seta chamam `onPageChange`; Previous desativa na 1.ª página e Next na última; a página atual tem `aria-current="page"`; `nav` com `aria-label="Pagination"`. Glifos das setas vêm do `Icon`.
