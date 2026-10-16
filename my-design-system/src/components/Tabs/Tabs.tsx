@@ -12,8 +12,8 @@ const variantByType: Record<TabsType, TabVariant> = {
 };
 
 /**
- * Tabs (horizontal) — Figma "Horizontal tabs" (Button brand / Underline / Button
- * border × sm / md × Full width × Desktop / Mobile). On mobile (< sm) the tab
+ * Tabs (horizontal) — Figma "Horizontal tabs" (Underline / Button × sm / md ×
+ * Full width × Desktop / Mobile). On mobile (< sm) the tab
  * list becomes a dropdown showing the current tab. Selection follows focus:
  * ← → move between tabs, Home / End jump to the first / last. Works controlled
  * (`value` + `onValueChange`) or uncontrolled (`defaultValue`).
