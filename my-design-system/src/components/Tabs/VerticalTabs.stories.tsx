@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { VerticalTabs } from './VerticalTabs';
-import type { TabItem, TabsSize, VerticalTabsProps, VerticalTabsType } from './Tabs.types';
+import type { TabItem, TabState, TabsSize, VerticalTabsProps, VerticalTabsType } from './Tabs.types';
 
 const sizeOptions = ['sm', 'md'] satisfies TabsSize[];
-const typeOptions = ['Button primary', 'Line', 'Button border'] satisfies VerticalTabsType[];
+const typeOptions = ['Line', 'Button'] satisfies VerticalTabsType[];
 
 const SettingsPanel = ({ title }: { title: string }) => (
   <div className="rounded-md border border-dashed border-primary bg-secondary p-lg text-sm text-tertiary">
@@ -45,7 +45,7 @@ const meta = {
     controls: { expanded: false },
   },
   args: {
-    type: 'Button primary',
+    type: 'Line',
     size: 'sm',
     showBadge: true,
     showPanels: false,
@@ -101,11 +101,60 @@ export const Types: Story = {
   ),
 };
 
+const stateOptions = ['Default', 'Hover', 'Focus'] satisfies TabState[];
+
+/**
+ * Every state of a tab — default, hover and focus, not current and current.
+ * Outside the sidebar (`!dev`) — embedded in VerticalTabs.mdx via `<Canvas of={VerticalTabsStories.States} />`.
+ */
+export const States: Story = {
+  tags: ['!dev'],
+  parameters: { layout: 'padded' },
+  render: () => (
+    <div className="grid w-fit grid-cols-[auto_repeat(3,auto)] items-center gap-x-3xl gap-y-2xl p-lg">
+      <span />
+      {stateOptions.map((state) => (
+        <span key={state} className="text-sm font-medium text-secondary">
+          {state}
+        </span>
+      ))}
+      {typeOptions.map((type) => (
+        <div key={type} className="contents">
+          {[false, true].map((isCurrent) => (
+            <div key={String(isCurrent)} className="contents">
+              <span className="pr-lg text-sm text-tertiary">
+                {type} · {isCurrent ? 'current' : 'not current'}
+              </span>
+              {stateOptions.map((state) => (
+                <VerticalTabs
+                  key={state}
+                  className="w-auto"
+                  type={type}
+                  value="current"
+                  aria-label={`${type} ${state}`}
+                  items={
+                    isCurrent
+                      ? [{ value: 'current', label: 'My details', badge: 2, state }]
+                      : [
+                          { value: 'current', label: 'Profile' },
+                          { value: 'other', label: 'My details', badge: 2, state },
+                        ]
+                  }
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+};
+
 /**
  * Tabs with a panel — the selected tab's `content` is rendered beside the list.
  * Outside the sidebar (`!dev`) — embedded in VerticalTabs.mdx via `<Canvas of={VerticalTabsStories.WithPanels} />`.
  */
 export const WithPanels: Story = {
   tags: ['!dev'],
-  render: () => <VerticalTabs type="Button primary" items={makeItems(true).slice(0, 4)} aria-label="With panels" />,
+  render: () => <VerticalTabs type="Line" items={makeItems(true).slice(0, 4)} aria-label="With panels" />,
 };

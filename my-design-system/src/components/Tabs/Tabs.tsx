@@ -7,9 +7,8 @@ import { useTabs } from './useTabs';
 import type { TabsProps, TabsType } from './Tabs.types';
 
 const variantByType: Record<TabsType, TabVariant> = {
-  'Button brand': 'brand',
   Underline: 'underline',
-  'Button border': 'border',
+  Button: 'button',
 };
 
 /**
@@ -26,7 +25,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       value,
       defaultValue,
       onValueChange,
-      type = 'Button brand',
+      type = 'Underline',
       size = 'sm',
       fullWidth = false,
       className,
@@ -57,8 +56,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
           onKeyDown={tabs.onKeyDown}
           className={cn(
             'flex max-sm:hidden',
-            variant === 'brand' && 'items-center gap-xs',
-            variant === 'border' &&
+            variant === 'button' &&
               cn('items-center gap-xs rounded-lg border border-secondary bg-secondary-alt', size === 'sm' ? 'p-xs' : 'rounded-xl p-sm'),
             variant === 'underline' && 'items-start gap-lg shadow-[inset_0_-1px_0_0_var(--color-border-secondary)]',
             fullWidth ? 'w-full' : 'w-fit max-w-full',
@@ -75,6 +73,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
               current={item.value === tabs.selected}
               badge={item.badge}
               disabled={item.disabled}
+              state={item.state}
               onClick={() => tabs.select(item.value)}
               className={fullWidth ? 'flex-1' : undefined}
             >

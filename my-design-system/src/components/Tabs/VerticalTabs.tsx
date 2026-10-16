@@ -7,13 +7,12 @@ import { useTabs } from './useTabs';
 import type { VerticalTabsProps, VerticalTabsType } from './Tabs.types';
 
 const variantByType: Record<VerticalTabsType, TabVariant> = {
-  'Button primary': 'brand',
   Line: 'line',
-  'Button border': 'border',
+  Button: 'button',
 };
 
 /**
- * Vertical tabs — Figma "Vertical tabs" (Button primary / Line / Button border ×
+ * Vertical tabs — Figma "Vertical tabs" (Line / Button ×
  * sm / md × Desktop / Mobile). Tabs stack in a column with the panel beside
  * them; on mobile (< sm) the list becomes a dropdown and the panel goes below.
  * ↑ ↓ move between tabs, Home / End jump to the first / last.
@@ -25,7 +24,7 @@ export const VerticalTabs = forwardRef<HTMLDivElement, VerticalTabsProps>(
       value,
       defaultValue,
       onValueChange,
-      type = 'Button primary',
+      type = 'Line',
       size = 'sm',
       className,
       'aria-label': ariaLabel,
@@ -54,7 +53,7 @@ export const VerticalTabs = forwardRef<HTMLDivElement, VerticalTabsProps>(
           onKeyDown={tabs.onKeyDown}
           className={cn(
             'flex h-fit shrink-0 flex-col gap-xs max-sm:hidden',
-            variant === 'border' &&
+            variant === 'button' &&
               cn('border border-secondary bg-secondary-alt', size === 'sm' ? 'rounded-lg p-xs' : 'rounded-xl p-sm'),
           )}
         >
@@ -69,6 +68,7 @@ export const VerticalTabs = forwardRef<HTMLDivElement, VerticalTabsProps>(
               current={item.value === tabs.selected}
               badge={item.badge}
               disabled={item.disabled}
+              state={item.state}
               onClick={() => tabs.select(item.value)}
               block
             >

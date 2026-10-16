@@ -1,25 +1,26 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 import { Badge } from '../Badge';
 import type { BadgeColor } from '../Badge';
-import type { TabsSize } from './Tabs.types';
+import type { TabState, TabsSize } from './Tabs.types';
 
-export type TabVariant = 'brand' | 'underline' | 'line' | 'border';
+export type TabVariant = 'underline' | 'line' | 'button';
 
 interface TabButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   variant: TabVariant;
   size: TabsSize;
   current: boolean;
   badge?: ReactNode;
-  /** Stretch to the full cross-axis (vertical tabs) or share the row equally (full width). */
+  /** Forces Hover or Focus for previews; Default leaves them to the browser. */
+  state?: TabState;
+  /** Stretch to the full cross-axis (vertical tabs). */
   block?: boolean;
 }
 
-/** Heights in px: pill / border tabs 36 / 44, underline 32 / 36 (text + 12px padding below). */
+/** Heights in px: button / line tabs 36 / 44, underline 32 / 36 (text + 12px padding below). */
 const heightStyles: Record<TabVariant, Record<TabsSize, string>> = {
-  brand: { sm: 'h-9', md: 'h-11' },
-  border: { sm: 'h-9', md: 'h-11' },
+  button: { sm: 'h-9', md: 'h-11' },
   line: { sm: 'h-9', md: 'h-11' },
   underline: { sm: 'h-8', md: 'h-9' },
 };
@@ -29,35 +30,36 @@ const textStyles: Record<TabsSize, string> = {
   md: 'text-base leading-6',
 };
 
-/** The underline / left line are inset shadows so the 2px mark never shifts the label (Figma draws it inside). */
-const currentStyles: Record<TabVariant, string> = {
-  brand: 'bg-brand-primary text-brand-secondary',
-  border: 'bg-primary-alt text-secondary shadow-sm',
-  underline: 'text-brand-secondary shadow-[inset_0_-2px_0_0_var(--color-fg-brand-primary)]',
-  line: 'text-brand-secondary shadow-[inset_2px_0_0_0_var(--color-fg-brand-primary)]',
-};
-
-const idleStyles: Record<TabVariant, string> = {
-  brand: 'text-quaternary hover:bg-primary-hover hover:text-tertiary-hover',
-  border: 'text-quaternary hover:text-tertiary-hover',
-  underline: 'text-quaternary hover:text-tertiary-hover',
-  line: 'text-quaternary hover:text-tertiary-hover',
-};
-
 const shapeStyles: Record<TabVariant, string> = {
-  brand: 'rounded-sm px-lg py-md',
-  border: 'rounded-sm px-lg py-md',
+  button: 'rounded-sm px-lg py-md',
   line: 'px-lg py-md',
   underline: 'px-xs pb-lg',
 };
 
 /**
- * Single tab (Figma "_Tab button base"). Internal to Tabs / VerticalTabs:
- * `role="tab"`, roving tabindex handled by the parent.
+ * The marked look: the white raised chip (button) or the brand text with a 2px
+ * underline / left line. The line is an inset shadow so it never shifts the
+ * label (Figma draws it inside). Hover on a non-current tab previews this look,
+ * as in the Figma states.
+ */
+const markedStyles: Record<TabVariant, string> = {
+  button: 'bg-primary-alt text-secondary shadow-sm',
+  underline: 'text-brand-secondary shadow-[inset_0_-2px_0_0_var(--color-fg-brand-primary)]',
+  line: 'text-brand-secondary shadow-[inset_2px_0_0_0_var(--color-fg-brand-primary)]',
+};
+
+/**
+ * Single tab (Figma "_Tab button base": Current × Size × Type × State).
+ * Internal to Tabs / VerticalTabs: `role="tab"`, roving tabindex handled by the parent.
  */
 export const TabButton = forwardRef<HTMLButtonElement, TabButtonProps>(
-  ({ variant, size, current, badge, block, className, children, ...rest }, ref) => {
-    const badgeColor: BadgeColor = current && variant !== 'border' ? 'Brand' : 'Gray';
+  ({ variant, size, current, badge, state = 'Default', block, className, children, onMouseEnter, onMouseLeave, ...rest }, ref) => {
+    const [pointerOver, setPointerOver] = useState(false);
+    const hovered = state === 'Hover' || pointerOver;
+    // Hover borrows the current look; the badge follows the text colour (brand for underline / line, gray in a button chip).
+    const marked = current || hovered;
+    const badgeColor: BadgeColor = marked && variant !== 'button' ? 'Brand' : 'Gray';
+
     return (
       <button
         ref={ref}
@@ -65,17 +67,26 @@ export const TabButton = forwardRef<HTMLButtonElement, TabButtonProps>(
         role="tab"
         aria-selected={current}
         tabIndex={current ? 0 : -1}
+        onMouseEnter={(event) => {
+          setPointerOver(true);
+          onMouseEnter?.(event);
+        }}
+        onMouseLeave={(event) => {
+          setPointerOver(false);
+          onMouseLeave?.(event);
+        }}
         className={cn(
-          'inline-flex shrink-0 items-center gap-md whitespace-nowrap font-semibold outline-none',
+          'inline-flex shrink-0 items-center justify-center gap-md whitespace-nowrap font-semibold outline-none',
           'transition-colors duration-150 ease-in-out',
-          'focus-visible:ring-4 focus-visible:ring-brand-500',
+          // Focus ring: 2px page-coloured gap + 2px ring (Figma focus-ring on bg-primary).
+          'focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
+          state === 'Focus' && 'ring-2 ring-brand-500 ring-offset-2',
           'disabled:pointer-events-none disabled:text-disabled',
-          variant === 'underline' ? 'justify-center' : block ? 'justify-start' : 'justify-center',
-          block && 'w-full',
+          block && 'w-full justify-start',
           heightStyles[variant][size],
           textStyles[size],
           shapeStyles[variant],
-          current ? currentStyles[variant] : idleStyles[variant],
+          marked ? markedStyles[variant] : 'text-quaternary',
           className,
         )}
         {...rest}

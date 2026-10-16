@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tabs } from './Tabs';
-import type { TabItem, TabsProps, TabsSize, TabsType } from './Tabs.types';
+import type { TabItem, TabState, TabsProps, TabsSize, TabsType } from './Tabs.types';
 
 const sizeOptions = ['sm', 'md'] satisfies TabsSize[];
-const typeOptions = ['Button brand', 'Underline', 'Button border'] satisfies TabsType[];
+const typeOptions = ['Underline', 'Button'] satisfies TabsType[];
 
 const SettingsPanel = ({ title }: { title: string }) => (
   <div className="rounded-md border border-dashed border-primary bg-secondary p-lg text-sm text-tertiary">
@@ -45,7 +45,7 @@ const meta = {
     controls: { expanded: false },
   },
   args: {
-    type: 'Button brand',
+    type: 'Underline',
     size: 'sm',
     fullWidth: false,
     showBadge: true,
@@ -107,11 +107,60 @@ export const Types: Story = {
   ),
 };
 
+const stateOptions = ['Default', 'Hover', 'Focus'] satisfies TabState[];
+
+/**
+ * Every state of a tab — default, hover and focus, not current and current.
+ * Outside the sidebar (`!dev`) — embedded in Tabs.mdx via `<Canvas of={TabsStories.States} />`.
+ */
+export const States: Story = {
+  tags: ['!dev'],
+  parameters: { layout: 'padded' },
+  render: () => (
+    <div className="grid w-fit grid-cols-[auto_repeat(3,auto)] items-center gap-x-3xl gap-y-2xl p-lg">
+      <span />
+      {stateOptions.map((state) => (
+        <span key={state} className="text-sm font-medium text-secondary">
+          {state}
+        </span>
+      ))}
+      {typeOptions.map((type) => (
+        <div key={type} className="contents">
+          {[false, true].map((isCurrent) => (
+            <div key={String(isCurrent)} className="contents">
+              <span className="pr-lg text-sm text-tertiary">
+                {type} · {isCurrent ? 'current' : 'not current'}
+              </span>
+              {stateOptions.map((state) => (
+                <Tabs
+                  key={state}
+                  className="w-auto"
+                  type={type}
+                  value="current"
+                  aria-label={`${type} ${state}`}
+                  items={
+                    isCurrent
+                      ? [{ value: 'current', label: 'My details', badge: 2, state }]
+                      : [
+                          { value: 'current', label: 'Profile' },
+                          { value: 'other', label: 'My details', badge: 2, state },
+                        ]
+                  }
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+};
+
 /**
  * Tabs with a panel — the selected tab's `content` is rendered below the list.
  * Outside the sidebar (`!dev`) — embedded in Tabs.mdx via `<Canvas of={TabsStories.WithPanels} />`.
  */
 export const WithPanels: Story = {
   tags: ['!dev'],
-  render: () => <Tabs type="Button brand" items={makeItems(true).slice(0, 4)} aria-label="With panels" />,
+  render: () => <Tabs type="Underline" items={makeItems(true).slice(0, 4)} aria-label="With panels" />,
 };

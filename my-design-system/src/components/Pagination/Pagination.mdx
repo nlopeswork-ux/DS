@@ -76,6 +76,7 @@ Navigation between the pages of a long list or table. Desktop shows **Previous**
 
 <ExampleGallery
   tabs={[
+    { label: 'States', content: <Canvas of={PaginationStories.States} withToolbar={false} sourceState="none" /> },
     { label: 'Windowing', content: <Canvas of={PaginationStories.Windowing} withToolbar={false} sourceState="none" /> },
     { label: 'Controlled', content: <Canvas of={PaginationStories.ControlledExample} withToolbar={false} sourceState="none" /> },
   ]}
@@ -103,19 +104,19 @@ Navigation between the pages of a long list or table. Desktop shows **Previous**
 
 <table>
   <thead>
-    <tr><th>Part</th><th>States</th></tr>
+    <tr><th>Part</th><th>State</th><th>Style</th></tr>
   </thead>
   <tbody>
-    <tr>
-      <td><strong>Page number</strong></td>
-      <td>Default · hover · current (<code>aria-current="page"</code>, same fill as hover) · focus ring.</td>
-    </tr>
-    <tr>
-      <td><strong>Arrows</strong></td>
-      <td>Default · hover · focus · disabled (first / last page).</td>
-    </tr>
+    <tr><td rowspan="4"><strong>Page number</strong></td><td>Default</td><td>40px circle, <code>text-sm</code> medium in <code>text-tertiary</code>, no fill.</td></tr>
+    <tr><td>Hover / active</td><td><code>bg-primary-hover</code> fill and <code>text-secondary-hover</code> label. The current page uses the same look (plus <code>aria-current="page"</code>).</td></tr>
+    <tr><td>Focused</td><td>The hover fill plus a keyboard focus ring: a 2px page-coloured gap and a 2px brand ring.</td></tr>
+    <tr><td>Current</td><td>Same as hover / active, permanently.</td></tr>
+    <tr><td rowspan="2"><strong>Previous / Next</strong></td><td>Default · Hover · Focused</td><td>The shared <code>Button</code> (Link gray) states — the arrows reuse it rather than redefining them.</td></tr>
+    <tr><td>Disabled</td><td>First page (Previous) and last page (Next), no fill or border.</td></tr>
   </tbody>
 </table>
+
+The Storybook previews force the number states with the internal <code>PaginationNumber</code> <code>state</code> prop — in product code the browser drives them.
 
 <h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
 - **Landmark:** a `nav` labelled "Pagination" (override with `aria-label` when there are several on a page).

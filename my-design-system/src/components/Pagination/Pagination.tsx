@@ -2,6 +2,7 @@ import { forwardRef, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
+import { PaginationNumber } from './PaginationNumber';
 import { clampPage, getPageItems } from './Pagination.utils';
 import type { PaginationProps } from './Pagination.types';
 
@@ -95,21 +96,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
                   ...
                 </span>
               ) : (
-                <button
-                  type="button"
-                  aria-label={`Page ${item}`}
-                  aria-current={item === current ? 'page' : undefined}
-                  onClick={() => goTo(item)}
-                  className={cn(
-                    'flex size-10 items-center justify-center rounded-full text-sm font-medium outline-none',
-                    'transition-colors duration-150 ease-in-out',
-                    'hover:bg-primary-hover hover:text-secondary-hover',
-                    'focus-visible:ring-4 focus-visible:ring-brand-500',
-                    item === current ? 'bg-primary-hover text-secondary-hover' : 'text-tertiary',
-                  )}
-                >
-                  {item}
-                </button>
+                <PaginationNumber page={item} current={item === current} onClick={() => goTo(item)} />
               )}
             </li>
           ))}

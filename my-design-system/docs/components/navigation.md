@@ -262,6 +262,8 @@ type PaginationProps = {
 
 **Janela de páginas:** até 7 páginas mostram-se todas; acima disso `1 2 3 … n-2 n-1 n` junto às pontas e `1 … c-1 c c+1 … n` no meio (a página atual fica sempre visível).
 
+**Estados do número (Figma `_Pagination number base`):** Default `text-tertiary` · Hover/active `bg-primary-hover` + `text-secondary-hover` (igual à página atual) · Focused anel de 2px sobre intervalo de 2px. Previous/Next reutilizam os estados do `Button` (Link gray).
+
 **Interações:** número ou seta chamam `onPageChange`; Previous desativa na 1.ª página e Next na última; a página atual tem `aria-current="page"`; `nav` com `aria-label="Pagination"`. Glifos das setas vêm do `Icon`.
 
 ---
@@ -274,20 +276,21 @@ type PaginationProps = {
 type TabItem = { value: string; label: string; badge?: ReactNode; disabled?: boolean; content?: ReactNode };
 type TabsProps = {
   items: TabItem[]; value?: string; defaultValue?: string; onValueChange?: (v: string) => void;
-  type: 'Button brand' | 'Underline' | 'Button border';
+  type: 'Underline' | 'Button';
   size: 'sm' | 'md'; fullWidth?: boolean;
 };
-type VerticalTabsProps = { /* igual, sem fullWidth */ type: 'Button primary' | 'Line' | 'Button border' };
+type VerticalTabsProps = { /* igual, sem fullWidth */ type: 'Line' | 'Button' };
 ```
 
 | | sm | md |
 |---|---|---|
 | Texto | `text-sm` semibold | `text-md` (16px) semibold |
-| Tab de botão (Button brand / primary, Button border) | h 36px, `rounded-sm`, `px-lg py-md` | h 44px |
+| Tab `Button` e `Line` | h 36px, `rounded-sm`, `px-lg py-md` | h 44px |
 | Underline | h 32px, `px-xs pb-lg`, lista `gap-lg` sobre regra `border-secondary` | h 36px |
-| Track Button border | `p-xs` `rounded-lg` | `p-sm` `rounded-xl` |
+| Track do tipo `Button` | `p-xs` `rounded-lg` | `p-sm` `rounded-xl` |
 
-- **Estados:** default `text-quaternary`; atual — Button brand/primary: `bg-brand-primary` + `text-brand-secondary`; Underline: sublinhado 2px `fg-brand-primary`; Line: barra esquerda 2px; Button border: chip `bg-primary-alt` + `shadow-sm` + `text-secondary`. Badge (Pill color): brand na tab atual (exceto Button border), gray nas restantes.
+- **Tipos:** `Underline` / `Line` (marca de 2px em `fg-brand-primary`, desenhada por dentro) e `Button` (chip branco com `shadow-sm` num track `border-secondary` + `bg-secondary-alt`). As variantes *Button brand* / *Button primary* foram retiradas para reduzir opções.
+- **Estados (Figma `_Tab button base`):** Default `text-quaternary` · Hover — empresta o aspeto de *current* (Underline/Line: texto e marca brand + badge brand; Button: chip branco) · Current — como descrito · Focus — anel de 2px sobre intervalo de 2px · Disabled — esbatido e saltado pelo teclado. O `state` por item força Hover/Focus nas previews.
 - **Mobile (< 640px):** a lista passa a um `InputDropdown` com a tab atual (Figma "Input dropdown").
 - **Interação:** `role="tablist/tab/tabpanel"`, roving tabindex, ←/→ (horizontal) ou ↑/↓ (vertical) com seleção a seguir o foco e wrap, Home/End, tabs `disabled` saltadas. Controlado (`value`) ou não controlado (`defaultValue`).
 

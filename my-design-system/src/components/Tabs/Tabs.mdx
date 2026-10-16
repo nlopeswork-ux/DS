@@ -40,7 +40,7 @@ export const ExampleGallery = ({ tabs }) => {
 
 # Tabs
 
-Horizontal tabs switch between related views of the same content without leaving the page. Three types (**Button brand**, **Underline**, **Button border**) in two sizes, optionally full width. On mobile the tab list becomes a dropdown. For a stacked list beside the content use [Vertical Tabs](?path=/docs/components-vertical-tabs--docs).
+Horizontal tabs switch between related views of the same content without leaving the page. Two types (**Underline** and **Button**) in two sizes, optionally full width. On mobile the tab list becomes a dropdown. For a stacked list beside the content use [Vertical Tabs](?path=/docs/components-vertical-tabs--docs).
 
 <div className="border-b border-secondary mb-8" />
 
@@ -71,9 +71,8 @@ Horizontal tabs switch between related views of the same content without leaving
 - Content the user flips between often, where only one view matters at a time.
 
 ### Types
-- **Button brand** — pill tabs; the current one has a brand tint.
 - **Underline** — a bottom rule; the current tab gets a 2px brand underline.
-- **Button border** — tabs sit in a bordered, tinted track; the current one is a white raised chip.
+- **Button** — tabs sit in a bordered, tinted track; the current one is a white raised chip.
 
 ### When not to use
 - Sequential steps (use a stepper) or navigation to different pages (use navigation links).
@@ -81,6 +80,7 @@ Horizontal tabs switch between related views of the same content without leaving
 
 <ExampleGallery
   tabs={[
+    { label: 'States', content: <Canvas of={TabsStories.States} withToolbar={false} sourceState="none" /> },
     { label: 'Types', content: <Canvas of={TabsStories.Types} withToolbar={false} sourceState="none" /> },
     { label: 'With panels', content: <Canvas of={TabsStories.WithPanels} withToolbar={false} sourceState="none" /> },
   ]}
@@ -89,9 +89,9 @@ Horizontal tabs switch between related views of the same content without leaving
 <h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
 
 ### Structure
-- **Tab** — a label, plus an optional count badge (brand-tinted on the current tab, gray otherwise; always gray in Button border).
+- **Tab** — a label, plus an optional count badge (brand on the current / hovered tab, gray otherwise; always gray in Button).
 - **List** — `gap-xs` between button tabs, `gap-lg` between underline tabs. The Underline list sits on a 1px `border-secondary` rule.
-- **Sizes** — `sm`: 14px labels (36px button tabs, 32px underline). `md`: 16px labels (44px / 36px). In Button border the track grows to `p-sm` and `rounded-xl` at `md`.
+- **Sizes** — `sm`: 14px labels (36px button tabs, 32px underline). `md`: 16px labels (44px / 36px). In Button the track grows to `p-sm` and `rounded-xl` at `md`.
 - **Full width** — tabs share the row equally (`fullWidth`).
 
 ### Best practices
@@ -102,16 +102,18 @@ Horizontal tabs switch between related views of the same content without leaving
 
 <table>
   <thead>
-    <tr><th>State</th><th>Rule</th></tr>
+    <tr><th>State</th><th>Underline</th><th>Button</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>Default</strong></td><td>Label in <code>text-quaternary</code>.</td></tr>
-    <tr><td><strong>Hover</strong></td><td>Label darkens to <code>text-tertiary-hover</code>; button-style tabs also get a subtle fill.</td></tr>
-    <tr><td><strong>Current</strong></td><td>Marked with <code>aria-selected="true"</code> and the type's highlight (brand fill, white raised chip, underline or side line).</td></tr>
-    <tr><td><strong>Focus</strong></td><td>Visible focus ring on the focused tab.</td></tr>
-    <tr><td><strong>Disabled</strong></td><td>Dimmed and skipped by keyboard navigation (<code>disabled: true</code> on the item).</td></tr>
+    <tr><td><strong>Default</strong></td><td>Label in <code>text-quaternary</code>, gray badge.</td><td>Label in <code>text-quaternary</code>, gray badge, no fill.</td></tr>
+    <tr><td><strong>Hover</strong></td><td>Borrows the current look: brand label, 2px underline and a brand badge.</td><td>Borrows the current look: a white raised chip with <code>text-secondary</code>.</td></tr>
+    <tr><td><strong>Current</strong></td><td>Brand label, 2px underline, brand badge; <code>aria-selected="true"</code>.</td><td>White raised chip (<code>shadow-sm</code>), <code>text-secondary</code>, gray badge; <code>aria-selected="true"</code>.</td></tr>
+    <tr><td><strong>Focus</strong></td><td colspan="2">Keyboard focus ring: a 2px page-coloured gap and a 2px brand ring, on top of the current or default look.</td></tr>
+    <tr><td><strong>Disabled</strong></td><td colspan="2">Dimmed and skipped by keyboard navigation (<code>disabled: true</code> on the item).</td></tr>
   </tbody>
 </table>
+
+The Storybook previews force Hover and Focus with the item <code>state</code> prop — in product code the browser drives them.
 
 <h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
 - **Semantics:** `role="tablist"` / `role="tab"` / `role="tabpanel"`, with `aria-selected`, `aria-controls` and `aria-labelledby` wiring each tab to its panel. Give the list an `aria-label`.

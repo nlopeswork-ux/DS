@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Button } from '../Button';
+import { Icon } from '../Icon';
 import { Pagination } from './Pagination';
+import { PaginationNumber } from './PaginationNumber';
+import type { PaginationNumberState } from './PaginationNumber';
 import type { PaginationProps } from './Pagination.types';
 
 interface PaginationPlaygroundProps extends Omit<PaginationProps, 'page' | 'defaultPage'> {
@@ -92,4 +96,35 @@ const Controlled = () => {
 export const ControlledExample: Story = {
   tags: ['!dev'],
   render: () => <Controlled />,
+};
+
+const numberStates = ['Default', 'Hover/active', 'Focused'] satisfies PaginationNumberState[];
+
+/**
+ * Every state of the page numbers and of the Previous / Next arrows (the shared `Button`).
+ * Outside the sidebar (`!dev`) — embedded in Pagination.mdx via `<Canvas of={PaginationStories.States} />`.
+ */
+export const States: Story = {
+  tags: ['!dev'],
+  parameters: { layout: 'padded' },
+  render: () => (
+    <div className="grid w-fit grid-cols-[auto_auto] items-center gap-x-3xl gap-y-xl p-lg">
+      {numberStates.map((state) => (
+        <div key={state} className="contents">
+          <span className="text-sm text-tertiary">Number · {state}</span>
+          <PaginationNumber page={1} state={state} />
+        </div>
+      ))}
+      <span className="text-sm text-tertiary">Number · Current</span>
+      <PaginationNumber page={1} current />
+      {(['Default', 'Hover', 'Focused', 'Disabled'] as const).map((state) => (
+        <div key={state} className="contents">
+          <span className="text-sm text-tertiary">Previous · {state}</span>
+          <Button hierarchy="Link gray" size="sm" state={state} className="disabled:border-transparent disabled:bg-transparent" iconLeading iconLeadingSwap={<Icon name="arrow_back" size="sm" />}>
+            Previous
+          </Button>
+        </div>
+      ))}
+    </div>
+  ),
 };
