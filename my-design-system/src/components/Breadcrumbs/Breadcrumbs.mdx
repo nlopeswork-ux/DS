@@ -1,0 +1,117 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as BreadcrumbsStories from './Breadcrumbs.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={BreadcrumbsStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Breadcrumbs
+
+A trail that shows where the current page sits in the site hierarchy and lets the user jump back to any ancestor. Crumbs are separated by chevrons; the last one is the current page. Long trails collapse their middle into "…".
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={BreadcrumbsStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={BreadcrumbsStories.Playground} include={['Crumbs', 'Home Icon', 'Max Items']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- Sites and apps with a hierarchy of two or more levels, where users arrive deep in the structure.
+- Above the page title, to give location context and a quick way up.
+
+### When not to use
+- Flat, single-level sites; or flows with steps (use a stepper or tabs).
+- As the only navigation — breadcrumbs complement the main navigation, they don't replace it.
+
+<ExampleGallery
+  tabs={[
+    { label: 'States', content: <Canvas of={BreadcrumbsStories.States} withToolbar={false} sourceState="none" /> },
+    { label: 'Trails', content: <Canvas of={BreadcrumbsStories.Trails} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Home crumb** — an icon-only first crumb (`home` from the Icon set) with an accessible name.
+- **Crumb** — `text-sm` medium. Links go to ancestors.
+- **Separator** — a 16px `chevron_right` in `fg-senary`. The gap between crumbs is 12px on desktop and 8px on mobile (< 640px).
+- **Ellipsis** — a "…" crumb that stands for the collapsed middle (`maxItems`, default 4: `Home › Settings › … › Team`). Activating it reveals the full trail.
+- **Current page** — the last crumb: brand colour, semibold, not a link, `aria-current="page"`.
+
+### Best practices
+- Show the path in the site hierarchy, not the user's browsing history.
+- Keep labels short — they should match the page titles they point to.
+- The current page is the last crumb; don't make it a link to itself.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Style</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Default</strong></td><td>Text in <code>text-tertiary</code> (medium); the home icon in <code>fg-quaternary</code>.</td></tr>
+    <tr><td><strong>Hover</strong></td><td>Text darkens to <code>text-secondary</code>; the icon darkens one step.</td></tr>
+    <tr><td><strong>Focused</strong></td><td>Keyboard focus ring: a 2px page-coloured gap and a 2px brand ring, <code>radius-xs</code>.</td></tr>
+    <tr><td><strong>Current</strong></td><td>Brand text (<code>text-brand-secondary</code>), semibold, <code>aria-current="page"</code>.</td></tr>
+  </tbody>
+</table>
+
+The Storybook previews can force Hover and Focused with the item `state` prop — in product code the browser drives them.
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Landmark:** a `nav` labelled "Breadcrumb" (override with `aria-label`) containing an ordered list.
+- **Current page:** `aria-current="page"` on the last crumb.
+- **Icon-only crumbs:** need `ariaLabel` (e.g. "Home"); the "…" button is named "Show hidden pages".
+- **Keyboard:** crumbs are native links / buttons — Tab to move, Enter to activate — with a visible focus ring. Separators are decorative (`aria-hidden`).

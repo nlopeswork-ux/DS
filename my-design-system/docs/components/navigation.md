@@ -290,3 +290,19 @@ type VerticalTabsProps = { /* igual, sem fullWidth */ type: 'Button primary' | '
 - **Estados:** default `text-quaternary`; atual — Button brand/primary: `bg-brand-primary` + `text-brand-secondary`; Underline: sublinhado 2px `fg-brand-primary`; Line: barra esquerda 2px; Button border: chip `bg-primary-alt` + `shadow-sm` + `text-secondary`. Badge (Pill color): brand na tab atual (exceto Button border), gray nas restantes.
 - **Mobile (< 640px):** a lista passa a um `InputDropdown` com a tab atual (Figma "Input dropdown").
 - **Interação:** `role="tablist/tab/tabpanel"`, roving tabindex, ←/→ (horizontal) ou ↑/↓ (vertical) com seleção a seguir o foco e wrap, Home/End, tabs `disabled` saltadas. Controlado (`value`) ou não controlado (`defaultValue`).
+
+---
+
+## Breadcrumbs
+
+> Fonte: Figma KDS — Design System, frame "Breadcrumbs" (`1122:153`) e componente `_Breadcrumb button base` (Current × Type × Icon × State).
+
+```ts
+type BreadcrumbItem = { label?: string; icon?: string; ariaLabel?: string; href?: string; onClick?: () => void; state?: 'Default' | 'Hover' | 'Focused' };
+type BreadcrumbsProps = { items: BreadcrumbItem[]; maxItems?: number /* 4 */ };
+```
+
+- **Estrutura:** `nav` > `ol`; crumbs com `text-sm` medium; separador `chevron_right` de 16px em `fg-senary`; gap `spacing-lg` (12px) no desktop e `spacing-md` (8px) no mobile (< 640px). O primeiro crumb pode ser só ícone (`home` do Icon set, 20px, `fg-quaternary`).
+- **Estados do crumb:** Default `text-tertiary` · Hover `text-secondary` (ícone escurece um passo) · Focused anel de 2px sobre intervalo de 2px (`radius-xs`) · Current `text-brand-secondary` semibold, sem link, `aria-current="page"`.
+- **Colapso:** com mais de `maxItems` crumbs ficam os primeiros `maxItems - 2`, "…" e o último (Figma: `Home › Settings › … › Team`); ativar "…" expande o caminho todo.
+- **A11y:** `aria-label="Breadcrumb"`; crumbs só de ícone exigem `ariaLabel`; "…" tem o nome "Show hidden pages".
