@@ -1,0 +1,120 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as TabsStories from './Tabs.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={TabsStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Tabs
+
+Horizontal tabs switch between related views of the same content without leaving the page. Three types (**Button brand**, **Underline**, **Button border**) in two sizes, optionally full width. On mobile the tab list becomes a dropdown. For a stacked list beside the content use [Vertical Tabs](?path=/docs/components-vertical-tabs--docs).
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={TabsStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={TabsStories.Playground} include={['Type', 'Size', 'Full Width']} />
+      <Controls of={TabsStories.Playground} include={['Badge', 'Panels']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- Two to about eight peer sections of one context — account settings, a record's details, a dashboard's views.
+- Content the user flips between often, where only one view matters at a time.
+
+### Types
+- **Button brand** — pill tabs; the current one has a brand tint.
+- **Underline** — a bottom rule; the current tab gets a 2px brand underline.
+- **Button border** — tabs sit in a bordered, tinted track; the current one is a white raised chip.
+
+### When not to use
+- Sequential steps (use a stepper) or navigation to different pages (use navigation links).
+- A single section, or more tabs than fit — consider vertical tabs or a different structure.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Types', content: <Canvas of={TabsStories.Types} withToolbar={false} sourceState="none" /> },
+    { label: 'With panels', content: <Canvas of={TabsStories.WithPanels} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Tab** — a label, plus an optional count badge (brand-tinted on the current tab, gray otherwise; always gray in Button border).
+- **List** — `gap-xs` between button tabs, `gap-lg` between underline tabs. The Underline list sits on a 1px `border-secondary` rule.
+- **Sizes** — `sm`: 14px labels (36px button tabs, 32px underline). `md`: 16px labels (44px / 36px). In Button border the track grows to `p-sm` and `rounded-xl` at `md`.
+- **Full width** — tabs share the row equally (`fullWidth`).
+
+### Best practices
+- Keep labels short and parallel; put a count in the badge, not in the label.
+- Keep the current tab in the URL or in state the parent owns (`value` + `onValueChange`) so a reload lands on the same tab.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Default</strong></td><td>Label in <code>text-quaternary</code>.</td></tr>
+    <tr><td><strong>Hover</strong></td><td>Label darkens to <code>text-tertiary-hover</code>; button-style tabs also get a subtle fill.</td></tr>
+    <tr><td><strong>Current</strong></td><td>Marked with <code>aria-selected="true"</code> and the type's highlight (brand fill, white raised chip, underline or side line).</td></tr>
+    <tr><td><strong>Focus</strong></td><td>Visible focus ring on the focused tab.</td></tr>
+    <tr><td><strong>Disabled</strong></td><td>Dimmed and skipped by keyboard navigation (<code>disabled: true</code> on the item).</td></tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Semantics:** `role="tablist"` / `role="tab"` / `role="tabpanel"`, with `aria-selected`, `aria-controls` and `aria-labelledby` wiring each tab to its panel. Give the list an `aria-label`.
+- **Keyboard:** only the current tab is in the Tab order (roving tabindex). ← → move between tabs — selection follows focus — and Home / End jump to the first / last tab.
+- **Mobile:** below 640px the list is replaced by a dropdown (a combobox) with the same options.
+- **Not only color:** the current tab also changes weight context via its fill, underline or line, not hue alone; the badge is plain text.

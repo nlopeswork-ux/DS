@@ -1,0 +1,120 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as VerticalTabsStories from './VerticalTabs.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={VerticalTabsStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Vertical Tabs
+
+Vertical tabs stack the sections in a column beside the content — a good fit for settings pages with many sections. Three types (**Button primary**, **Line**, **Button border**) in two sizes. On mobile the list becomes a dropdown and the panel moves below. For a row of tabs above the content use [Tabs](?path=/docs/components-tabs--docs).
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={VerticalTabsStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={VerticalTabsStories.Playground} include={['Type', 'Size']} />
+      <Controls of={VerticalTabsStories.Playground} include={['Badge', 'Panels']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- Settings or profile areas with many (5–12) sections and short labels.
+- Layouts with room for a side column, where the content is wider than tall.
+
+### Types
+- **Button primary** — pill tabs; the current one has a brand tint.
+- **Line** — a 2px brand line on the left of the current tab.
+- **Button border** — tabs sit in a bordered, tinted track; the current one is a white raised chip.
+
+### When not to use
+- Only a few sections — horizontal [Tabs](?path=/docs/components-tabs--docs) are lighter.
+- Navigation across pages of an app — use the navigation components.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Types', content: <Canvas of={VerticalTabsStories.Types} withToolbar={false} sourceState="none" /> },
+    { label: 'With panels', content: <Canvas of={VerticalTabsStories.WithPanels} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Tab** — left-aligned label with an optional count badge after it.
+- **List** — a column with `gap-xs`; in Button border it sits in a bordered, tinted track.
+- **Sizes** — `sm`: 14px labels, 36px tabs. `md`: 16px labels, 44px tabs (the Button border track uses `p-sm` and `rounded-xl`).
+- **Panel** — rendered beside the list, filling the remaining width.
+
+### Best practices
+- Keep labels short and parallel; the list is as wide as its longest label.
+- Keep the current tab in the URL or in state the parent owns (`value` + `onValueChange`).
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Rule</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Default</strong></td><td>Label in <code>text-quaternary</code>.</td></tr>
+    <tr><td><strong>Hover</strong></td><td>Label darkens to <code>text-tertiary-hover</code>; button-style tabs also get a subtle fill.</td></tr>
+    <tr><td><strong>Current</strong></td><td>Marked with <code>aria-selected="true"</code> and the type's highlight (brand fill, white raised chip, underline or side line).</td></tr>
+    <tr><td><strong>Focus</strong></td><td>Visible focus ring on the focused tab.</td></tr>
+    <tr><td><strong>Disabled</strong></td><td>Dimmed and skipped by keyboard navigation (<code>disabled: true</code> on the item).</td></tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Semantics:** `role="tablist"` / `role="tab"` / `role="tabpanel"`, with `aria-selected`, `aria-controls` and `aria-labelledby` wiring each tab to its panel. Give the list an `aria-label`.
+- **Keyboard:** only the current tab is in the Tab order (roving tabindex). ↑ ↓ move between tabs — selection follows focus — and Home / End jump to the first / last tab.
+- **Mobile:** below 640px the list is replaced by a dropdown (a combobox) with the same options.
+- **Not only color:** the current tab also changes weight context via its fill, underline or line, not hue alone; the badge is plain text.

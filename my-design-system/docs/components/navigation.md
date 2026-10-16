@@ -263,3 +263,30 @@ type PaginationProps = {
 **Janela de páginas:** até 7 páginas mostram-se todas; acima disso `1 2 3 … n-2 n-1 n` junto às pontas e `1 … c-1 c c+1 … n` no meio (a página atual fica sempre visível).
 
 **Interações:** número ou seta chamam `onPageChange`; Previous desativa na 1.ª página e Next na última; a página atual tem `aria-current="page"`; `nav` com `aria-label="Pagination"`. Glifos das setas vêm do `Icon`.
+
+---
+
+## Tabs (horizontal) e Vertical tabs
+
+> Fonte: Figma KDS — Design System, frames "Horizontal tabs" (`1118:69893`) e "Vertical tabs" (`1397:9880`).
+
+```ts
+type TabItem = { value: string; label: string; badge?: ReactNode; disabled?: boolean; content?: ReactNode };
+type TabsProps = {
+  items: TabItem[]; value?: string; defaultValue?: string; onValueChange?: (v: string) => void;
+  type: 'Button brand' | 'Underline' | 'Button border';
+  size: 'sm' | 'md'; fullWidth?: boolean;
+};
+type VerticalTabsProps = { /* igual, sem fullWidth */ type: 'Button primary' | 'Line' | 'Button border' };
+```
+
+| | sm | md |
+|---|---|---|
+| Texto | `text-sm` semibold | `text-md` (16px) semibold |
+| Tab de botão (Button brand / primary, Button border) | h 36px, `rounded-sm`, `px-lg py-md` | h 44px |
+| Underline | h 32px, `px-xs pb-lg`, lista `gap-lg` sobre regra `border-secondary` | h 36px |
+| Track Button border | `p-xs` `rounded-lg` | `p-sm` `rounded-xl` |
+
+- **Estados:** default `text-quaternary`; atual — Button brand/primary: `bg-brand-primary` + `text-brand-secondary`; Underline: sublinhado 2px `fg-brand-primary`; Line: barra esquerda 2px; Button border: chip `bg-primary-alt` + `shadow-sm` + `text-secondary`. Badge (Pill color): brand na tab atual (exceto Button border), gray nas restantes.
+- **Mobile (< 640px):** a lista passa a um `InputDropdown` com a tab atual (Figma "Input dropdown").
+- **Interação:** `role="tablist/tab/tabpanel"`, roving tabindex, ←/→ (horizontal) ou ↑/↓ (vertical) com seleção a seguir o foco e wrap, Home/End, tabs `disabled` saltadas. Controlado (`value`) ou não controlado (`defaultValue`).
