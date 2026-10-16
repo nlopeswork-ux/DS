@@ -309,3 +309,37 @@ type BreadcrumbsProps = { items: BreadcrumbItem[]; maxItems?: number /* 4 */ };
 - **Estados do crumb:** Default `text-tertiary` · Hover `text-secondary` (ícone escurece um passo) · Focused anel de 2px sobre intervalo de 2px (`radius-xs`) · Current `text-brand-secondary` semibold, sem link, `aria-current="page"`.
 - **Colapso:** com mais de `maxItems` crumbs ficam os primeiros `maxItems - 2`, "…" e o último (Figma: `Home › Settings › … › Team`); ativar "…" expande o caminho todo.
 - **A11y:** `aria-label="Breadcrumb"`; crumbs só de ícone exigem `ariaLabel`; "…" tem o nome "Show hidden pages".
+
+---
+
+## Sidebar navigation
+
+> Fonte: Figma KDS — Design System, frame "Sidebar navigation" (`1158:90768`) e os componentes `_Nav item base`, `_Nav item dropdown base`, `_Nav item button`, `_Nav featured card`, `_Application nav menu button`. O frame "Header navigation" (`1207:1678`) ainda não está implementado.
+
+```ts
+type NavSubItem = { value: string; label: string; icon?: string; badge?: ReactNode; dot?: boolean; href?: string; disabled?: boolean; state?: 'Default' | 'Hover' | 'Focus' };
+type NavItem = NavSubItem & { items?: NavSubItem[] };
+type SidebarNavigationProps = {
+  type?: 'Simple' | 'Slim' | 'Dual-tier';
+  items: NavItem[]; footerItems?: NavSubItem[];
+  value?: string; defaultValue?: string; onValueChange?: (v: string) => void;
+  featuredCard?: { type?: 'Progress bar' | 'Progress circle'; title: string; description: string; progress: number; onDismiss?; onAction? };
+  account?: { name: string; email?: string; avatarSrc?: string; onLogout?: () => void };
+  open?: boolean; defaultOpen?: boolean; onOpenChange?: (open: boolean) => void;   // drawer mobile
+  breakpoint?: 'Auto' | 'Desktop' | 'Mobile'; inline?: boolean;                    // previews
+};
+```
+
+| | Simple | Dual-tier | Slim |
+|---|---|---|---|
+| Largura | 312px | 280px · 528px com 2.ª coluna | 80px · 362px com 2.ª coluna |
+| 1.ª coluna | logo, search, itens com chevron (expandem no sítio), footer, card, conta | logo, search, itens, footer, card `Progress circle`, conta | marca "K", itens só ícone (48px, gap `spacing-md`), footer, avatar |
+| 2.º nível | acordeão (`pl-spacing-6xl`, sem ícone) | 2.ª coluna com os `items` do item atual (`pt-spacing-4xl`, `px-spacing-xl`) | 2.ª coluna com o título do item e a conta (nome + email) |
+
+- **Item (`_Nav item base`):** `px-spacing-lg py-spacing-md`, `radius-sm`, gap `spacing-md`; conteúdo (dot 10px opcional · ícone 24px · label `text-md` semibold) com gap `spacing-lg`; badge e chevron (20px) à direita. Default `text-secondary` · Hover `bg-primary-hover` + `text-secondary-hover` · Current `bg-active` + `text-secondary-hover` · Current + Hover `bg-secondary-hover` (Figma `1153:90789`) · Focus anel de 2px sobre intervalo de 2px. Item só ícone (`_Nav item button`): 48px, `p-spacing-lg`, `bg-secondary-hover` em hover quando atual.
+- **Escolha de item:** num pai de Dual-tier / Slim, escolher o pai seleciona o primeiro filho ativo (a 2.ª coluna tem sempre uma página atual). Um pai recolhido é *current* quando contém o filho atual.
+- **Featured card:** `bg-secondary`, `radius-md`, `px-spacing-xl py-spacing-2xl`, gap `spacing-xl`; `Progress bar` (8px, `bg-quaternary` + `brand-600`) ou `Progress circle` (anel 64px, traço 6px, percentagem `text-sm` semibold); ações Dismiss (`Link gray`) e Upgrade plan (`Link color`); botão de fechar 36px em `top/right 8px`.
+- **Conta:** `border-t border-secondary`, `pt-spacing-3xl`, `AvatarLabelGroup` md + botão `logout`. A foto vem de `avatarSrc` (imagem de utilizador, nunca um asset do Figma); sem ela mostram-se as iniciais.
+- **Mobile (< 1024px, `lg`):** barra de 64px (logo + botão de menu 40px, `border-b`); o botão abre um drawer de 311px com a lista Simple (sem o card), ao lado de um scrim (`bg-overlay` 70% + blur 8px, como o Modal) com botão de fechar. O drawer é um `dialog` modal: bloqueia o scroll, prende o foco e fecha com Esc, scrim ou botão.
+- **A11y:** `aside` com `aria-label`; `nav` para itens principais, footer e 2.ª coluna; `aria-current="page"` no atual; pais com `aria-expanded` / `aria-controls`; itens só ícone com `aria-label` e `title`.
+

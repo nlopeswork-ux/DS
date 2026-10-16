@@ -1,0 +1,129 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as SidebarNavigationStories from './SidebarNavigation.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={SidebarNavigationStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs — replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Sidebar Navigation
+
+The application's primary navigation: a logo, search, the main sections, secondary links, a usage card and the signed-in account. It comes in three layouts — Simple, Dual-tier and Slim — and turns into a top bar with a drawer on small screens.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={SidebarNavigationStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={SidebarNavigationStories.Playground} include={['Type', 'Breakpoint', 'Search', 'Featured Card', 'Account', 'Avatar', 'Drawer Open']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- Applications with several top-level sections that users move between all day.
+- **Simple** when sections have a few pages each and users benefit from seeing them in place.
+- **Dual-tier** when sections have many pages — the second column keeps the whole list visible without nested accordions.
+- **Slim** when the content needs the width: an icon-only rail that opens a second column for the current section.
+
+### When not to use
+- Marketing sites or pages with a handful of links — use a header navigation.
+- For moving *within* a page or a flow — use Tabs or Breadcrumbs.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Types', content: <Canvas of={SidebarNavigationStories.Types} withToolbar={false} sourceState="none" /> },
+    { label: 'Mobile', content: <Canvas of={SidebarNavigationStories.Mobile} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Logo** — the 32px KDS mark and logotype (`logo` replaces it). Slim shows only the mark.
+- **Search** — an `Input` with a leading search icon (`showSearch`).
+- **Main items** — icon, label, optional badge or status dot. An item with `items` has a second level: it expands in place in Simple and on mobile, and fills the second column in Dual-tier and Slim. Picking a parent lands on its first enabled child, so the second column always has a current page.
+- **Footer items** — Support, Settings and similar, pinned to the bottom.
+- **Featured card** — a usage or promo card above the account: `Progress bar` in Simple, `Progress circle` in Dual-tier. It has Dismiss and an action, plus a close button.
+- **Account** — avatar, name, email and a log-out button. Pass `avatarSrc` for a photo (the stories use free dummy portraits from `public/avatars/`); without one the initials are shown.
+- **Widths** — Simple 312px, Dual-tier 280px (528px with the second column), Slim 80px (362px open). From 1024px (`lg`) it is the full sidebar; below, a 64px top bar whose menu button opens a 311px drawer beside a dimmed scrim.
+
+### Best practices
+- Keep the main list to about seven items; move the rest to the second level.
+- Labels are short nouns that match the page titles. Use a badge only for counts that need attention.
+- The sidebar fills its parent's height — give it a container with a height (`h-screen`, a grid row) and let it scroll internally.
+- Control the selection with `value` / `onValueChange` when it follows the router; items with `href` render links.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Style</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Default</strong></td><td>Icon in <code>fg-quaternary</code>, label in <code>text-secondary</code>, semibold.</td></tr>
+    <tr><td><strong>Hover</strong></td><td>Row fills with <code>bg-primary-hover</code>; label darkens to <code>text-secondary-hover</code>. On the current item the fill steps up to <code>bg-secondary-hover</code>.</td></tr>
+    <tr><td><strong>Focused</strong></td><td>Keyboard focus ring: a 2px page-coloured gap and a 2px brand ring.</td></tr>
+    <tr><td><strong>Current</strong></td><td>Row fills with <code>bg-active</code>, label in <code>text-secondary-hover</code>, <code>aria-current="page"</code>. A collapsed parent is current when it holds the current child.</td></tr>
+    <tr><td><strong>Disabled</strong></td><td>Label in <code>text-disabled</code>, not focusable.</td></tr>
+  </tbody>
+</table>
+
+The Storybook previews can force Hover and Focus with the item `state` prop — in product code the browser drives them.
+
+<div className="relative isolate my-6 [&_.docs-story]:!py-4">
+  <Canvas of={SidebarNavigationStories.States} withToolbar={false} sourceState="none" />
+</div>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Landmarks:** the sidebar is an `aside` labelled "Main navigation" (override with `aria-label`) containing a `nav` for the main items, one for the footer items and one for the second column (named after its section, e.g. "Dashboard pages").
+- **Current page:** `aria-current="page"` on the current link or button.
+- **Expandable items:** parents are buttons with `aria-expanded` and `aria-controls` pointing at their list.
+- **Icon-only items (Slim):** carry the label as `aria-label` and `title`.
+- **Mobile drawer:** the menu button has `aria-expanded` / `aria-controls`; the open drawer is a modal dialog that locks page scroll, traps focus and restores it to the menu button on close. Esc, the scrim and the close button all close it.
+- **Keyboard:** every item is a native link or button — Tab to move, Enter / Space to activate — with a visible focus ring.
