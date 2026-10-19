@@ -67,8 +67,7 @@ A circular user representation — photo, initials, or a generic placeholder —
   <div className="flex flex-col">
     <div className="px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary border-b border-secondary">Options</div>
     <div className={cn('flex flex-col p-6', 'playground-options-list')}>
-      <Controls of={AvatarStories.Playground} include={['Size', 'Status Icon', 'Online', 'Contrast Border']} />
-      <Controls of={AvatarStories.Playground} include={['Placeholder', 'Initials']} />
+      <Controls of={AvatarStories.Playground} include={['Size', 'Content', 'Initials', 'Status Icon', 'Online', 'Contrast Border']} />
     </div>
   </div>
 </div>

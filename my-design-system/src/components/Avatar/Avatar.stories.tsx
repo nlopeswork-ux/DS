@@ -3,15 +3,32 @@ import { Avatar } from './Avatar';
 import { AvatarAddButton } from './AvatarAddButton';
 import { AvatarProfilePhoto } from './AvatarProfilePhoto';
 import { AvatarLabelGroup } from './AvatarLabelGroup';
-import type { AvatarSize, AvatarStatusIcon } from './Avatar.types';
+import type { AvatarProps, AvatarSize, AvatarStatusIcon } from './Avatar.types';
 
 const sizeOptions = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] satisfies AvatarSize[];
 
 const statusIconOptions = ['false', 'online-indicator', 'company', 'verified'] satisfies AvatarStatusIcon[];
 
-const PHOTO_URL = 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces';
+/** Free dummy portraits (randomuser.me), vendored in public/avatars so previews work offline and on GitHub Pages — same set as the Sidebar Navigation account. */
+const PHOTO_URL = `${import.meta.env.BASE_URL}avatars/women-44.jpg`;
 
-const meta = {
+type AvatarContent = 'Photo' | 'Initials' | 'Placeholder';
+const contentOptions = ['Photo', 'Initials', 'Placeholder'] satisfies AvatarContent[];
+
+/** Story-only: maps the single "Content" control onto Avatar's src / text / placeholder props. */
+type AvatarPlaygroundProps = Omit<AvatarProps, 'src' | 'placeholder'> & { content: AvatarContent };
+
+const AvatarPlayground = ({ content, text, ...props }: AvatarPlaygroundProps) => (
+  <Avatar
+    {...props}
+    alt={content === 'Photo' ? 'Olivia Rhye' : ''}
+    src={content === 'Photo' ? PHOTO_URL : undefined}
+    text={content === 'Initials' ? text : undefined}
+    placeholder={content === 'Placeholder'}
+  />
+);
+
+const meta: Meta<AvatarProps & { content?: AvatarContent }> = {
   title: 'Components/Avatar',
   component: Avatar,
   // The Docs page comes from Avatar.mdx (<Meta of={AvatarStories} />) — no
@@ -27,15 +44,17 @@ const meta = {
       control: { type: 'select' },
       options: sizeOptions,
     },
-    placeholder: {
-      name: 'Placeholder',
-      description: 'Shows the generic person icon.',
-      control: 'boolean',
+    content: {
+      name: 'Content',
+      description: 'Photo (free dummy portrait), initials, or the generic person placeholder.',
+      control: { type: 'inline-radio' },
+      options: contentOptions,
     },
     text: {
       name: 'Initials',
-      description: 'Initials shown instead of a photo (e.g. "OR").',
+      description: 'Initials shown when Content is "Initials" (e.g. "OR").',
       control: 'text',
+      if: { arg: 'content', eq: 'Initials' },
     },
     statusIcon: {
       name: 'Status Icon',
@@ -57,16 +76,17 @@ const meta = {
     alt: { table: { disable: true } },
     companySwap: { table: { disable: true } },
   },
-} satisfies Meta<typeof Avatar>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Live Playground — freely experiment with every avatar combination. */
 export const Playground: Story = {
+  render: (args) => <AvatarPlayground content="Photo" {...args} />,
   args: {
     size: 'md',
-    placeholder: false,
+    content: 'Photo',
     text: 'OR',
     statusIcon: 'false',
     online: true,
