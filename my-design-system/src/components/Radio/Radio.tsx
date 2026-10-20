@@ -42,7 +42,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
               'peer shrink-0 cursor-pointer appearance-none rounded-full border bg-primary',
               'checked:border-brand',
               'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-0',
-              error ? 'border-error-subtle focus-visible:ring-error-500' : 'border-primary focus-visible:ring-brand-500',
+              error ? 'border-error focus-visible:ring-error-500' : 'border-control focus-visible:ring-brand-500',
               'disabled:cursor-not-allowed disabled:border-disabled disabled:bg-disabled-subtle',
               controlSizeStyles[size],
               className,

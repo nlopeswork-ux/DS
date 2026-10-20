@@ -34,7 +34,7 @@ export function DropdownListItem({
           aria-hidden="true"
           className={cn(
             'inline-flex size-4 shrink-0 items-center justify-center rounded-xs border',
-            checked ? 'border-transparent bg-brand-solid fg-white' : 'border-primary',
+            checked ? 'border-transparent bg-brand-solid fg-white' : 'border-control',
           )}
         >
           {checked ? <Icon name="check" size="xs" weight={700} /> : null}

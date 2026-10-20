@@ -499,6 +499,7 @@
 
 /* Border */
 @utility border-primary { border-color: var(--color-border-primary); }
+@utility border-control { border-color: var(--color-border-control); }
 @utility border-secondary { border-color: var(--color-border-secondary); }
 @utility border-tertiary { border-color: var(--color-border-tertiary); }
 @utility border-disabled { border-color: var(--color-border-disabled); }

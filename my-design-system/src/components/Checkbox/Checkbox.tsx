@@ -66,7 +66,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               'checked:border-transparent checked:bg-brand-solid',
               indeterminate && 'border-transparent bg-brand-solid',
               'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-0',
-              error ? 'border-error-subtle focus-visible:ring-error-500' : 'border-primary focus-visible:ring-brand-500',
+              error ? 'border-error focus-visible:ring-error-500' : 'border-control focus-visible:ring-brand-500',
               'disabled:cursor-not-allowed disabled:border-disabled disabled:bg-disabled-subtle disabled:checked:bg-disabled-subtle',
               controlSizeStyles[size],
               className,

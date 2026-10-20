@@ -136,10 +136,10 @@ export function InputDropdown({
           className={cn(
             'flex h-11 w-full items-center gap-md rounded-md border bg-primary px-3.5 py-2.5 text-left shadow-xs outline-none',
             'transition-colors duration-150 ease-in-out',
-            error ? 'border-error-subtle' : 'border-primary',
+            error ? 'border-error' : 'border-control',
             'focus-visible:border-brand focus-visible:ring-4 focus-visible:ring-offset-0',
             error ? 'focus-visible:ring-error-500' : 'focus-visible:ring-brand-500',
-            open && (error ? 'border-error-subtle ring-4 ring-error-500' : 'border-brand ring-4 ring-brand-500'),
+            open && (error ? 'border-error ring-4 ring-error-500' : 'border-brand ring-4 ring-brand-500'),
             disabled && 'cursor-not-allowed border-disabled bg-disabled-subtle opacity-60',
           )}
         >

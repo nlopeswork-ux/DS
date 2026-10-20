@@ -161,7 +161,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               ? 'border-primary bg-disabled-subtle'
               : destructive
                 ? 'border-error'
-                : 'border-primary focus-within:border-brand',
+                : 'border-control focus-within:border-brand',
             !isDisabled && destructive && 'focus-within:border-error',
             !isDisabled && 'focus-within:border-2 focus-within:ring-4 focus-within:ring-offset-0',
             !isDisabled && (destructive ? 'focus-within:ring-error-500' : 'focus-within:ring-brand-500'),

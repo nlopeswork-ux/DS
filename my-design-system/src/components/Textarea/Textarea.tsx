@@ -37,7 +37,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     const forceFocused = state === 'Focused';
 
     const isTagsType = type === 'tags';
-    /** In `tags` mode the text area is always an internally-controlled compose buffer — docs/components/form-controls.md §4. */
+    /** In `tags` mode the text area is always an internally-controlled compose buffer — docs/components/form-controls.md §8.5. */
     const [composeValue, setComposeValue] = useState('');
 
     const removeTag = (tagId: string) => {
@@ -89,7 +89,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               ? 'border-primary bg-disabled-subtle'
               : destructive
                 ? 'border-error'
-                : 'border-primary focus-within:border-brand',
+                : 'border-control focus-within:border-brand',
             !isDisabled && destructive && 'focus-within:border-error',
             !isDisabled && 'focus-within:border-2 focus-within:ring-4 focus-within:ring-offset-0',
             !isDisabled && (destructive ? 'focus-within:ring-error-500' : 'focus-within:ring-brand-500'),

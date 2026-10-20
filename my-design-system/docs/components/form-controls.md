@@ -29,7 +29,7 @@ interface InputFieldProps {
 |---|---|
 | Fundo do input (default) | `bg-primary` |
 | Fundo do input (disabled) | `bg-disabled_subtle` |
-| Borda (default/filled) | `border-primary` |
+| Borda (default/filled) | `border-control` |
 | Borda (focused) | `border-brand` |
 | Borda (disabled) | `border-disabled` |
 | Borda (destructive) | `border-error_subtle` |
@@ -69,8 +69,8 @@ interface InputFieldProps {
 
 | Estado | Borda | Fundo | Stroke Weight | Sombra | Notas |
 |---|---|---|---|---|---|
-| Placeholder | `border-primary` | `bg-primary` | 1px | `shadow-xs` | Texto em placeholder color |
-| Filled | `border-primary` | `bg-primary` | 1px | `shadow-xs` | Texto preenchido |
+| Placeholder | `border-control` | `bg-primary` | 1px | `shadow-xs` | Texto em placeholder color |
+| Filled | `border-control` | `bg-primary` | 1px | `shadow-xs` | Texto preenchido |
 | Focused | `border-brand` | `bg-primary` | 2px (inside) | `shadow-xs` | Ring de foco com borda brand |
 | Disabled | `border-disabled` | `bg-disabled_subtle` | 1px | `shadow-xs` | Interação desativada |
 
@@ -122,8 +122,8 @@ type InputDropdownProps = {
 
 | Estado | Fill | Stroke | Stroke weight | Efeito extra |
 |---|---|---|---|---|
-| Default | `bg-primary` (#FFF) | `border-primary` (#D0D5DD) | 1px | `shadow-xs` |
-| Placeholder | `bg-primary` (#FFF) | `border-primary` (#D0D5DD) | 1px | `shadow-xs` |
+| Default | `bg-primary` (#FFF) | `border-control` (#667085) | 1px | `shadow-xs` |
+| Placeholder | `bg-primary` (#FFF) | `border-control` (#667085) | 1px | `shadow-xs` |
 | Focused | `bg-primary` (#FFF) | `border-brand` (#2E9A92) | 2px | `shadow-xs` |
 | Open | `bg-primary` (#FFF) | `border-brand` (#2E9A92) | 2px | `shadow-xs` |
 | Disabled | `bg-disabled_subtle` (#F9FAFB) | `border-primary` (#D0D5DD) | 1px | `shadow-xs` |
@@ -236,7 +236,7 @@ type CheckboxProps = {
 
 | Elemento | Estado | Token | Hex |
 |---|---|---|---|
-| Borda (unchecked) | Default / Hover | `Colors/Border/border-primary` | `#D0D5DD` |
+| Borda (unchecked) | Default / Hover | `Colors/Border/border-control` | `#667085` |
 | Preenchimento (checked) | Default / Hover / Focused | `Colors/Background/bg-brand-solid` | `#1C7E78` |
 | Ícone check | Todos (exceto disabled) | `Colors/Foreground/fg-white` | `#FFFFFF` |
 | Borda (disabled) | Disabled | `Colors/Border/border-disabled` | `#D0D5DD` |
@@ -276,9 +276,9 @@ type CheckboxProps = {
 
 | Estado | Unchecked | Checked |
 |---|---|---|
-| Default | Borda `border-primary`, sem preenchimento | Fundo `bg-brand-solid`, ícone `fg-white` |
-| Hover | Borda `border-primary`, sem preenchimento (visual idêntico ao default na base) | Fundo `bg-brand-solid`, ícone `fg-white` |
-| Focused | Borda `border-primary`, fundo `bg-primary`, anel `focus-ring` | Fundo `bg-brand-solid`, ícone `fg-white`, anel `focus-ring` |
+| Default | Borda `border-control`, sem preenchimento | Fundo `bg-brand-solid`, ícone `fg-white` |
+| Hover | Borda `border-control`, sem preenchimento (visual idêntico ao default na base) | Fundo `bg-brand-solid`, ícone `fg-white` |
+| Focused | Borda `border-control`, fundo `bg-primary`, anel `focus-ring` | Fundo `bg-brand-solid`, ícone `fg-white`, anel `focus-ring` |
 | Disabled | Borda `border-disabled`, fundo `bg-disabled_subtle` | Fundo `bg-disabled_subtle`, borda `border-disabled`, ícone `fg-disabled_subtle` |
 
 ---
@@ -332,7 +332,7 @@ type CheckboxGroupItemProps = {
 
 | Token | Hex | Uso |
 |---|---|---|
-| `border-primary` | `#D0D5DD` | Stroke do checkbox (unselected) |
+| `border-control` | `#667085` | Stroke do checkbox (unselected) |
 | `bg-brand-solid` | `#1C7E78` | Fill do checkbox (selected) |
 | `bg-disabled_subtle` | `#F9FAFB` | Fill do checkbox (disabled) |
 | `border-disabled` | `#D0D5DD` | Stroke do checkbox (disabled) |
@@ -373,9 +373,9 @@ type CheckboxGroupItemProps = {
 
 | Estado | Background | Border | Stroke Weight | Checkbox | Efeitos |
 |---|---|---|---|---|---|
-| Default (unselected) | `bg-primary` | `border-secondary` | 1px | Stroke `border-primary` | — |
+| Default (unselected) | `bg-primary` | `border-secondary` | 1px | Stroke `border-control` | — |
 | Default (selected) | `bg-primary` | `border-brand` | 2px | Fill `bg-brand-solid` + ícone check | — |
-| Hover (unselected) | `bg-primary` | `border-secondary` | 1px | Stroke `border-primary` | — |
+| Hover (unselected) | `bg-primary` | `border-secondary` | 1px | Stroke `border-control` | — |
 | Hover (selected) | `bg-primary` | `border-brand` | 2px | Fill `bg-brand-solid` + ícone check | — |
 | Focused (selected) | `bg-primary` | `border-brand` | 2px | Fill `bg-brand-solid` + ícone check | Focus ring duplo (brand + white) |
 | Disabled (unselected) | `bg-disabled_subtle` | `border-disabled` | 1px | Fill `bg-disabled_subtle` + stroke `border-disabled` | — |
@@ -521,6 +521,140 @@ type ToggleProps = {
 - Thumb: `toggle-button-fg_disabled` (tom off-white apagado)
 - Sombras do thumb permanecem
 - Texto do label mantém cor original (não esmaece)
+
+---
+
+## 8. Textarea
+
+### 8.1 Props (TypeScript)
+
+```ts
+type TextareaType = 'default' | 'tags';
+type TextareaState = 'Placeholder' | 'Default' | 'Focused' | 'Disabled'; // só para pré-visualização no Storybook
+
+interface TextareaTag { id: string; label: string }
+
+interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'rows'> {
+  type?: TextareaType;          // default: 'default'
+  state?: TextareaState;        // força 'Focused' ou 'Disabled' no Storybook; não usar em produção
+  destructive?: boolean;        // default: false — paleta de erro na borda, mensagem e ícone de ajuda
+  label?: string;               // texto acima do campo
+  hint?: string;                // texto de apoio abaixo (escondido quando há mensagem de erro)
+  errorMessage?: string;        // mostrada abaixo do campo quando destructive
+  required?: boolean;           // default: false — mostra * junto do label
+  helpIcon?: boolean;           // default: true — ícone de ajuda na linha do label
+  resizeHandle?: boolean;       // default: true — alça de redimensionamento vertical
+  tags?: TextareaTag[];         // só com type="tags"
+  onTagsChange?: (tags: TextareaTag[]) => void;
+}
+```
+
+### 8.2 Anatomia
+
+1. **Linha do label** — `label` (`text-sm`, medium, `text-secondary`), `*` (`text-brand-tertiary`) se `required`, e o ícone de ajuda (`help`, `fg-quinary`; passa a `error`, `text-error-500`, quando `destructive`).
+2. **Campo** — contentor com borda, altura fixa `h-32` (128px na escala do Tailwind), `radius-md`, padding 14px / 12px, `shadow-xs`, fundo `bg-primary`. Em `type="tags"`, os chips ficam por cima da área de escrita.
+3. **Texto de apoio ou erro** — `hint` (`text-sm`, `text-tertiary`) ou, se `destructive` e houver `errorMessage`, a mensagem (`text-sm`, `text-error`).
+
+### 8.3 Design Tokens
+
+| Elemento | Estado | Token |
+|---|---|---|
+| Borda | Default | `border-control` (1px) |
+| Borda | Focused | `border-brand` (2px) + anel 4px `brand-500` |
+| Borda | Destructive | `border-error` (anel `error-500` em foco) |
+| Borda | Disabled | `border-primary` |
+| Fundo | Default / Disabled | `bg-primary` / `bg-disabled-subtle` |
+| Texto digitado | Default / Disabled | `text-primary` (`text-base`) / `text-disabled` |
+| Placeholder | — | `text-placeholder` |
+| Opacidade | Disabled | 60% |
+
+A borda de controlo usa `border-control` (e não `border-primary`) para cumprir o contraste mínimo de 3:1 contra o fundo (WCAG 1.4.11): ver `foundations/colors.md §2.4`.
+
+### 8.4 Estados Visuais
+
+| Estado | Borda | Fundo | Notas |
+|---|---|---|---|
+| Default / Placeholder | `border-control` | `bg-primary` | Placeholder em `text-placeholder` |
+| Focused | `border-brand` 2px | `bg-primary` | Anel de foco 4px `brand-500` |
+| Destructive | `border-error` | `bg-primary` | Mensagem de erro substitui o hint; `aria-invalid` |
+| Destructive + Focused | `border-error` 2px | `bg-primary` | Anel `error-500` |
+| Disabled | `border-primary` | `bg-disabled-subtle` | Cursor `not-allowed`, opacidade 60% |
+
+### 8.5 Variante `tags`
+
+- O campo passa a ser um buffer de composição controlado internamente.
+- **Enter** transforma o texto atual num chip (ignora texto vazio) e dispara `onTagsChange`.
+- **Backspace** com o buffer vazio remove o último chip.
+- Cada chip é um `Tag` `md` com fecho (`X close`); desativado, mostra só texto.
+- Limitação atual do código: neste modo as props nativas do `<textarea>` (`placeholder`, `name`, `maxLength`...) não são aplicadas, porque o campo recebe apenas `value` e `onChange` do buffer.
+
+### 8.6 Acessibilidade
+
+- `<label for>` ligado ao `id` (gerado se não for passado).
+- `aria-invalid` quando `destructive`; `aria-describedby` aponta para o hint ou para a mensagem de erro, conforme o que estiver visível.
+- `required` nativo; o `*` é `aria-hidden`.
+- Foco visível por borda 2px mais anel; alça de redimensionamento vertical nativa (`resize-y`) quando `resizeHandle`.
+
+---
+
+## 9. Verification code input
+
+Composição de caixas de um dígito (`_Mega input field base`) para códigos de verificação (OTP).
+
+### 9.1 Props (TypeScript)
+
+```ts
+type VerificationCodeSize = 'sm' | 'md' | 'lg';
+type VerificationCodeDigits = 4 | 6;
+
+interface VerificationCodeInputProps {
+  size?: VerificationCodeSize;      // default: 'md'
+  digits?: VerificationCodeDigits;  // default: 6
+  label?: string;
+  value?: string;                   // código completo, modo controlado
+  defaultValue?: string;            // código inicial, modo não controlado
+  error?: boolean;                  // default: false
+  errorMessage?: string;            // mostrada abaixo quando error
+  disabled?: boolean;               // default: false
+  onChange?: (code: string) => void;     // a cada alteração, com o código possivelmente incompleto
+  onComplete?: (code: string) => void;   // uma vez, quando todas as caixas ficam preenchidas
+  name?: string;                    // input escondido para submissão nativa de formulário
+}
+```
+
+### 9.2 Dimensões por tamanho
+
+| Size | Caixa | Radius | Texto | Padding |
+|---|---|---|---|---|
+| sm | 64×64 | `radius-lg` | `text-2xl` | `spacing-md` horizontal / `spacing-xxs` vertical |
+| md | 80×80 | `radius-xl` | `text-3xl` | `spacing-md` / `spacing-md` |
+| lg | 96×96 | `radius-xl` | `text-4xl` | `spacing-md` / `spacing-lg` |
+
+As caixas ficam separadas por `spacing-md`; label, caixas e mensagem de erro separados por `spacing-sm`. Texto centrado, semibold, `text-primary`, fundo `bg-primary`, `shadow-xs`.
+
+### 9.3 Design Tokens e estados
+
+| Estado | Borda | Notas |
+|---|---|---|
+| Vazia | `border-control` 1px | |
+| Preenchida (`Filled`) | `border-brand` 2px | Mesmo sem foco |
+| Focada | `border-brand` 2px + anel 4px `brand-500` | |
+| Erro | `border-error` (anel `error-500` em foco) | `aria-invalid` em todas as caixas |
+| Desativada | `border-disabled`, fundo `bg-disabled-subtle`, texto `text-disabled`, opacidade 60% | |
+
+### 9.4 Comportamento
+
+- Aceita só dígitos; cada caixa guarda um. Escrever avança o foco para a seguinte.
+- **Backspace** numa caixa vazia volta à anterior e apaga-a; **←** e **→** movem o foco.
+- **Colar** distribui os dígitos a partir da caixa atual e foca a última preenchida.
+- `onComplete` dispara uma única vez quando todas as caixas ficam preenchidas e volta a armar-se se alguma for apagada.
+- Mudar `digits` num componente montado e não controlado reajusta o número de caixas.
+
+### 9.5 Acessibilidade
+
+- O conjunto é um `role="group"` ligado ao label por `aria-labelledby`.
+- Cada caixa tem `aria-label="Digit N of M"`, `inputMode="numeric"` e `maxLength={1}`; a primeira usa `autoComplete="one-time-code"` para preenchimento automático por SMS.
+- Em erro, `aria-describedby` aponta para a mensagem.
 
 ---
 

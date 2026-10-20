@@ -23,10 +23,11 @@ Todas as especificações técnicas de Design Tokens e Componentes estão dividi
 * **Componentes (Components):**
   * Botões (Button, Social Button, App Store, Close X): `docs/components/buttons.md`
   * Badges & Tags (Badge, Badge Group, Tag): `docs/components/badges-tags.md`
-  * Form Controls (Input Field, Dropdown, Checkbox, Toggle, Groups): `docs/components/form-controls.md`
+  * Form Controls (Input Field, Dropdown, Checkbox, Toggle, Groups, Textarea, Verification Code Input): `docs/components/form-controls.md`
   * Navegação (Dropdown Menus, Button Group, Pagination, Tabs, Vertical Tabs, Breadcrumbs, Sidebar Navigation): `docs/components/navigation.md`
   * Feedback & Visuals (Avatar, Tooltip, Help Icon, Progress, Slider, Featured Icon): `docs/components/feedback-visuals.md`
   * Feedback & Overlays (Modal, Alert, Banner, Toast): `docs/components/feedback-overlays.md`
+  * Icons (Icon, Country Icon, Social Icon): `docs/components/icons.md`
 
 ---
 

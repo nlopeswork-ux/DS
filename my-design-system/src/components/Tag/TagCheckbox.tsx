@@ -30,7 +30,7 @@ export const TagCheckbox = forwardRef<HTMLInputElement, TagCheckboxProps>(
           'peer size-4 shrink-0 cursor-pointer appearance-none rounded-xs border bg-primary',
           'checked:border-transparent checked:bg-brand-solid hover:checked:bg-brand-solid-hover',
           'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-0 focus-visible:ring-brand-500',
-          'border-primary',
+          'border-control',
           'disabled:cursor-not-allowed disabled:border-disabled disabled:bg-disabled-subtle disabled:checked:bg-disabled-subtle',
           className,
         )}

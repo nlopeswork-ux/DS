@@ -442,6 +442,8 @@
 
   /* 2.4 Border */
   --color-border-primary: var(--color-gray-300);
+  /* Borda de controlos de formulário: >= 3:1 sobre bg-primary (WCAG 1.4.11). border-primary fica para cartões, divisórias e botões. */
+  --color-border-control: var(--color-gray-500);
   --color-border-secondary: var(--color-gray-200);
   --color-border-tertiary: var(--color-gray-100);
   --color-border-disabled: var(--color-gray-300);
@@ -601,7 +603,7 @@
 [data-theme='dark'] {
     /* Text */
     --color-text-primary: var(--color-gray-dark-50);
-    --color-text-primary-on-brand: var(--color-gray-dark-50);
+    --color-text-primary-on-brand: var(--color-base-white);
     --color-text-secondary: var(--color-gray-dark-300);
     --color-text-secondary-hover: var(--color-gray-dark-200);
     --color-text-tertiary: var(--color-gray-dark-400);
@@ -659,7 +661,7 @@
     --color-bg-brand-primary: var(--color-brand-500);
     --color-bg-brand-secondary: var(--color-brand-600);
     --color-bg-brand-solid: var(--color-brand-600);
-    --color-bg-brand-solid-hover: var(--color-brand-500);
+    --color-bg-brand-solid-hover: var(--color-brand-700);
     --color-bg-brand-section: var(--color-bg-secondary);
     --color-bg-brand-section-subtle: var(--color-bg-primary);
     --color-bg-error-primary: var(--color-error-500);
@@ -677,6 +679,7 @@
 
     /* Border */
     --color-border-primary: var(--color-gray-dark-700);
+    --color-border-control: var(--color-gray-dark-500);
     --color-border-secondary: var(--color-gray-dark-800);
     --color-border-tertiary: var(--color-gray-dark-800);
     --color-border-disabled: var(--color-gray-dark-700);

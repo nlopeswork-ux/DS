@@ -166,7 +166,7 @@ Cada família segue o mesmo padrão 25–950. Valores completos disponíveis nos
 | Token | Light | Dark | CSS |
 |---|---|---|---|
 | text-primary (900) | Gray 900 `#101828` | Gray-dark 50 `#f5f5f6` | `--color-text-primary` |
-| text-primary_on-brand | White `#ffffff` | Gray-dark 50 | `--color-text-primary-on-brand` |
+| text-primary_on-brand | White `#ffffff` | White `#ffffff` | `--color-text-primary-on-brand` |
 | text-secondary (700) | Gray 700 `#344054` | Gray-dark 300 `#cecfd2` | `--color-text-secondary` |
 | text-secondary_hover | Gray 800 | Gray-dark 200 | `--color-text-secondary-hover` |
 | text-tertiary (600) | Gray 600 `#475467` | Gray-dark 400 `#94969c` | `--color-text-tertiary` |
@@ -230,7 +230,7 @@ Cada família segue o mesmo padrão 25–950. Valores completos disponíveis nos
 | bg-brand-primary | Brand 50 `#e0faf8` | Brand 500 `#2e9a92` | `--color-bg-brand-primary` |
 | bg-brand-secondary | Brand 100 | Brand 600 | `--color-bg-brand-secondary` |
 | bg-brand-solid | Brand 600 `#1c7e78` | Brand 600 | `--color-bg-brand-solid` |
-| bg-brand-solid_hover | Brand 700 | Brand 500 | `--color-bg-brand-solid-hover` |
+| bg-brand-solid_hover | Brand 700 | Brand 700 | `--color-bg-brand-solid-hover` |
 | bg-brand-section | Brand 800 | `bg-secondary` | `--color-bg-brand-section` |
 | bg-brand-section_subtle | Brand 700 | `bg-primary` | `--color-bg-brand-section-subtle` |
 | bg-error-primary | Error 50 | Error 500 | `--color-bg-error-primary` |
@@ -251,6 +251,7 @@ Cada família segue o mesmo padrão 25–950. Valores completos disponíveis nos
 | Token | Light | Dark | CSS |
 |---|---|---|---|
 | border-primary | Gray 300 `#d0d5dd` | Gray-dark 700 `#333741` | `--color-border-primary` |
+| border-control | Gray 500 `#667085` | Gray-dark 500 `#85888e` | `--color-border-control` |
 | border-secondary | Gray 200 `#e4e7ec` | Gray-dark 800 `#1f242f` | `--color-border-secondary` |
 | border-tertiary | Gray 100 | Gray-dark 800 | `--color-border-tertiary` |
 | border-disabled | Gray 300 | Gray-dark 700 | `--color-border-disabled` |
