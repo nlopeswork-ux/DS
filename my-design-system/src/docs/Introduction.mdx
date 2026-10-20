@@ -59,6 +59,28 @@ export const members = [
   { name: 'Amara Osei', email: 'amara@kds.design', photo: 'women-68', role: 'Viewer', roleColor: 'Gray' },
 ];
 
+export const roles = [
+  { name: 'Admin', description: 'Full access, billing and seat management.', count: 1, color: 'Brand' },
+  { name: 'Editor', description: 'Can create and change content.', count: 2, color: 'Gray' },
+  { name: 'Viewer', description: 'Read-only access.', count: 1, color: 'Gray' },
+];
+
+export const invitations = [
+  { email: 'daniel@kds.design', initials: 'DP', sent: 'Sent 2 days ago' },
+  { email: 'sofia@kds.design', initials: 'SL', sent: 'Sent today' },
+];
+
+export const used = [
+  { label: 'Breadcrumbs', storyId: 'components-breadcrumbs--docs' },
+  { label: 'Tabs', storyId: 'components-tabs--docs' },
+  { label: 'Input', storyId: 'components-input--docs' },
+  { label: 'Button', storyId: 'components-button--docs' },
+  { label: 'Avatar', storyId: 'components-avatar--docs' },
+  { label: 'Avatar Group', storyId: 'components-avatar-group--docs' },
+  { label: 'Badge', storyId: 'components-badge--docs' },
+  { label: 'Alert', storyId: 'components-alert--docs' },
+];
+
 export const TeamPreview = () => (
   <div
     className="kds-stage flex flex-col gap-3xl rounded-xl bg-secondary p-3xl"
@@ -114,18 +136,48 @@ export const TeamPreview = () => (
             </div>
           ),
         },
-        { value: 'roles', label: 'Roles', content: <div className="pt-xl text-sm text-tertiary">Roles decide what each member can see and change.</div> },
-        { value: 'invitations', label: 'Invitations', badge: 2, content: <div className="pt-xl text-sm text-tertiary">Two invitations are waiting to be accepted.</div> },
+        {
+          value: 'roles',
+          label: 'Roles',
+          content: (
+            <ul className="kds-members flex flex-col pt-xl">
+              {roles.map((role) => (
+                <li key={role.name} className="kds-row flex flex-wrap items-center justify-between gap-lg rounded-md px-lg py-md">
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-primary">{role.name}</span>
+                    <span className="text-sm text-tertiary">{role.description}</span>
+                  </div>
+                  <Badge size="sm" type="Pill color" color={role.color}>{role.count} members</Badge>
+                </li>
+              ))}
+            </ul>
+          ),
+        },
+        {
+          value: 'invitations',
+          label: 'Invitations',
+          badge: 2,
+          content: (
+            <ul className="kds-members flex flex-col pt-xl">
+              {invitations.map((invite) => (
+                <li key={invite.email} className="kds-row flex flex-wrap items-center justify-between gap-lg rounded-md px-lg py-md">
+                  <AvatarLabelGroup size="md" text={invite.initials} name={invite.email} supportingText={invite.sent} />
+                  <Badge size="sm" type="Pill color" color="Warning" icon="Dot">Pending</Badge>
+                </li>
+              ))}
+            </ul>
+          ),
+        },
       ]}
     />
   </div>
 );
 
 export const Row = ({ index, title, text, action, storyId }) => (
-  <div className="kds-row kds-reveal flex flex-col items-start gap-lg rounded-xl bg-secondary p-3xl" style={{ '--i': index }}>
-    <h3 className="kds-h3 kds-h3-lg">{title}</h3>
-    <p className="!m-0 max-w-[520px] text-base text-tertiary">{text}</p>
-    <Button hierarchy="Link color" size="md" iconTrailing iconTrailingSwap={<Icon name="arrow_forward" size="sm" />} onClick={open(storyId)}>{action}</Button>
+  <div className="kds-row kds-reveal flex h-full flex-col items-start gap-md rounded-xl bg-secondary p-3xl" style={{ '--i': index }}>
+    <h3 className="kds-h3">{title}</h3>
+    <p className="!m-0 text-sm text-tertiary">{text}</p>
+    <Button className="mt-auto" hierarchy="Link color" size="md" iconTrailing iconTrailingSwap={<Icon name="arrow_forward" size="sm" />} onClick={open(storyId)}>{action}</Button>
   </div>
 );
 
@@ -142,34 +194,36 @@ export const Swatches = ({ classes, label }) => (
 
 <div className="kds-home">
 
-<section className="kds-hero relative isolate overflow-hidden rounded-xl bg-brand-section px-4xl py-9xl max-md:px-3xl max-md:py-7xl">
+<section className="kds-hero relative isolate overflow-hidden rounded-xl bg-brand-section px-4xl py-7xl max-md:px-3xl max-md:py-6xl">
   <div className="flex max-w-[760px] flex-col items-start gap-3xl">
     <h1 className="kds-rise m-0 text-5xl font-semibold text-white max-md:text-4xl" style={{ '--i': 0, color: '#ffffff' }}>Build consistent interfaces, once.</h1>
     <p className="kds-rise !m-0 max-w-[680px] text-lg text-white" style={{ '--i': 1, color: 'rgba(255, 255, 255, 0.9)' }}>{'Ready-to-use components, tokens and UX guidelines for visual consistency, WCAG AA accessibility and full Light and Dark Mode support.'}</p>
-    <div className="kds-rise flex flex-wrap gap-lg" style={{ '--i': 2 }}>
-      <Button hierarchy="Secondary gray" size="xl" onClick={open('components-button--docs')}>Explore components</Button>
-      <Button hierarchy="Secondary color" size="xl" onClick={open('foundations-colors--docs')}>View foundations</Button>
-    </div>
   </div>
 </section>
 
-<h2 className="kds-h2">Components, composed</h2>
+<h2 className="kds-h2">Where to start</h2>
 
-<p className="kds-lead">Every piece below is a real component from this library — Breadcrumbs, Tabs, Input, Button, Avatar, Badge and Alert — wired together the way a product screen would use them. Try the tabs.</p>
+<p className="kds-lead">Tokens first, then components. Each page has an interactive Playground, usage guidance and accessibility notes.</p>
+
+<div className="grid items-stretch gap-xl md:grid-cols-3">
+  <Row index={0} title="Foundations" text="Colors, typography, spacing, shadows and radius — the token layer behind every component." action="View foundations" storyId="foundations-colors--docs" />
+  <Row index={1} title="Components" text="Buttons, form controls, navigation and feedback, each with a live Playground and every state documented." action="View components" storyId="components-button--docs" />
+  <Row index={2} title="Sidebar navigation" text="The application shell: Simple, Dual-tier and Slim layouts that become a drawer on small screens." action="View sidebar navigation" storyId="components-sidebar-navigation--docs" />
+</div>
+
+<h2 className="kds-h2">A real screen, only from the DS</h2>
+
+<p className="kds-lead">Every piece below is a component from this library. Try the tabs, then open any of them.</p>
 
 <div className="kds-reveal">
   <TeamPreview />
 </div>
 
-<h2 className="kds-h2">Where to start</h2>
-
-<div className="grid items-start gap-3xl lg:grid-cols-[1fr_1.4fr]">
-  <p className="kds-lead !m-0">Tokens first, then components. Each page has an interactive Playground, usage guidance and accessibility notes.</p>
-  <div className="flex flex-col gap-lg">
-    <Row index={0} title="Foundations" text="Colors, typography, spacing, shadows and radius — the token layer that underpins every component." action="View foundations" storyId="foundations-colors--docs" />
-    <Row index={1} title="Components" text="Buttons, form controls, navigation and feedback, each with a live Playground and every state documented." action="View components" storyId="components-button--docs" />
-    <Row index={2} title="Sidebar navigation" text="The application shell: Simple, Dual-tier and Slim layouts that turn into a drawer on small screens." action="View sidebar navigation" storyId="components-sidebar-navigation--docs" />
-  </div>
+<div className="flex flex-wrap items-center gap-md" style={{ marginTop: 24 }}>
+  <span className="text-sm text-tertiary">Used here:</span>
+  {used.map((item) => (
+    <Button key={item.storyId} hierarchy="Secondary gray" size="sm" onClick={open(item.storyId)}>{item.label}</Button>
+  ))}
 </div>
 
 <h2 className="kds-h2">Tokens, not hex values</h2>
@@ -204,26 +258,6 @@ export const Swatches = ({ classes, label }) => (
   </div>
 </div>
 
-<h2 className="kds-h2">Design principles</h2>
-
-<div className="kds-reveal grid gap-4xl md:grid-cols-3">
-  <div className="flex flex-col items-start gap-md">
-    <Badge size="md" type="Pill color" color="Success">WCAG AA</Badge>
-    <h3 className="kds-h3">Accessibility</h3>
-    <p className="!m-0 text-sm text-tertiary">AA contrast on every fill and text pair, a visible focus ring everywhere and native keyboard navigation in every interactive component.</p>
-  </div>
-  <div className="flex flex-col items-start gap-md">
-    <Badge size="md" type="Pill color" color="Brand">Semantic tokens</Badge>
-    <h3 className="kds-h3">Consistency</h3>
-    <p className="!m-0 text-sm text-tertiary">One set of semantic tokens — never raw hex or primitives — keeps color, spacing and type behaving the same across the product.</p>
-  </div>
-  <div className="flex flex-col items-start gap-md">
-    <Badge size="md" type="Pill color" color="Gray">Tailwind</Badge>
-    <h3 className="kds-h3">Performance</h3>
-    <p className="!m-0 text-sm text-tertiary">Lightweight components with no unnecessary dependencies, styled through Tailwind utilities with no styling runtime overhead.</p>
-  </div>
-</div>
-
 <h2 className="kds-h2">Quick start</h2>
 
 <div className="kds-reveal flex flex-col gap-xl">
@@ -238,7 +272,7 @@ export const Swatches = ({ classes, label }) => (
   />
   <div className="flex flex-wrap items-center gap-md text-sm text-tertiary">
     <Badge size="sm" type="Pill color" color="Gray">v1.0.0</Badge>
-    <span>Private package — not yet published to an external registry. The commands reflect the planned installation flow.</span>
+    <span>Private package, not yet on a public registry — commands show the planned install.</span>
   </div>
 </div>
 
