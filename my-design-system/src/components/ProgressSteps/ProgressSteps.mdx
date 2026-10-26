@@ -40,7 +40,7 @@ export const ExampleGallery = ({ tabs }) => {
 
 # Progress Steps
 
-Shows where someone is in a multi-step flow such as onboarding, checkout or a long form. Each step is complete, current or still to do, with an optional title and supporting text. Four layouts and three sizes cover wide pages, narrow panels and compact headers.
+Shows where someone is in a multi-step flow such as onboarding, checkout or a long form. Each step is complete, current or still to do, with an optional title and supporting text. Run it horizontally or vertically, with text or as icons only, in three sizes: it covers wide pages, narrow panels and compact headers.
 
 <div className="border-b border-secondary mb-8" />
 
@@ -59,7 +59,7 @@ Shows where someone is in a multi-step flow such as onboarding, checkout or a lo
   preview={<Story of={ProgressStepsStories.Playground} inline />}
   options={
     <>
-      <Controls of={ProgressStepsStories.Playground} include={['Type', 'Size', 'Current Step', 'Connector', 'Show Text']} />
+      <Controls of={ProgressStepsStories.Playground} include={['Orientation', 'Content', 'Size', 'Current Step', 'Connector', 'Step Label']} />
     </>
   }
 />
@@ -76,14 +76,16 @@ Shows where someone is in a multi-step flow such as onboarding, checkout or a lo
 - A single measurable quantity such as an upload or a quota: use a progress bar.
 
 ### Choosing a layout
-- **Icons centered:** the default for full-width pages. On mobile it becomes a vertical list.
-- **Icons with text:** a vertical list for side panels, with or without the connector line.
-- **Minimal icons:** a compact header. Add the "Step n of N" text when the step names are shown elsewhere.
-- **Minimal icons connected:** the same, with lines joining the icons.
+Pick the two decisions separately:
+
+- **Orientation.** Horizontal for full-width pages and headers. Vertical for side panels and narrow columns. **Auto** (the default) is horizontal when the component's own container is 512px or wider and vertical below, so the same markup works on a desktop page, in a side panel and on a phone.
+- **Content.** *Text* shows a title and supporting text per step, with the icon above (horizontal) or beside (vertical) it. *Minimal* shows the icons alone, for compact headers; turn on **Step label** to add "Step n of N" when the step names are shown elsewhere.
+- **Connector.** The line joining the icons, on by default. Turn it off for a lighter look.
 
 <ExampleGallery
   tabs={[
-    { label: 'Types', content: <Canvas of={ProgressStepsStories.Types} withToolbar={false} sourceState="none" /> },
+    { label: 'Layouts', content: <Canvas of={ProgressStepsStories.Layouts} withToolbar={false} sourceState="none" /> },
+    { label: 'Responsive', content: <Canvas of={ProgressStepsStories.Responsive} withToolbar={false} sourceState="none" /> },
     { label: 'Sizes', content: <Canvas of={ProgressStepsStories.Sizes} withToolbar={false} sourceState="none" /> },
     { label: 'Interactive', content: <Canvas of={ProgressStepsStories.InteractiveExample} withToolbar={false} sourceState="none" /> },
   ]}
@@ -94,8 +96,8 @@ Shows where someone is in a multi-step flow such as onboarding, checkout or a lo
 ### Structure
 - **Step icon:** a 24, 32 or 40px circle. Incomplete is outlined with a grey dot, current is solid brand with a white dot and a ring, complete is solid brand with a check (the `check` glyph from the Icon set).
 - **Title and supporting text:** semibold title and regular supporting text. The current step uses the brand text colors, the others `text-secondary` and `text-tertiary`.
-- **Connector:** a 2px line. It is brand colored between two steps that are already done and `bg-quaternary` after the current step.
-- **"Step n of N" label:** `text-sm` medium, only in Minimal icons.
+- **Connector:** a 2px line, horizontal between icons or vertical below them. It is brand colored between two steps that are already done and `bg-quaternary` after the current step.
+- **"Step n of N" label:** `text-sm` medium, only with `content="minimal"`.
 
 ### Interactions
 - Status comes from `currentStep`: earlier steps are complete, later ones incomplete. The component never decides when a step is valid; the flow does.
@@ -125,6 +127,6 @@ Shows where someone is in a multi-step flow such as onboarding, checkout or a lo
 <h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
 - **Landmark:** a `nav` labelled "Progress" (override with `aria-label`) around an ordered list.
 - **Current step:** `aria-current="step"` on the current item. Status is never color alone: every step also has a hidden "(completed)", "(current step)" or "(not started)" text.
-- **Minimal icons:** the step title is exposed to screen readers even though it is not shown.
+- **Minimal content:** the step title is exposed to screen readers even though it is not shown.
 - **Keyboard:** with `onStepClick` every step is a native button (Tab, Enter, Space) with a visible focus ring.
 - **Contrast:** the brand-700 title on the page background and white on brand-600 both pass WCAG AA.

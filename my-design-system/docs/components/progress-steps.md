@@ -2,16 +2,27 @@
 
 Source: Figma KDS Design System, page "Progress steps" (node 53:1288). Component: `src/components/ProgressSteps`.
 
-## Variants
+## Anatomy and variants
 
-| Type | Layout | Desktop | Mobile |
-| --- | --- | --- | --- |
-| Icons centered | icon above centered text, horizontal line through the icons | row, steps share the width (240px in the Figma frame) | vertical list, icon left, connector below the icon |
-| Icons with text | vertical list, icon left | same | same (`Connector` on / off) |
-| Minimal icons | icons only, optional "Step n of N" | row | row, centered |
-| Minimal icons connected | icons joined by 80px lines | row | row |
+Three independent properties replace the four named layouts of the Figma file.
 
-Sizes: `sm` / `md` / `lg`.
+| Prop | Values | Notes |
+| --- | --- | --- |
+| `orientation` | `horizontal`, `vertical`, `auto` | `auto` (default) is horizontal when the component's container is 512px or wider, vertical below (container query, not the viewport) |
+| `content` | `text`, `minimal` | `text` = icon + title + supporting text. `minimal` = icons only (always horizontal under `auto`) |
+| `connector` | `true` (default), `false` | line between icons, horizontal or vertical |
+| `showStepLabel` | `false` | `minimal` only: "Step n of N" |
+| `size` | `sm`, `md`, `lg` | |
+
+| Figma layout | Props |
+| --- | --- |
+| Icons centered | `orientation="horizontal"` `content="text"` (mobile frame = `vertical`) |
+| Icons with text | `orientation="vertical"` `content="text"` (`Connector` True / False = `connector`) |
+| Minimal icons | `orientation="horizontal"` `content="minimal"` `connector={false}` `showStepLabel` |
+| Minimal icons connected | `orientation="horizontal"` `content="minimal"` |
+| (new) vertical minimal | `orientation="vertical"` `content="minimal"` |
+
+Layout details: horizontal text puts the icon above centered text with the line through the icon centres (steps share the width, 240px in the Figma frame). Vertical text puts the icon left, the text right and the connector below the icon.
 
 ## Step icon (`_Step icon base`)
 

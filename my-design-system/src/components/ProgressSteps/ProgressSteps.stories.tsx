@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../Button';
 import { ProgressSteps } from './ProgressSteps';
 import { StepIcon } from './StepIcon';
-import type { ProgressStep, ProgressStepsProps, ProgressStepsSize, ProgressStepsType } from './ProgressSteps.types';
+import type { ProgressStep, ProgressStepsContent, ProgressStepsOrientation, ProgressStepsProps, ProgressStepsSize } from './ProgressSteps.types';
 
 const steps: ProgressStep[] = [
   { title: 'Your details', description: 'Name and email' },
@@ -12,7 +12,10 @@ const steps: ProgressStep[] = [
   { title: 'Add your socials', description: 'Automatic sharing' },
 ];
 
-const types: ProgressStepsType[] = ['Icons centered', 'Icons with text', 'Minimal icons', 'Minimal icons connected'];
+const orientations: ProgressStepsOrientation[] = ['auto', 'horizontal', 'vertical'];
+const contents: ProgressStepsContent[] = ['text', 'minimal'];
+const PHONE = 'max-w-[343px]'; // ds-allow-hardcode: story-only
+const LIST = 'max-w-[400px]'; // ds-allow-hardcode: story-only
 const sizes: ProgressStepsSize[] = ['sm', 'md', 'lg'];
 
 type PlaygroundProps = Omit<ProgressStepsProps, 'steps'>;
@@ -31,18 +34,25 @@ const meta = {
     controls: { expanded: false },
   },
   args: {
-    type: 'Icons centered',
+    orientation: 'horizontal',
+    content: 'text',
     size: 'md',
     currentStep: 2,
     connector: true,
-    showText: false,
+    showStepLabel: false,
   },
   argTypes: {
-    type: { name: 'Type', description: 'Layout of the steps.', control: { type: 'select' }, options: types },
+    orientation: {
+      name: 'Orientation',
+      description: 'Direction of the steps. Auto is horizontal when there is room and vertical when the container is narrow.',
+      control: { type: 'select' },
+      options: orientations,
+    },
+    content: { name: 'Content', description: 'Title and supporting text, or icons only.', control: { type: 'select' }, options: contents },
     size: { name: 'Size', description: 'Size of the step icons.', control: { type: 'select' }, options: sizes },
     currentStep: { name: 'Current Step', description: 'Step in progress. Earlier steps are complete.', control: { type: 'select' }, options: [1, 2, 3, 4] },
-    connector: { name: 'Connector', description: 'Line joining the icons.', control: 'boolean', if: { arg: 'type', eq: 'Icons with text' } },
-    showText: { name: 'Show Text', description: 'Shows the "Step n of N" label.', control: 'boolean', if: { arg: 'type', eq: 'Minimal icons' } },
+    connector: { name: 'Connector', description: 'Line joining the icons.', control: 'boolean' },
+    showStepLabel: { name: 'Step Label', description: 'Shows the "Step n of N" label.', control: 'boolean', if: { arg: 'content', eq: 'minimal' } },
     // Technical noise - kept out of the Live Playground.
     onStepClick: { table: { disable: true } },
     className: { table: { disable: true } },
@@ -53,22 +63,32 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Live Playground - switch type, size and the current step. */
+/** Live Playground - switch orientation, content, size and the current step. */
 export const Playground: Story = {};
 
+/** The layouts of the Figma file and their orientation / content / connector settings. */
+const layouts: { label: string; props: PlaygroundProps }[] = [
+  { label: 'Horizontal, text (Figma: Icons centered)', props: { orientation: 'horizontal', content: 'text' } },
+  { label: 'Vertical, text (Figma: Icons with text)', props: { orientation: 'vertical', content: 'text' } },
+  { label: 'Vertical, text, no connector', props: { orientation: 'vertical', content: 'text', connector: false } },
+  { label: 'Horizontal, minimal (Figma: Minimal icons connected)', props: { orientation: 'horizontal', content: 'minimal' } },
+  { label: 'Horizontal, minimal, no connector, step label (Figma: Minimal icons)', props: { orientation: 'horizontal', content: 'minimal', connector: false, showStepLabel: true } },
+  { label: 'Vertical, minimal', props: { orientation: 'vertical', content: 'minimal' } },
+];
+
 /**
- * The four layouts side by side.
- * Outside the sidebar (`!dev`) - embedded in ProgressSteps.mdx via `<Canvas of={ProgressStepsStories.Types} />`.
+ * Every orientation and content combination.
+ * Outside the sidebar (`!dev`) - embedded in ProgressSteps.mdx via `<Canvas of={ProgressStepsStories.Layouts} />`.
  */
-export const Types: Story = {
+export const Layouts: Story = {
   tags: ['!dev'],
   parameters: { layout: 'padded', fullWidth: true },
   render: () => (
     <div className="flex w-full flex-col gap-4xl">
-      {types.map((type) => (
-        <div key={type} className="flex flex-col gap-xl">
-          <span className="text-sm font-medium text-secondary">{type}</span>
-          <ProgressSteps steps={steps} type={type} currentStep={2} showText={type === 'Minimal icons'} />
+      {layouts.map(({ label, props }) => (
+        <div key={label} className="flex flex-col gap-xl">
+          <span className="text-sm font-medium text-secondary">{label}</span>
+          <ProgressSteps steps={steps} currentStep={2} {...props} />
         </div>
       ))}
     </div>
@@ -76,7 +96,28 @@ export const Types: Story = {
 };
 
 /**
- * sm, md and lg for every layout.
+ * The same step list in a wide and in a narrow container: `auto` follows the container, not the screen.
+ * Outside the sidebar (`!dev`) - embedded in ProgressSteps.mdx via `<Canvas of={ProgressStepsStories.Responsive} />`.
+ */
+export const Responsive: Story = {
+  tags: ['!dev'],
+  parameters: { layout: 'padded', fullWidth: true },
+  render: () => (
+    <div className="flex w-full flex-col gap-4xl">
+      <div className="flex flex-col gap-xl">
+        <span className="text-sm font-medium text-secondary">Wide container: horizontal</span>
+        <ProgressSteps steps={steps} currentStep={2} orientation="auto" />
+      </div>
+      <div className={`flex ${PHONE} flex-col gap-xl`}>
+        <span className="text-sm font-medium text-secondary">Narrow container, like a phone: vertical</span>
+        <ProgressSteps steps={steps} currentStep={2} orientation="auto" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * sm, md and lg for the horizontal, vertical and minimal layouts.
  * Outside the sidebar (`!dev`) - embedded in ProgressSteps.mdx via `<Canvas of={ProgressStepsStories.Sizes} />`.
  */
 export const Sizes: Story = {
@@ -84,11 +125,17 @@ export const Sizes: Story = {
   parameters: { layout: 'padded', fullWidth: true },
   render: () => (
     <div className="flex w-full flex-col gap-4xl">
-      {types.map((type) => (
-        <div key={type} className="flex flex-col gap-xl">
-          <span className="text-sm font-medium text-secondary">{type}</span>
+      {(
+        [
+          { label: 'Horizontal, text', props: { orientation: 'horizontal', content: 'text' } },
+          { label: 'Vertical, text', props: { orientation: 'vertical', content: 'text', className: LIST } },
+          { label: 'Minimal', props: { orientation: 'horizontal', content: 'minimal' } },
+        ] satisfies { label: string; props: PlaygroundProps }[]
+      ).map(({ label, props }) => (
+        <div key={label} className="flex flex-col gap-xl">
+          <span className="text-sm font-medium text-secondary">{label}</span>
           {sizes.map((size) => (
-            <ProgressSteps key={size} steps={steps} type={type} size={size} currentStep={2} className={type === 'Icons with text' ? 'max-w-[400px]' : undefined} />
+            <ProgressSteps key={size} steps={steps} size={size} currentStep={2} {...props} />
           ))}
         </div>
       ))}
@@ -102,7 +149,7 @@ export const Sizes: Story = {
  */
 export const States: Story = {
   tags: ['!dev'],
-  parameters: { layout: 'padded', fullWidth: true },
+  parameters: { layout: 'padded' },
   render: () => (
     <div className="grid w-fit grid-cols-[auto_auto_auto_auto] items-center gap-x-3xl gap-y-xl p-lg">
       <span />
@@ -129,7 +176,7 @@ const Interactive = () => {
   const [step, setStep] = useState(2);
   return (
     <div className="flex w-full flex-col gap-3xl">
-      <ProgressSteps steps={steps} currentStep={step} onStepClick={setStep} />
+      <ProgressSteps steps={steps} currentStep={step} onStepClick={setStep} orientation="horizontal" />
       <div className="flex justify-center gap-lg">
         <Button hierarchy="Secondary gray" size="sm" disabled={step <= 1} onClick={() => setStep(step - 1)}>
           Back

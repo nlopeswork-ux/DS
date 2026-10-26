@@ -283,6 +283,10 @@ Um decorator global (`.storybook/preview.tsx`) embrulha cada story num `inline-b
 - Componente que reflui por largura usa **container queries** (`@container` no root, `@lg:`/`@max-lg:` nos filhos), nunca `sm:`/`md:` do viewport: um preview estreito num ecrã largo tem de mostrar o layout estreito.
 - Larguras fixas só para componentes de tamanho intrínseco (Button, Badge, Avatar).
 
+### Texto dentro de componentes — `span`/`div`, nunca `p`, `h*`, `ul` ou `table` soltos
+
+`.storybook/preview-styles.css` dá margens verticais a `p`, `h2`, `h3` e `table` dentro de `.sbdocs-content` (ex.: `p` = 20px de margem inferior, com `!important`). Um `<p>` dentro de um componente funciona na story isolada mas **desalinha na página Docs** (ex.: o "Step 3 of 4" do Progress Steps ficava 10px acima do centro das setas). Dentro de componentes usa `<span>`/`<div>` para rótulos e texto de apoio. Se um elemento semântico for mesmo necessário, anula a margem com `m-0` e confirma na página Docs.
+
 ### Controls condicionais — um único bloco `<Controls>`
 
 Um controlo com `if: { arg, eq | truthy }` desaparece quando a condição falha. Se estiver num `<Controls>` separado que fica sem linhas, o Storybook mostra a caixa vazia "configure docgen". Por isso o Playground usa **um só** `<Controls of=... include={[...todos os nomes]} />`; o `if` esconde as linhas que não se aplicam. Separa em blocos só quando cada bloco tem sempre pelo menos um controlo visível.
@@ -293,7 +297,7 @@ Compilar e passar nos gates **não chega**: os bugs de layout e de Playground s�
 
 1. **Docs, Playground:** o Preview está dentro da sua coluna, sem sobrepor as Options nem ser cortado. Faz também "Hide options" e confirma que o componente usa a largura toda.
 2. **Docs, Playground, interação real:** muda **cada** controlo (cada `select`, cada `boolean`) e confirma que o preview reage. Confirma que os controlos condicionais aparecem e desaparecem com a variante certa e que não surge nenhuma caixa vazia ou mensagem de docgen.
-3. **Docs, galerias em tabs e Canvas soltos:** nada cortado à direita, nenhum scroll horizontal inesperado.
+3. **Docs, galerias em tabs e Canvas soltos:** nada cortado à direita, nenhum scroll horizontal inesperado. Texto e ícones alinhados nos Docs como na story isolada (mede `getBoundingClientRect` do texto vs. do ícone se for preciso: a diferença deve ser 0).
 4. **Largura estreita:** repete com o viewport a ~390px (e com o Preview estreito) e confirma que o layout reflui como o Figma mobile.
 5. **Consola:** zero `pageerror` e zero avisos de React (ex.: `rowspan` em vez de `rowSpan` em `.mdx`).
 6. **Estados e temas:** default, hover, focus, disabled e Dark Mode quando existirem.
