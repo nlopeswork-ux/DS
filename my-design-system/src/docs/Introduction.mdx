@@ -174,7 +174,7 @@ export const TeamPreview = () => (
 );
 
 export const Row = ({ index, title, text, action, storyId }) => (
-  <div className="kds-row kds-reveal flex h-full flex-col items-start gap-md rounded-xl bg-secondary p-3xl" style={{ '--i': index }}>
+  <div className="kds-row kds-reveal flex h-full flex-col items-start gap-md rounded-xl border border-secondary bg-primary p-3xl shadow-lg" style={{ '--i': index }}>
     <h3 className="kds-h3">{title}</h3>
     <p className="!m-0 text-sm text-tertiary">{text}</p>
     <Button className="mt-auto" hierarchy="Link color" size="md" iconTrailing iconTrailingSwap={<Icon name="arrow_forward" size="sm" />} onClick={open(storyId)}>{action}</Button>
@@ -194,18 +194,14 @@ export const Swatches = ({ classes, label }) => (
 
 <div className="kds-home">
 
-<section className="kds-hero relative isolate overflow-hidden rounded-xl bg-brand-section px-4xl py-7xl max-md:px-3xl max-md:py-6xl">
+<section className="kds-hero relative isolate overflow-hidden rounded-xl bg-brand-section px-4xl pt-7xl max-md:px-3xl max-md:pt-6xl" style={{ paddingBottom: 164 }}>
   <div className="flex max-w-[760px] flex-col items-start gap-3xl">
     <h1 className="kds-rise m-0 text-5xl font-semibold text-white max-md:text-4xl" style={{ '--i': 0, color: '#ffffff' }}>Build consistent interfaces, once.</h1>
     <p className="kds-rise !m-0 max-w-[680px] text-lg text-white" style={{ '--i': 1, color: 'rgba(255, 255, 255, 0.9)' }}>{'Ready-to-use components, tokens and UX guidelines for visual consistency, WCAG AA accessibility and full Light and Dark Mode support.'}</p>
   </div>
 </section>
 
-<h2 className="kds-h2">Where to start</h2>
-
-<p className="kds-lead">Tokens first, then components. Each page has an interactive Playground, usage guidance and accessibility notes.</p>
-
-<div className="grid items-stretch gap-xl md:grid-cols-3">
+<div className="relative z-10 grid items-stretch gap-xl px-3xl md:grid-cols-3 max-md:px-xl" style={{ marginTop: -92 }}>
   <Row index={0} title="Foundations" text="Colors, typography, spacing, shadows and radius — the token layer behind every component." action="View foundations" storyId="foundations-colors--docs" />
   <Row index={1} title="Components" text="Buttons, form controls, navigation and feedback, each with a live Playground and every state documented." action="View components" storyId="components-button--docs" />
   <Row index={2} title="Sidebar navigation" text="The application shell: Simple, Dual-tier and Slim layouts that become a drawer on small screens." action="View sidebar navigation" storyId="components-sidebar-navigation--docs" />
