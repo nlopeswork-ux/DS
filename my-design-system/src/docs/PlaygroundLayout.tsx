@@ -4,9 +4,9 @@ import { cn } from '../utils/cn';
 import { Icon } from '../components/Icon';
 
 interface PlaygroundLayoutProps {
-  /** Left column — the live component (usually `<Story of={...} inline />`). */
+  /** Left column - the live component (usually `<Story of={...} inline />`). */
   preview: ReactNode;
-  /** Right column — the `<Controls>` blocks. Rendered inside `.playground-options-list`. */
+  /** Right column - the `<Controls>` blocks. Rendered inside `.playground-options-list`. */
   options: ReactNode;
   /** Options panel starts expanded. Default: true. */
   defaultOpen?: boolean;
@@ -14,7 +14,7 @@ interface PlaygroundLayoutProps {
 
 /**
  * Docs-only wrapper for the OutSystems-style 2-column Playground (see CLAUDE.md).
- * The Options column can be collapsed so the preview uses the full width —
+ * The Options column can be collapsed so the preview uses the full width -
  * useful for large components (Modal, Sidebar, ...). The column is hidden with
  * CSS, not unmounted, so the Controls keep their state.
  */
@@ -29,7 +29,7 @@ export const PlaygroundLayout = ({ preview, options, defaultOpen = true }: Playg
         open ? 'md:grid-cols-[1.6fr_1fr]' : 'md:grid-cols-1',
       )}
     >
-      {/* Left column — Preview */}
+      {/* Left column - Preview */}
       <div className={cn('flex min-w-0 flex-col border-secondary', open && 'border-b md:border-b-0 md:border-r')}>
         <div className="flex items-center justify-between border-b border-secondary px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary">
           <span>Preview</span>
@@ -46,14 +46,14 @@ export const PlaygroundLayout = ({ preview, options, defaultOpen = true }: Playg
         </div>
         <div
           data-scale-container
-          className="relative isolate flex flex-1 items-center justify-center min-h-[280px] p-8"
+          className="relative isolate flex min-h-70 flex-1 items-center justify-center p-8 [&>*]:max-w-full [&>*]:min-w-0"
           style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
         >
           {preview}
         </div>
       </div>
 
-      {/* Right column — Options (hidden, never unmounted, when collapsed) */}
+      {/* Right column - Options (hidden, never unmounted, when collapsed) */}
       <div id={panelId} className={cn('min-w-0 flex-col', open ? 'flex' : 'hidden')}>
         <div className="border-b border-secondary px-4 py-2.5 text-xs font-semibold tracking-wide text-quaternary">Options</div>
         <div className={cn('flex flex-col p-6', 'playground-options-list')}>{options}</div>

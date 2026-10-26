@@ -38,6 +38,7 @@ const meta = {
   // The Docs page comes from Table.mdx (<Meta of={TableStories} />) - no 'autodocs' tag.
   parameters: {
     layout: 'padded',
+    fullWidth: true,
     controls: { expanded: false },
   },
   args: {
@@ -93,7 +94,7 @@ export const AlternatingFills: Story = {
 
 export const Mobile: Story = {
   tags: ['!dev'],
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered', fullWidth: false },
   render: () => <TeamMembersMobile />,
 };
 

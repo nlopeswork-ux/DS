@@ -75,7 +75,13 @@ export const Table = forwardRef<HTMLDivElement, TableProps>(
           </div>
         ) : null}
 
-        <div className="w-full overflow-x-auto">
+        {/* Scrollable region: focusable so keyboard users can scroll wide tables. */}
+        <div
+          role="region"
+          aria-label={label ? `${label}, scrollable` : 'Table, scrollable'}
+          tabIndex={0}
+          className="w-full overflow-x-auto outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
+        >
           <table aria-label={label} className="m-0 mb-0! w-full border-separate border-spacing-0 text-left">
             {children}
           </table>

@@ -33,7 +33,7 @@ export const ExampleGallery = ({ tabs }) => {
           </button>
         ))}
       </div>
-      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+      <div className="relative isolate min-w-0 bg-secondary p-6">{tabs[active].content}</div>
     </div>
   );
 };
@@ -77,8 +77,8 @@ Your eyes should group the information before you have time to read it. Keep it 
 
 <ExampleGallery
   tabs={[
-    { label: 'Divider line', content: <Canvas of={TableStories.Customers} withToolbar={false} sourceState="none" /> },
-    { label: 'Alternating fills', content: <Canvas of={TableStories.AlternatingFills} withToolbar={false} sourceState="none" /> },
+    { label: 'Divider line', content: <Story of={TableStories.Customers} inline /> },
+    { label: 'Alternating fills', content: <Story of={TableStories.AlternatingFills} inline /> },
   ]}
 />
 
@@ -110,11 +110,11 @@ Because tables are so context-specific, there is no single "right" table. Pick t
 
 <ExampleGallery
   tabs={[
-    { label: 'Customers', content: <Canvas of={TableStories.Customers} withToolbar={false} sourceState="none" /> },
-    { label: 'Sales', content: <Canvas of={TableStories.Sales} withToolbar={false} sourceState="none" /> },
-    { label: 'Files', content: <Canvas of={TableStories.Files} withToolbar={false} sourceState="none" /> },
-    { label: 'Cell styles', content: <Canvas of={TableStories.CellStyles} withToolbar={false} sourceState="none" /> },
-    { label: 'Header cells', content: <Canvas of={TableStories.HeaderCells} withToolbar={false} sourceState="none" /> },
+    { label: 'Customers', content: <Story of={TableStories.Customers} inline /> },
+    { label: 'Sales', content: <Story of={TableStories.Sales} inline /> },
+    { label: 'Files', content: <Story of={TableStories.Files} inline /> },
+    { label: 'Cell styles', content: <Story of={TableStories.CellStyles} inline /> },
+    { label: 'Header cells', content: <Story of={TableStories.HeaderCells} inline /> },
   ]}
 />
 
