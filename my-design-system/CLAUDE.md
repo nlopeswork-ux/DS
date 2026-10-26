@@ -274,6 +274,33 @@ Todo `title:` em `*.stories.tsx` usa **Title Case com espaço entre palavras** (
 
 A ordem da sidebar dentro de "Components" é **sempre alfabética automática** — `.storybook/preview.tsx`'s `options.storySort.order` não lista os componentes um a um (só fixa `Introduction`/`Foundations`/`Components` como grupos de topo). Uma lista manual desalinha-se do menu real sempre que um componente é adicionado ou renomeado; não reintroduzas uma sub-lista explícita de componentes ali.
 
+### Largura dos previews — fluida, nunca fixa (regra transversal, obrigatória)
+
+Um decorator global (`.storybook/preview.tsx`) embrulha cada story num `inline-block` com fundo branco, que **encolhe ao conteúdo**. Um componente que ocupa a largura do container (`w-full`) colapsa lá dentro, e uma largura fixa (`w-[1008px]`) ultrapassa a coluna do Preview e as galerias, sobrepondo-se às Options ou ficando cortada. Regras:
+
+- Componente que preenche o container (steps, tabelas, barras, listas): `parameters: { layout: 'padded', fullWidth: true }` na story, e **nenhum** `w-[Npx]` no wrapper. `fullWidth` troca o decorator para `block w-full min-w-0`.
+- No `.mdx`, `<PlaygroundLayout stretchPreview ... />` estica o Preview até à largura da coluna (opt-in; sem isto a story volta a encolher).
+- Componente que reflui por largura usa **container queries** (`@container` no root, `@lg:`/`@max-lg:` nos filhos), nunca `sm:`/`md:` do viewport: um preview estreito num ecrã largo tem de mostrar o layout estreito.
+- Larguras fixas só para componentes de tamanho intrínseco (Button, Badge, Avatar).
+
+### Controls condicionais — um único bloco `<Controls>`
+
+Um controlo com `if: { arg, eq | truthy }` desaparece quando a condição falha. Se estiver num `<Controls>` separado que fica sem linhas, o Storybook mostra a caixa vazia "configure docgen". Por isso o Playground usa **um só** `<Controls of=... include={[...todos os nomes]} />`; o `if` esconde as linhas que não se aplicam. Separa em blocos só quando cada bloco tem sempre pelo menos um controlo visível.
+
+### Checklist de verificação (obrigatória antes de dar um componente por feito)
+
+Compilar e passar nos gates **não chega**: os bugs de layout e de Playground só aparecem a correr o Storybook. Arranca `npm run storybook` e verifica, no Chrome (Playwright com `executablePath` do Google Chrome se o Chromium não estiver instalado), a página **Docs** — não só o iframe da story:
+
+1. **Docs, Playground:** o Preview está dentro da sua coluna, sem sobrepor as Options nem ser cortado. Faz também "Hide options" e confirma que o componente usa a largura toda.
+2. **Docs, Playground, interação real:** muda **cada** controlo (cada `select`, cada `boolean`) e confirma que o preview reage. Confirma que os controlos condicionais aparecem e desaparecem com a variante certa e que não surge nenhuma caixa vazia ou mensagem de docgen.
+3. **Docs, galerias em tabs e Canvas soltos:** nada cortado à direita, nenhum scroll horizontal inesperado.
+4. **Largura estreita:** repete com o viewport a ~390px (e com o Preview estreito) e confirma que o layout reflui como o Figma mobile.
+5. **Consola:** zero `pageerror` e zero avisos de React (ex.: `rowspan` em vez de `rowSpan` em `.mdx`).
+6. **Estados e temas:** default, hover, focus, disabled e Dark Mode quando existirem.
+7. Só depois: gates (`run_gates.mjs --project`), `tsc`, commit e push.
+
+Quando um bug destes escapar, **acrescenta aqui a regra que o teria apanhado** — esta lista cresce com os erros reais.
+
 ### Altura fixa do Playground — regra central, não por componente
 
 O painel "Options" do Playground (a `div` com a classe `playground-options-list`, ver secção 3) tem um `min-height: 420px` definido **centralmente** em `.storybook/preview-styles.css` — nunca por `.mdx` individual. Como o grid do Playground usa `items-stretch`, sem este piso a coluna "Preview" encolhe/cresce em sincronia sempre que os Controls mudam de número de linhas visíveis (ex.: divulgação sequencial via `if` — ver secção 2), produzindo um glitch de reflow visível enquanto o utilizador experimenta o componente. Se um componente futuro tiver mesmo mais opções simultâneas do que este piso comporta, ajusta o valor central em `preview-styles.css` — nunca adiciones um `min-h-*` local e divergente num `.mdx` individual.

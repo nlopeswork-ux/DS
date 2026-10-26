@@ -12,26 +12,22 @@ const steps: ProgressStep[] = [
   { title: 'Add your socials', description: 'Automatic sharing' },
 ];
 
-const FRAME = 'w-[1008px] max-w-full'; // ds-allow-hardcode: story-only preview width, the Figma desktop frame
-
 const types: ProgressStepsType[] = ['Icons centered', 'Icons with text', 'Minimal icons', 'Minimal icons connected'];
 const sizes: ProgressStepsSize[] = ['sm', 'md', 'lg'];
 
 type PlaygroundProps = Omit<ProgressStepsProps, 'steps'>;
 
-/** Story-only wrapper: gives the preview the width of the Figma desktop frame and supplies the steps. */
-const ProgressStepsPlayground = (props: PlaygroundProps) => (
-  <div className={FRAME}>
-    <ProgressSteps steps={steps} {...props} />
-  </div>
-);
+/** Story-only wrapper: supplies the steps. The component fills its container and adapts to its width. */
+const ProgressStepsPlayground = (props: PlaygroundProps) => <ProgressSteps steps={steps} {...props} />;
 
 const meta = {
   title: 'Components/Progress Steps',
   component: ProgressStepsPlayground,
   // The Docs page comes from ProgressSteps.mdx (<Meta of={ProgressStepsStories} />) - no 'autodocs' tag.
   parameters: {
-    layout: 'centered',
+    // The component fills its container (and reflows with it), so the story must not be shrink-wrapped.
+    layout: 'padded',
+    fullWidth: true,
     controls: { expanded: false },
   },
   args: {
@@ -66,9 +62,9 @@ export const Playground: Story = {};
  */
 export const Types: Story = {
   tags: ['!dev'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', fullWidth: true },
   render: () => (
-    <div className={`flex ${FRAME} flex-col gap-4xl`}>
+    <div className="flex w-full flex-col gap-4xl">
       {types.map((type) => (
         <div key={type} className="flex flex-col gap-xl">
           <span className="text-sm font-medium text-secondary">{type}</span>
@@ -85,9 +81,9 @@ export const Types: Story = {
  */
 export const Sizes: Story = {
   tags: ['!dev'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', fullWidth: true },
   render: () => (
-    <div className={`flex ${FRAME} flex-col gap-4xl`}>
+    <div className="flex w-full flex-col gap-4xl">
       {types.map((type) => (
         <div key={type} className="flex flex-col gap-xl">
           <span className="text-sm font-medium text-secondary">{type}</span>
@@ -106,7 +102,7 @@ export const Sizes: Story = {
  */
 export const States: Story = {
   tags: ['!dev'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', fullWidth: true },
   render: () => (
     <div className="grid w-fit grid-cols-[auto_auto_auto_auto] items-center gap-x-3xl gap-y-xl p-lg">
       <span />
@@ -132,7 +128,7 @@ export const States: Story = {
 const Interactive = () => {
   const [step, setStep] = useState(2);
   return (
-    <div className={`flex ${FRAME} flex-col gap-3xl`}>
+    <div className="flex w-full flex-col gap-3xl">
       <ProgressSteps steps={steps} currentStep={step} onStepClick={setStep} />
       <div className="flex justify-center gap-lg">
         <Button hierarchy="Secondary gray" size="sm" disabled={step <= 1} onClick={() => setStep(step - 1)}>
@@ -152,6 +148,6 @@ const Interactive = () => {
  */
 export const InteractiveExample: Story = {
   tags: ['!dev'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', fullWidth: true },
   render: () => <Interactive />,
 };

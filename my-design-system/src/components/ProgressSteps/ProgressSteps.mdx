@@ -55,11 +55,11 @@ Shows where someone is in a multi-step flow such as onboarding, checkout or a lo
 <h2 id="playground" className="text-2xl font-semibold">Playground</h2>
 
 <PlaygroundLayout
+  stretchPreview
   preview={<Story of={ProgressStepsStories.Playground} inline />}
   options={
     <>
-      <Controls of={ProgressStepsStories.Playground} include={['Type', 'Size', 'Current Step']} />
-      <Controls of={ProgressStepsStories.Playground} include={['Connector', 'Show Text']} />
+      <Controls of={ProgressStepsStories.Playground} include={['Type', 'Size', 'Current Step', 'Connector', 'Show Text']} />
     </>
   }
 />
@@ -115,7 +115,7 @@ Shows where someone is in a multi-step flow such as onboarding, checkout or a lo
     <tr><th>Part</th><th>State</th><th>Style</th></tr>
   </thead>
   <tbody>
-    <tr><td rowspan="3"><strong>Step icon</strong></td><td>Incomplete</td><td><code>bg-disabled-subtle</code> circle with a <code>border-disabled-subtle</code> outline and a grey dot.</td></tr>
+    <tr><td rowSpan={3}><strong>Step icon</strong></td><td>Incomplete</td><td><code>bg-disabled-subtle</code> circle with a <code>border-disabled-subtle</code> outline and a grey dot.</td></tr>
     <tr><td>Current</td><td><code>bg-brand-solid</code> circle, white dot and a 2px brand ring with a 2px page-colored gap.</td></tr>
     <tr><td>Complete</td><td><code>bg-brand-solid</code> circle with a white check.</td></tr>
     <tr><td><strong>Focused</strong></td><td>Interactive steps</td><td>Keyboard focus adds the same ring as the current step.</td></tr>

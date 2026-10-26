@@ -10,6 +10,8 @@ interface PlaygroundLayoutProps {
   options: ReactNode;
   /** Options panel starts expanded. Default: true. */
   defaultOpen?: boolean;
+  /** Stretch the preview to the column width, for components that fill their container. Default: false. */
+  stretchPreview?: boolean;
 }
 
 /**
@@ -18,7 +20,7 @@ interface PlaygroundLayoutProps {
  * useful for large components (Modal, Sidebar, ...). The column is hidden with
  * CSS, not unmounted, so the Controls keep their state.
  */
-export const PlaygroundLayout = ({ preview, options, defaultOpen = true }: PlaygroundLayoutProps) => {
+export const PlaygroundLayout = ({ preview, options, defaultOpen = true, stretchPreview = false }: PlaygroundLayoutProps) => {
   const [open, setOpen] = useState(defaultOpen);
   const panelId = useId();
 
@@ -46,7 +48,7 @@ export const PlaygroundLayout = ({ preview, options, defaultOpen = true }: Playg
         </div>
         <div
           data-scale-container
-          className="relative isolate flex min-h-70 flex-1 items-center justify-center p-8 [&>*]:max-w-full [&>*]:min-w-0"
+          className={cn('relative isolate flex min-h-70 flex-1 items-center justify-center p-8 [&>*]:max-w-full [&>*]:min-w-0', stretchPreview && '[&>*]:w-full')}
           style={{ background: 'var(--color-bg-secondary)', height: '100%' }}
         >
           {preview}

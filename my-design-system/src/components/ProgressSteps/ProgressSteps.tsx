@@ -25,7 +25,7 @@ const lineColor = (filled: boolean) => (filled ? 'bg-[var(--color-fg-brand-prima
  * Progress steps - Figma "Progress steps" (Icons centered | Icons with text | Minimal icons | Minimal icons connected).
  * Status comes from `currentStep`: earlier steps are complete, the current one is marked
  * `aria-current="step"`, later ones are incomplete. Pass `onStepClick` to turn every step into a button.
- * "Icons centered" collapses to the vertical "Icons with text" list below the `sm` breakpoint.
+ * "Icons centered" collapses to the vertical "Icons with text" list when its container is narrower than 512px (container query, not the viewport).
  */
 export const ProgressSteps = forwardRef<HTMLElement, ProgressStepsProps>(
   (
@@ -88,29 +88,29 @@ export const ProgressSteps = forwardRef<HTMLElement, ProgressStepsProps>(
 
     const { text, padding } = textStyles[size];
     return (
-      <nav ref={ref} aria-label={ariaLabel} className={cn('w-full', className)} {...rest}>
-        <ol className={cn('flex flex-col', centered && 'sm:flex-row')}>
+      <nav ref={ref} aria-label={ariaLabel} className={cn('@container w-full', className)} {...rest}>
+        <ol className={cn('flex flex-col', centered && '@lg:flex-row')}>
           {steps.map((step, index) => {
             const status = statusOf(index);
             const isLast = index === total - 1;
             const brand = status === 'Current';
             return (
-              <li key={step.title} aria-current={brand ? 'step' : undefined} className={cn('relative', centered && 'sm:flex-1 sm:px-md')}>
+              <li key={step.title} aria-current={brand ? 'step' : undefined} className={cn('relative', centered && '@lg:flex-1 @lg:px-md')}>
                 {/* Desktop "Icons centered": line from this icon's centre to the next one's. */}
                 {centered && !isLast && (
-                  <span aria-hidden="true" className={cn('absolute left-1/2 z-0 flex w-full items-center max-sm:hidden', iconHeight[size])}>
+                  <span aria-hidden="true" className={cn('absolute left-1/2 z-0 flex w-full items-center @max-lg:hidden', iconHeight[size])}>
                     <span className={cn('h-0.5 w-full rounded-full', lineColor(index + 1 < current))} />
                   </span>
                 )}
-                <StepBox index={index} className={cn('flex w-full flex-row gap-xl text-left', centered && 'sm:flex-col sm:items-center sm:text-center')}>
+                <StepBox index={index} className={cn('flex w-full flex-row gap-xl text-left', centered && '@lg:flex-col @lg:items-center @lg:text-center')}>
                   <span className="flex flex-col items-center">
                     <StepIcon status={status} size={size} />
                     {/* Vertical connector: mobile "Icons centered", and "Icons with text" when enabled. */}
                     {!isLast && (centered || connector) && (
-                      <span aria-hidden="true" className={cn('my-xs w-0.5 flex-1 rounded-full', lineColor(index + 1 < current), centered && 'sm:hidden')} />
+                      <span aria-hidden="true" className={cn('my-xs w-0.5 flex-1 rounded-full', lineColor(index + 1 < current), centered && '@lg:hidden')} />
                     )}
                   </span>
-                  <span className={cn('flex flex-col gap-xxs', text, padding, centered && 'sm:w-full sm:pb-0')}>
+                  <span className={cn('flex flex-col gap-xxs', text, padding, centered && '@lg:w-full @lg:pb-0')}>
                     <span className={cn('font-semibold', brand ? 'text-brand-secondary' : 'text-secondary')}>{step.title}</span>
                     {step.description && <span className={brand ? 'text-brand-tertiary' : 'text-tertiary'}>{step.description}</span>}
                     <span className="sr-only">({statusLabel[status]})</span>
