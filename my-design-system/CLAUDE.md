@@ -24,6 +24,7 @@ Todas as especificações técnicas de Design Tokens e Componentes estão dividi
   * Botões (Button, Social Button, App Store, Close X): `docs/components/buttons.md`
   * Badges & Tags (Badge, Badge Group, Tag): `docs/components/badges-tags.md`
   * Form Controls (Input Field, Dropdown, Checkbox, Toggle, Groups, Textarea, Verification Code Input): `docs/components/form-controls.md`
+  * Progress steps (Icons centered, Icons with text, Minimal icons, Minimal icons connected): `docs/components/progress-steps.md`
   * Navegação (Dropdown Menus, Button Group, Pagination, Tabs, Vertical Tabs, Breadcrumbs, Sidebar Navigation): `docs/components/navigation.md`
   * Feedback & Visuals (Avatar, Tooltip, Help Icon, Progress, Slider, Featured Icon): `docs/components/feedback-visuals.md`
   * Feedback & Overlays (Modal, Alert, Banner, Toast): `docs/components/feedback-overlays.md`
@@ -258,6 +259,10 @@ Estas regras nasceram de bugs reais encontrados e corrigidos em produção — m
 **Nunca desenhes um SVG à mão para um glifo que já existe nos Material Symbols** (ver `fonts.google.com/icons`). `Icon` (`src/components/Icon/Icon.tsx`) é a única fonte de ícones funcionais do design system — `Textarea`'s antigo `HelpCircleIcon`/`AlertCircleIcon` (SVGs à mão, inconsistentes com o `Icon name="help"` já usado em `Input`) foram removidos e substituídos por `Icon` por esta razão. SVGs à mão só se justificam para gráficos genuinamente não-icónicos (ex.: `CardIcon` em `Input.stories.tsx`, um mockup de cartão de crédito, não um glifo).
 
 **Armadilha crítica confirmada (afeta todo o sistema, não só um componente):** o tamanho de fonte de `Icon` é definido via `style={{ fontSize: ... }}` inline — **nunca** através de uma classe Tailwind `text-[Npx]`. Isto não é estético: a stylesheet de fallback que a Google Fonts serve para `Material Symbols Outlined` (servida a alguns navegadores/user-agents, incluindo o Chromium do Playwright usado para QA) inclui a sua própria regra `.material-symbols-outlined { font-size: 24px; ... }`, escrita como CSS **sem `@layer`**. Numa cascata CSS, uma regra sem `@layer` tem sempre prioridade sobre qualquer regra dentro de `@layer` — e as utilities do Tailwind (`text-[16px]`, etc.) vivem todas em `@layer utilities`. O resultado, antes desta correção: todo o ícone renderizava a 24px fixos independentemente do `size` pedido — maior do que devido e descentrado nas caixas menores (`xs`/`sm`). Um `style` inline não tem esta competição (vence qualquer stylesheet externa, `!important` à parte), por isso é o único mecanismo seguro para esta propriedade especificamente. Nunca reintroduzas `text-[Npx]` no `sizeStyles` de `Icon.tsx`.
+
+### Check (visto) — sempre o glifo `check` do Material, sem círculo
+
+Todo visto do design system usa o glifo `check` do Material, só o traço, sem círculo à volta. Fora de controlos nativos usa-se `<Icon name="check" />`. Dentro de `Checkbox` e `Tag` (checkbox nativo com `peer-checked`) usa-se o SVG inline do mesmo glifo: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>`. Nunca um visto desenhado com `stroke` (estilo Lucide `M20 6 9 17l-5-5`).
 
 ### Glifos vêm sempre do `Icon` do Storybook — nunca do exemplo do Figma (regra permanente)
 

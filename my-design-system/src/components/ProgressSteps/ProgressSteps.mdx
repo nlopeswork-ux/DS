@@ -1,0 +1,130 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as ProgressStepsStories from './ProgressSteps.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={ProgressStepsStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs - replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Progress Steps
+
+Shows where someone is in a multi-step flow such as onboarding, checkout or a long form. Each step is complete, current or still to do, with an optional title and supporting text. Four layouts and three sizes cover wide pages, narrow panels and compact headers.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  preview={<Story of={ProgressStepsStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={ProgressStepsStories.Playground} include={['Type', 'Size', 'Current Step']} />
+      <Controls of={ProgressStepsStories.Playground} include={['Connector', 'Show Text']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### When to use
+- A flow of **a known, short number of steps** (roughly 3 to 6) that people complete in order.
+- When knowing how far along they are, and what is left, reduces drop-off.
+
+### When not to use
+- Navigation between independent sections: use Tabs.
+- Page-by-page browsing of a list: use Pagination.
+- A single measurable quantity such as an upload or a quota: use a progress bar.
+
+### Choosing a layout
+- **Icons centered:** the default for full-width pages. On mobile it becomes a vertical list.
+- **Icons with text:** a vertical list for side panels, with or without the connector line.
+- **Minimal icons:** a compact header. Add the "Step n of N" text when the step names are shown elsewhere.
+- **Minimal icons connected:** the same, with lines joining the icons.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Types', content: <Canvas of={ProgressStepsStories.Types} withToolbar={false} sourceState="none" /> },
+    { label: 'Sizes', content: <Canvas of={ProgressStepsStories.Sizes} withToolbar={false} sourceState="none" /> },
+    { label: 'Interactive', content: <Canvas of={ProgressStepsStories.InteractiveExample} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **Step icon:** a 24, 32 or 40px circle. Incomplete is outlined with a grey dot, current is solid brand with a white dot and a ring, complete is solid brand with a check (the `check` glyph from the Icon set).
+- **Title and supporting text:** semibold title and regular supporting text. The current step uses the brand text colors, the others `text-secondary` and `text-tertiary`.
+- **Connector:** a 2px line. It is brand colored between two steps that are already done and `bg-quaternary` after the current step.
+- **"Step n of N" label:** `text-sm` medium, only in Minimal icons.
+
+### Interactions
+- Status comes from `currentStep`: earlier steps are complete, later ones incomplete. The component never decides when a step is valid; the flow does.
+- Pass `onStepClick` to make each step a button. Decide in the flow which steps may be reopened (usually only completed ones).
+
+### Best practices
+- Keep step titles to one or two words and supporting text to one short line.
+- Do not mix layouts or sizes within the same flow.
+- Repeat the current step name as the page heading below the indicator.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<Canvas of={ProgressStepsStories.States} withToolbar={false} sourceState="none" />
+
+<table>
+  <thead>
+    <tr><th>Part</th><th>State</th><th>Style</th></tr>
+  </thead>
+  <tbody>
+    <tr><td rowspan="3"><strong>Step icon</strong></td><td>Incomplete</td><td><code>bg-disabled-subtle</code> circle with a <code>border-disabled-subtle</code> outline and a grey dot.</td></tr>
+    <tr><td>Current</td><td><code>bg-brand-solid</code> circle, white dot and a 2px brand ring with a 2px page-colored gap.</td></tr>
+    <tr><td>Complete</td><td><code>bg-brand-solid</code> circle with a white check.</td></tr>
+    <tr><td><strong>Focused</strong></td><td>Interactive steps</td><td>Keyboard focus adds the same ring as the current step.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Landmark:** a `nav` labelled "Progress" (override with `aria-label`) around an ordered list.
+- **Current step:** `aria-current="step"` on the current item. Status is never color alone: every step also has a hidden "(completed)", "(current step)" or "(not started)" text.
+- **Minimal icons:** the step title is exposed to screen readers even though it is not shown.
+- **Keyboard:** with `onStepClick` every step is a native button (Tab, Enter, Space) with a visible focus ring.
+- **Contrast:** the brand-700 title on the page background and white on brand-600 both pass WCAG AA.
