@@ -76,11 +76,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           <svg
             aria-hidden="true"
             viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            fill="currentColor"
             className={cn(
               // `fg-disabled-subtle` (gray-300) was too close to the disabled fill
               // (bg-disabled-subtle, gray-50) to read clearly — `fg-disabled` (gray-400) fixes contrast.
@@ -89,7 +85,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               indeterminate ? 'hidden' : 'hidden peer-checked:block',
             )}
           >
-            <path d="M20 6 9 17l-5-5" />
+            <path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
           </svg>
           <svg
             aria-hidden="true"
