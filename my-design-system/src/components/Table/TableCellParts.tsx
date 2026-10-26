@@ -143,7 +143,7 @@ const CellIconButton = ({ icon, label, onClick, ...rest }: { icon: string; label
     type="button"
     aria-label={label}
     onClick={onClick}
-    className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-md border-0 bg-transparent p-0 fg-tertiary outline-none transition-colors duration-150 hover:bg-primary-hover hover:fg-secondary focus-visible:ring-4 focus-visible:ring-brand-500"
+    className="inline-flex size-9 shrink-0 cursor-pointer overflow-hidden items-center justify-center rounded-md border-0 bg-transparent p-0 fg-tertiary outline-none transition-colors duration-150 hover:bg-primary-hover hover:fg-secondary focus-visible:ring-4 focus-visible:ring-brand-500"
     {...rest}
   >
     <Icon name={icon} size="sm" />

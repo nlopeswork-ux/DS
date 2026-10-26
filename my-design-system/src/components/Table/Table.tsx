@@ -47,10 +47,10 @@ export const Table = forwardRef<HTMLDivElement, TableProps>(
         {hasHeader ? (
           <div className="flex flex-col gap-2xl border-b border-secondary">
             <div className="flex items-start gap-xl px-3xl pt-2xl pb-2xl max-sm:px-xl">
-              <div className="flex min-h-13 min-w-0 flex-1 flex-col justify-center gap-xs">
+              <div className="flex min-w-0 flex-1 flex-col justify-center gap-xs">
                 {title || badge ? (
                   <div className="flex items-center gap-md">
-                    {title ? <h3 className="m-0 text-lg leading-7 font-semibold text-primary">{title}</h3> : null}
+                    {title ? <h3 className="m-0! text-lg leading-7 font-semibold text-primary">{title}</h3> : null}
                     {badge ? (
                       <Badge size="sm" color="Brand">
                         {badge}
@@ -58,7 +58,7 @@ export const Table = forwardRef<HTMLDivElement, TableProps>(
                     ) : null}
                   </div>
                 ) : null}
-                {supportingText ? <p className="m-0 truncate text-sm leading-5 text-tertiary">{supportingText}</p> : null}
+                {supportingText ? <p className="m-0! truncate text-sm leading-5 text-tertiary">{supportingText}</p> : null}
               </div>
               {actions ? <div className="flex items-center gap-lg max-sm:hidden">{actions}</div> : null}
               {menu ? (
@@ -66,7 +66,7 @@ export const Table = forwardRef<HTMLDivElement, TableProps>(
                   type="button"
                   aria-label="More options"
                   onClick={onMenuClick}
-                  className="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 fg-quinary outline-none transition-colors duration-150 hover:fg-quaternary focus-visible:ring-4 focus-visible:ring-brand-500"
+                  className="inline-flex shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border-0 bg-transparent p-0 fg-quinary outline-none transition-colors duration-150 hover:fg-quaternary focus-visible:ring-4 focus-visible:ring-brand-500"
                 >
                   <Icon name="more_vert" size="sm" />
                 </button>

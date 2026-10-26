@@ -11,7 +11,6 @@ import { TableCell } from './TableCell';
 import {
   TableCellActionIcons,
   TableCellActionMenu,
-  TableCellAvatarGroup,
   TableCellBadges,
   TableCellLead,
   TableCellProgress,
@@ -115,9 +114,6 @@ export const TeamMembersTable = ({
           <TableHeaderCell sort={sort} onSort={() => setSort((value) => (value === 'desc' ? 'asc' : 'desc'))}>
             Status
           </TableHeaderCell>
-          <TableHeaderCell helpIcon helpText="The job title shown on the team page">
-            Role
-          </TableHeaderCell>
           <TableHeaderCell>Email address</TableHeaderCell>
           <TableHeaderCell>Teams</TableHeaderCell>
           <TableHeaderCell aria-label="Actions" />
@@ -137,9 +133,6 @@ export const TeamMembersTable = ({
                 />
               </TableCell>
               <TableCell>{statusBadge('Active')}</TableCell>
-              <TableCell>
-                <TableCellText primary={member.role} />
-              </TableCell>
               <TableCell>
                 <TableCellText primary={`${member.handle.slice(1)}@kds.design`} />
               </TableCell>
@@ -185,8 +178,6 @@ export const CustomersTable = ({ dividers = 'line' }: { dividers?: TableDividers
           Company
         </TableHeaderCell>
         <TableHeaderCell>Status</TableHeaderCell>
-        <TableHeaderCell>About</TableHeaderCell>
-        <TableHeaderCell>Users</TableHeaderCell>
         <TableHeaderCell>License use</TableHeaderCell>
         <TableHeaderCell aria-label="Actions" />
       </TableRow>
@@ -202,20 +193,6 @@ export const CustomersTable = ({ dividers = 'line' }: { dividers?: TableDividers
             />
           </TableCell>
           <TableCell>{statusBadge(company.status, company.status === 'Customer' ? 'Success' : 'Gray')}</TableCell>
-          <TableCell>
-            <TableCellText primary={company.about} supporting={company.note} />
-          </TableCell>
-          <TableCell>
-            <TableCellAvatarGroup
-              avatars={[
-                { src: photo('women-44'), alt: '' },
-                { src: photo('men-32'), alt: '' },
-                { src: photo('women-68'), alt: '' },
-                { src: photo('men-75'), alt: '' },
-              ]}
-              extra={5}
-            />
-          </TableCell>
           <TableCell>
             <TableCellProgress value={company.use} />
           </TableCell>
@@ -267,7 +244,6 @@ export const SalesTable = ({ dividers = 'alternating' }: { dividers?: TableDivid
         <TableHeaderCell>Date</TableHeaderCell>
         <TableHeaderCell>Status</TableHeaderCell>
         <TableHeaderCell>Customer</TableHeaderCell>
-        <TableHeaderCell>Purchase</TableHeaderCell>
         <TableHeaderCell aria-label="Actions" />
       </TableRow>
     </TableHead>
@@ -287,14 +263,8 @@ export const SalesTable = ({ dividers = 'alternating' }: { dividers?: TableDivid
               <TableCellText primary={invoice.member.name} supporting={`${invoice.member.handle.slice(1)}@kds.design`} />
             </div>
           </TableCell>
-          <TableCell>
-            <TableCellText primary="Monthly subscription" />
-          </TableCell>
           <TableCell align="right">
             <div className="flex items-center gap-lg">
-              <Button hierarchy="Link gray" size="md">
-                Delete
-              </Button>
               <Button hierarchy="Link color" size="md">
                 Edit
               </Button>
@@ -309,7 +279,7 @@ export const SalesTable = ({ dividers = 'alternating' }: { dividers?: TableDivid
 const files = [
   { name: 'Tech requirements.pdf', size: '200 KB', icon: 'description', by: 'Olivia Rhye', date: 'Jan 4, 2026' },
   { name: 'Dashboard screenshot.jpg', size: '720 KB', icon: 'image', by: 'Phoenix Baker', date: 'Jan 4, 2026' },
-  { name: 'Dashboard prototype recording.mp4', size: '16 MB', icon: 'videocam', by: 'Lana Steiner', date: 'Jan 2, 2026' },
+  { name: 'Prototype recording.mp4', size: '16 MB', icon: 'videocam', by: 'Lana Steiner', date: 'Jan 2, 2026' },
   { name: 'UX Design Guidelines.docx', size: '400 KB', icon: 'article', by: 'Candice Wu', date: 'Jan 8, 2026' },
 ];
 
@@ -333,9 +303,7 @@ export const FilesTable = ({ dividers = 'line' }: { dividers?: TableDividers }) 
     <TableHead>
       <TableRow className="hover:bg-transparent">
         <TableHeaderCell checkbox>File name</TableHeaderCell>
-        <TableHeaderCell>File size</TableHeaderCell>
         <TableHeaderCell>Date uploaded</TableHeaderCell>
-        <TableHeaderCell>Last updated</TableHeaderCell>
         <TableHeaderCell>Uploaded by</TableHeaderCell>
         <TableHeaderCell aria-label="Actions" />
       </TableRow>
@@ -350,12 +318,6 @@ export const FilesTable = ({ dividers = 'line' }: { dividers?: TableDividers }) 
               primary={file.name}
               supporting={file.size}
             />
-          </TableCell>
-          <TableCell>
-            <TableCellText primary={file.size} />
-          </TableCell>
-          <TableCell>
-            <TableCellText primary={file.date} />
           </TableCell>
           <TableCell>
             <TableCellText primary={file.date} />
