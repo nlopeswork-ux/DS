@@ -28,6 +28,7 @@ Todas as especificações técnicas de Design Tokens e Componentes estão dividi
   * Feedback & Visuals (Avatar, Tooltip, Help Icon, Progress, Slider, Featured Icon): `docs/components/feedback-visuals.md`
   * Feedback & Overlays (Modal, Alert, Banner, Toast): `docs/components/feedback-overlays.md`
   * Icons (Icon, Country Icon, Social Icon): `docs/components/icons.md`
+  * Tabelas (Table, Table header, Table header cell, Table cell, Table mobile row): `docs/components/tables.md`
 
 ---
 

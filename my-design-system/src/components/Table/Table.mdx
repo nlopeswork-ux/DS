@@ -1,0 +1,163 @@
+import { useState } from 'react';
+import { Meta, Story, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { cn } from '../../utils/cn';
+import * as TableStories from './Table.stories';
+import { PlaygroundLayout } from '../../docs/PlaygroundLayout';
+
+<Meta of={TableStories} />
+
+export const scrollToSection = (event, id) => {
+  event.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+{/* Example gallery in tabs - replaces several stacked <Canvas> blocks with a single navigable widget. */}
+export const ExampleGallery = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="my-6 rounded-lg border border-secondary overflow-hidden">
+      <div role="tablist" className="flex gap-1 border-b border-secondary bg-secondary px-2 pt-2">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            onClick={() => setActive(i)}
+            className={cn(
+              'rounded-t-md border border-b-0 border-transparent px-4 py-2 -mb-px text-sm font-semibold',
+              i === active ? 'bg-primary text-primary border-secondary' : 'text-tertiary hover:text-secondary',
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative isolate bg-primary p-6">{tabs[active].content}</div>
+    </div>
+  );
+};
+
+# Table
+
+A card that frames tabular data: an optional header (title, count badge, supporting text, actions), the table, and an optional footer for pagination. It is built from a header-cell family and a cell family, so every column can mix text, badges, avatars, controls and actions without re-inventing the row.
+
+<div className="border-b border-secondary mb-8" />
+
+<nav className="flex flex-wrap gap-lg bg-secondary border border-secondary rounded-lg px-6 py-4 mb-8 text-sm">
+  <a href="#playground" onClick={(e) => scrollToSection(e, 'playground')} className="text-brand-secondary font-semibold">Playground</a>
+  <a href="#ux-guidelines" onClick={(e) => scrollToSection(e, 'ux-guidelines')} className="text-brand-secondary font-semibold">UX Guidelines</a>
+  <a href="#anatomy-best-practices" onClick={(e) => scrollToSection(e, 'anatomy-best-practices')} className="text-brand-secondary font-semibold">Anatomy & Best Practices</a>
+  <a href="#states" onClick={(e) => scrollToSection(e, 'states')} className="text-brand-secondary font-semibold">States</a>
+  <a href="#accessibility" onClick={(e) => scrollToSection(e, 'accessibility')} className="text-brand-secondary font-semibold">Accessibility</a>
+</nav>
+
+<h2 id="playground" className="text-2xl font-semibold">Playground</h2>
+
+<PlaygroundLayout
+  defaultOpen={false}
+  preview={<Story of={TableStories.Playground} inline />}
+  options={
+    <>
+      <Controls of={TableStories.Playground} include={['Dividers', 'Selectable', 'Menu', 'Pagination', 'Rows']} />
+      <Controls of={TableStories.Playground} include={['Title', 'Badge', 'Supporting Text']} />
+    </>
+  }
+/>
+
+<h2 id="ux-guidelines" className="text-2xl font-semibold">UX Guidelines & When to Use</h2>
+
+### Data tables are hard
+There are endless combinations of data to show coherently in a small space, and it must stay readable across screen sizes. Tables in an app are information-dense, so a clear visual hierarchy is the most effective tool to make them feel designed, familiar from feature to feature, and easier to use.
+
+At KDS, table design is as minimalistic as possible: no excess elements added to an already dense UI, because they only add eye strain and reduce readability. In a well-designed table the user can quickly do three things.
+
+### 1. Distinguish clearly between sections
+Your eyes should group the information before you have time to read it. Keep it simple: a divider line under each row, or an alternating fill.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Divider line', content: <Canvas of={TableStories.Customers} withToolbar={false} sourceState="none" /> },
+    { label: 'Alternating fills', content: <Canvas of={TableStories.AlternatingFills} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+### 2. Find a clear "primary" column
+There should always be a primary column holding the most important data (a name, a title). Give it a heavier weight (`TableCellText lead` / `TableCellLead`) so each row also has a horizontal hierarchy. It should almost always be the first column: the eyes scan it first and it feels familiar. Do not reinvent that arbitrarily.
+
+### 3. Interact with the data easily
+Show clearly how to act on the data: search, buttons, bulk-select checkboxes, dropdowns. Make sortable columns obvious with a sort arrow and a real button, so nobody has to click around to find out how to sort.
+
+### When not to use
+- A handful of key/value pairs: use a description list.
+- Content that is mostly prose or media: use cards.
+
+<h2 id="anatomy-best-practices" className="text-2xl font-semibold">Anatomy & Best Practices</h2>
+
+### Structure
+- **`Table`** - the card: `bg-primary`, `border-secondary`, `rounded-xl`, `shadow-xs`. Props: `title`, `badge`, `supportingText`, `actions`, `menu`, `dividers`, `footer`.
+- **`TableHead` / `TableBody` / `TableRow`** - native table sections. `TableRow` owns hover, selected and alternating fills.
+- **`TableHeaderCell`** - a `th`, 44px tall, `bg-secondary` (or `white`), with an optional select-all checkbox and a `TableHeader` label.
+- **`TableHeader`** - the label: `text-xs` medium, optional help icon (the DS `HelpIcon`) and sort arrow. With `onSort` it becomes a button.
+- **`TableCell`** - a `td`: `px-3xl py-xl` (72px with a 40px avatar), a divider, and the cell states.
+- **Cell parts** - what goes inside a cell: `TableCellText`, `TableCellLead`, `TableCellBadges`, `TableCellAvatarGroup`, `TableCellTrend`, `TableCellProgress`, `TableCellActionButtons`, `TableCellActionIcons`, `TableCellActionMenu`, `TableCellRating`, `TableCellNumber`, `TableCellExpand`, `TableCellPaymentIcon` and `TableToggle`.
+
+### Reused from the system
+`Badge`, `Avatar`, `AvatarGroup`, `Checkbox`, `Radio`, `Button`, `HelpIcon`, `Icon` (Material Symbols) and `Pagination` are the real components, not copies. `TableToggle`, the progress bar, the star rating and the payment-method tile are table-local until they exist as components in the system.
+
+### Compose, then adapt
+Because tables are so context-specific, there is no single "right" table. Pick the example closest to what you need and adapt it: the columns, cells and actions are just children.
+
+<ExampleGallery
+  tabs={[
+    { label: 'Customers', content: <Canvas of={TableStories.Customers} withToolbar={false} sourceState="none" /> },
+    { label: 'Sales', content: <Canvas of={TableStories.Sales} withToolbar={false} sourceState="none" /> },
+    { label: 'Files', content: <Canvas of={TableStories.Files} withToolbar={false} sourceState="none" /> },
+    { label: 'Cell styles', content: <Canvas of={TableStories.CellStyles} withToolbar={false} sourceState="none" /> },
+    { label: 'Header cells', content: <Canvas of={TableStories.HeaderCells} withToolbar={false} sourceState="none" /> },
+  ]}
+/>
+
+### Column widths and responsive layouts
+A good starting point is to let every column hug its content and let the primary column fill the remaining space. In code that means leaving the cells at their natural width and giving the primary `TableCell` a `w-full` class. It is not always the best approach: it works well for densely populated tables. If the table has little data, try fixed column widths. The `Table` scrolls horizontally inside its card when the columns do not fit.
+
+### Mobile
+Below the tablet breakpoint, replace the `<table>` columns by `TableMobileRow`: one line per row (checkbox, avatar and name, status) with a chevron that reveals the other columns as label/value pairs. The card header and footer stay the same.
+
+<Canvas of={TableStories.Mobile} withToolbar={false} sourceState="none" />
+
+### Best practices
+- Keep one primary column and put it first.
+- Align numbers to the right (`align="right"` with `TableCellNumber`) so digits line up.
+- Give every icon-only action a `label`.
+- Keep `Pagination` in `footer`, and scroll the table back into view on page change.
+
+<h2 id="states" className="text-2xl font-semibold">States</h2>
+
+<Canvas of={TableStories.CellStates} withToolbar={false} sourceState="none" />
+
+<table>
+  <thead>
+    <tr><th>State</th><th>Style</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Default</td><td>Transparent, so the row (or alternating) fill shows through.</td></tr>
+    <tr><td>Hover</td><td><code>bg-primary-hover</code>. Driven by the row's real hover; <code>state="hover"</code> forces it for previews.</td></tr>
+    <tr><td>Selected</td><td><code>bg-brand-primary</code>. Set <code>selected</code> on the row to tint every cell.</td></tr>
+    <tr><td>Focus</td><td>Inset 2px <code>border-brand</code> outline. Applied by real keyboard focus inside the cell.</td></tr>
+    <tr><td>Disabled</td><td><code>bg-disabled-subtle</code>, text in <code>text-disabled</code>.</td></tr>
+    <tr><td>Loading</td><td>The content is replaced by skeleton bars (<code>bg-tertiary</code>), <code>aria-busy</code>.</td></tr>
+    <tr><td>Error</td><td><code>bg-error-primary</code>, inset 2px <code>border-error</code> outline, an error icon and <code>errorMessage</code> in <code>text-error</code>.</td></tr>
+    <tr><td>Editing</td><td><code>bg-primary</code> with the brand outline, for inline editing.</td></tr>
+  </tbody>
+</table>
+
+Header labels have their own states: default, hover (`text-tertiary-hover`) and the focus outline on the header cell.
+
+<h2 id="accessibility" className="text-2xl font-semibold">Accessibility (a11y)</h2>
+- **Semantics:** a real `table` with `thead`, `tbody`, `th scope="col"` and `td`. The table is named by `tableLabel` or by a string `title`.
+- **Sorting:** a sorted header sets `aria-sort`; the label is a `button`, reachable and activated with Tab and Enter / Space.
+- **Selection:** the select-all checkbox is labelled "Select all rows" and shows the mixed state when only some rows are selected. Give each row checkbox an `aria-label` that names the row. Selected rows set `aria-selected`.
+- **Icon-only actions** need a `label`; they are real buttons with a visible focus ring.
+- **Loading** cells set `aria-busy` and an `aria-label="Loading"` status; **error** messages use `role="alert"`.
+- **Contrast:** text and fills use the semantic tokens, which meet WCAG AA in light and dark mode.
