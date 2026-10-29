@@ -1,0 +1,1299 @@
+{
+ "_readme": "Snapshot of the Figma library (the last time Claude read it). Written from scripts/figma/snapshot.figma.js, run in Figma through the Figma MCP. Property types: V variant, B boolean, S instance swap, T text. Not the live file: sync-status says when it was taken.",
+ "file": "Qsft6LXKY7ongC9FwdtObx",
+ "takenAt": "2026-10-29T16:36:27Z",
+ "components": {
+  "Alert": {
+   "key": "bda92d2310c40df8dbe6d27bffd9e812d9cc3a34",
+   "page": "Alerts & notifications",
+   "props": {
+    "X close button": {
+     "t": "B",
+     "d": true
+    },
+    "Actions": {
+     "t": "B",
+     "d": true
+    },
+    "Supporting text": {
+     "t": "B",
+     "d": true
+    },
+    "Color": {
+     "t": "V",
+     "o": [
+      "Informative",
+      "Error",
+      "Warning",
+      "Success"
+     ],
+     "d": "Informative"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    }
+   }
+  },
+  "Avatar": {
+   "key": "eda3d80a063557ad19eff207f0aaad688f95206e",
+   "page": "Avatars",
+   "props": {
+    "Contrast border": {
+     "t": "B",
+     "d": true
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "xs",
+      "sm",
+      "md",
+      "lg",
+      "xl",
+      "2xl"
+     ],
+     "d": "xs"
+    },
+    "Placeholder": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Text": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Status icon": {
+     "t": "V",
+     "o": [
+      "False",
+      "Online indicator",
+      "Company",
+      "Verified"
+     ],
+     "d": "False"
+    }
+   }
+  },
+  "Avatar group": {
+   "key": "1867c2c31397262aed1e58dcc08d8641da4bc744",
+   "page": "Avatars",
+   "props": {
+    "More users": {
+     "t": "B",
+     "d": true
+    },
+    "Add more button": {
+     "t": "B",
+     "d": true
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "xs",
+      "sm",
+      "md"
+     ],
+     "d": "xs"
+    }
+   }
+  },
+  "Badge": {
+   "key": "6a930a60621ed16c44dc6c019fc49b9f4573dfa7",
+   "page": "Badges",
+   "props": {
+    "Flag swap": {
+     "t": "S"
+    },
+    "Icon trailing swap": {
+     "t": "S"
+    },
+    "Icon leading swap": {
+     "t": "S"
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg"
+     ],
+     "d": "sm"
+    },
+    "Type": {
+     "t": "V",
+     "o": [
+      "Pill color",
+      "Pill outline",
+      "Badge color",
+      "Badge modern"
+     ],
+     "d": "Pill color"
+    },
+    "Icon": {
+     "t": "V",
+     "o": [
+      "False",
+      "Dot",
+      "Country",
+      "X close",
+      "Avatar",
+      "Icon trailing",
+      "Icon leading",
+      "Only"
+     ],
+     "d": "False"
+    },
+    "Color": {
+     "t": "V",
+     "o": [
+      "Gray",
+      "Brand",
+      "Error",
+      "Warning",
+      "Success",
+      "Blue light",
+      "Blue",
+      "Indigo",
+      "Purple",
+      "Pink",
+      "Orange",
+      "Blue gray",
+      "Gray blue"
+     ],
+     "d": "Gray"
+    }
+   }
+  },
+  "Badge group": {
+   "key": "a224093abb2b9221e8dd380c2a1beb84770143cd",
+   "page": "Badges",
+   "props": {
+    "Icon": {
+     "t": "B",
+     "d": true
+    },
+    "Badge": {
+     "t": "V",
+     "o": [
+      "Leading",
+      "Trailing"
+     ],
+     "d": "Leading"
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "md",
+      "lg"
+     ],
+     "d": "md"
+    },
+    "Color": {
+     "t": "V",
+     "o": [
+      "Gray",
+      "Brand",
+      "Error",
+      "Warning",
+      "Success"
+     ],
+     "d": "Gray"
+    },
+    "Theme": {
+     "t": "V",
+     "o": [
+      "Light",
+      "Outline",
+      "Modern"
+     ],
+     "d": "Light"
+    },
+    "State": {
+     "t": "V",
+     "o": [
+      "Default",
+      "Hover"
+     ],
+     "d": "Default"
+    }
+   }
+  },
+  "Banner": {
+   "key": "e3093d0a365db979ea4e05e4fd8060a2b2970a1e",
+   "page": "Alerts & notifications",
+   "props": {
+    "X close button": {
+     "t": "B",
+     "d": true
+    },
+    "Actions": {
+     "t": "B",
+     "d": true
+    },
+    "Supporting text": {
+     "t": "B",
+     "d": true
+    },
+    "Color": {
+     "t": "V",
+     "o": [
+      "Informative",
+      "Error",
+      "Warning",
+      "Success"
+     ],
+     "d": "Informative"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    }
+   }
+  },
+  "Breadcrumbs": {
+   "key": "4a4f23c1b118a4ecff3429c50c0da9e30ef12e37",
+   "page": "Breadcrumbs",
+   "props": {
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    }
+   }
+  },
+  "Buttons/Button": {
+   "key": "18a7e0d652d5c368c24b8e8f1e4e1b00d49445d6",
+   "page": "Buttons",
+   "props": {
+    "Icon leading": {
+     "t": "B",
+     "d": true
+    },
+    "Icon trailing": {
+     "t": "B",
+     "d": true
+    },
+    "Icon leading swap": {
+     "t": "S"
+    },
+    "Icon trailing swap": {
+     "t": "S"
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg",
+      "xl",
+      "2xl"
+     ],
+     "d": "sm"
+    },
+    "Hierarchy": {
+     "t": "V",
+     "o": [
+      "Primary",
+      "Secondary gray",
+      "Secondary color",
+      "Tertiary gray",
+      "Tertiary color",
+      "Link gray",
+      "Link color"
+     ],
+     "d": "Primary"
+    },
+    "Icon": {
+     "t": "V",
+     "o": [
+      "Default",
+      "Dot leading",
+      "Only"
+     ],
+     "d": "Default"
+    },
+    "State": {
+     "t": "V",
+     "o": [
+      "Default",
+      "Hover",
+      "Focused",
+      "Disabled"
+     ],
+     "d": "Default"
+    }
+   }
+  },
+  "Checkbox": {
+   "key": "4b71537e6bc65709b66afc87f2402ced3bdb3caa",
+   "page": "Checkboxes",
+   "props": {
+    "Supporting text": {
+     "t": "B",
+     "d": true
+    },
+    "Checked": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Indeterminate": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md"
+     ],
+     "d": "sm"
+    },
+    "Type": {
+     "t": "V",
+     "o": [
+      "Checkbox",
+      "Radio"
+     ],
+     "d": "Checkbox"
+    },
+    "Text": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "State": {
+     "t": "V",
+     "o": [
+      "Default",
+      "Hover",
+      "Focused",
+      "Disabled"
+     ],
+     "d": "Default"
+    }
+   }
+  },
+  "Dropdown": {
+   "key": "527bb2bde1f86fa517826d632af6489b8efadc6c",
+   "page": "Dropdowns",
+   "props": {
+    "Type": {
+     "t": "V",
+     "o": [
+      "Button",
+      "Icon",
+      "Avatar"
+     ],
+     "d": "Button"
+    },
+    "Open": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    }
+   }
+  },
+  "Featured icon": {
+   "key": "54bad01c9e446e642954cac7540f9d0340d223c6",
+   "page": "Misc icons",
+   "props": {
+    "Icon swap": {
+     "t": "S"
+    },
+    "Gradient mask": {
+     "t": "B",
+     "d": true
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg",
+      "xl"
+     ],
+     "d": "sm"
+    },
+    "Color": {
+     "t": "V",
+     "o": [
+      "Brand",
+      "Gray",
+      "Error",
+      "Warning",
+      "Success",
+      "Info"
+     ],
+     "d": "Brand"
+    }
+   }
+  },
+  "Featured icon outline": {
+   "key": "9ab93d556613ff7fd0ade1194a980d4c8639e312",
+   "page": "Misc icons",
+   "props": {
+    "Icon swap": {
+     "t": "S"
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg",
+      "xl"
+     ],
+     "d": "sm"
+    },
+    "Color": {
+     "t": "V",
+     "o": [
+      "Brand",
+      "Gray",
+      "Error",
+      "Warning",
+      "Success",
+      "Info"
+     ],
+     "d": "Brand"
+    }
+   }
+  },
+  "Help icon": {
+   "key": "795453f950170ff682068f531408d22112d75c3c",
+   "page": "Tooltips",
+   "props": {
+    "Cursor": {
+     "t": "B",
+     "d": true
+    },
+    "Open": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Supporting text": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Tooltip": {
+     "t": "V",
+     "o": [
+      "Top no arrow",
+      "Top arrow",
+      "Left",
+      "Top left",
+      "Bottom",
+      "Right",
+      "Top right"
+     ],
+     "d": "Top no arrow"
+    }
+   }
+  },
+  "Input field": {
+   "key": "ef78aa4c56eb806044fda4e7129fdbc78d2625a2",
+   "page": "Inputs",
+   "props": {
+    "Label": {
+     "t": "B",
+     "d": true
+    },
+    "Hint text": {
+     "t": "B",
+     "d": true
+    },
+    "Help icon": {
+     "t": "B",
+     "d": true
+    },
+    "Icon swap": {
+     "t": "S"
+    },
+    "Required": {
+     "t": "B",
+     "d": true
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md"
+     ],
+     "d": "sm"
+    },
+    "Type": {
+     "t": "V",
+     "o": [
+      "Default",
+      "Icon leading",
+      "Leading dropdown",
+      "Trailing dropdown",
+      "Leading text",
+      "Payment input",
+      "Tags",
+      "Trailing button"
+     ],
+     "d": "Default"
+    },
+    "Destructive": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "State": {
+     "t": "V",
+     "o": [
+      "Placeholder",
+      "Filled",
+      "Focused",
+      "Disabled"
+     ],
+     "d": "Placeholder"
+    }
+   }
+  },
+  "Input dropdown": {
+   "key": "a450828998825fa257c30bfa9e7f0c230237f0f6",
+   "page": "Dropdowns",
+   "props": {
+    "Label": {
+     "t": "B",
+     "d": true
+    },
+    "Hint text": {
+     "t": "B",
+     "d": true
+    },
+    "Supporting text": {
+     "t": "B",
+     "d": true
+    },
+    "Scroll bar": {
+     "t": "B",
+     "d": true
+    },
+    "Icon swap": {
+     "t": "S"
+    },
+    "Required": {
+     "t": "B",
+     "d": true
+    },
+    "Help icon": {
+     "t": "B",
+     "d": true
+    },
+    "Type": {
+     "t": "V",
+     "o": [
+      "Default",
+      "Icon leading",
+      "Avatar leading",
+      "Dot leading",
+      "Search",
+      "Tags"
+     ],
+     "d": "Default"
+    },
+    "State": {
+     "t": "V",
+     "o": [
+      "Placeholder",
+      "Default",
+      "Focused",
+      "Open",
+      "Disabled"
+     ],
+     "d": "Placeholder"
+    }
+   }
+  },
+  "Modal": {
+   "key": "bec199ee8072a2bdbc990d078c8ad31d303e2ba8",
+   "page": "Modals",
+   "props": {
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg",
+      "full screen"
+     ],
+     "d": "sm"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    }
+   }
+  },
+  "Pagination": {
+   "key": "be0e1c6c53fea10f0f5d5358996de00b9373dce6",
+   "page": "Pagination",
+   "props": {
+    "Type": {
+     "t": "V",
+     "o": [
+      "Page default"
+     ],
+     "d": "Page default"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    }
+   }
+  },
+  "Progress steps / Progress icons centered": {
+   "key": "b2c8961f9af67436081c847203555cf0fd1c172a",
+   "page": "Progress steps",
+   "props": {
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg"
+     ],
+     "d": "sm"
+    },
+    "Steps": {
+     "t": "V",
+     "o": [
+      "4"
+     ],
+     "d": "4"
+    },
+    "Orientation": {
+     "t": "V",
+     "o": [
+      "Horizontal",
+      "Vertical"
+     ],
+     "d": "Horizontal"
+    },
+    "Connector": {
+     "t": "V",
+     "o": [
+      "True",
+      "False"
+     ],
+     "d": "True"
+    }
+   }
+  },
+  "Progress steps / Progress icons with text": {
+   "key": "14c83a995f5991d2acc4535c5e4c4c4c5d209e36",
+   "page": "Progress steps",
+   "props": {
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg"
+     ],
+     "d": "sm"
+    },
+    "Connector": {
+     "t": "V",
+     "o": [
+      "True",
+      "False"
+     ],
+     "d": "True"
+    }
+   }
+  },
+  "Progress steps / Progress minimal icons": {
+   "key": "0601d98fe61af715eb46801cd41906cf8594cdad",
+   "page": "Progress steps",
+   "props": {
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg"
+     ],
+     "d": "sm"
+    },
+    "Step label": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    },
+    "Orientation": {
+     "t": "V",
+     "o": [
+      "Horizontal",
+      "Vertical"
+     ],
+     "d": "Horizontal"
+    }
+   }
+  },
+  "Progress steps / Progress minimal icons connected": {
+   "key": "86baf3b646a63d554c73a389cbfdd3900876d948",
+   "page": "Progress steps",
+   "props": {
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg"
+     ],
+     "d": "sm"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    },
+    "Orientation": {
+     "t": "V",
+     "o": [
+      "Horizontal",
+      "Vertical"
+     ],
+     "d": "Horizontal"
+    }
+   }
+  },
+  "Sidebar navigation": {
+   "key": "a7afb2aed914c8b0f56bbe84e4331e01e2c48404",
+   "page": "Application navigation",
+   "props": {
+    "Open": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Style": {
+     "t": "V",
+     "o": [
+      "Simple",
+      "Dual-tier",
+      "Slim"
+     ],
+     "d": "Simple"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    }
+   }
+  },
+  "Social button": {
+   "key": "8c0d5b459aafd2cc14715529bb1c5f09c146c3ce",
+   "page": "Buttons",
+   "props": {
+    "Social": {
+     "t": "V",
+     "o": [
+      "Google",
+      "Facebook",
+      "Apple",
+      "Twitter",
+      "Figma",
+      "Dribbble"
+     ],
+     "d": "Google"
+    },
+    "Supporting text": {
+     "t": "V",
+     "o": [
+      "True",
+      "False"
+     ],
+     "d": "True"
+    },
+    "Theme": {
+     "t": "V",
+     "o": [
+      "Brand",
+      "Gray",
+      "Color"
+     ],
+     "d": "Brand"
+    },
+    "State": {
+     "t": "V",
+     "o": [
+      "Default",
+      "Hover",
+      "Focused"
+     ],
+     "d": "Default"
+    }
+   }
+  },
+  "Social button groups": {
+   "key": "3e3d791efc75d9d43ea5b849f5029f38bd7a1a41",
+   "page": "Buttons",
+   "props": {
+    "Style": {
+     "t": "V",
+     "o": [
+      "Buttons",
+      "Icons"
+     ],
+     "d": "Buttons"
+    },
+    "Theme": {
+     "t": "V",
+     "o": [
+      "Brand",
+      "Color",
+      "Gray"
+     ],
+     "d": "Brand"
+    }
+   }
+  },
+  "Social icon": {
+   "key": "cbeb631c69c088db7214995e97930f44a87c0f6c",
+   "page": "Misc icons",
+   "props": {
+    "Platform": {
+     "t": "V",
+     "o": [
+      "AngelList",
+      "Apple",
+      "Clubhouse",
+      "Discord",
+      "Dribbble",
+      "Facebook",
+      "Figma",
+      "Google",
+      "Instagram",
+      "Layers",
+      "LinkedIn",
+      "Pinterest",
+      "GitHub",
+      "Reddit"
+     ],
+     "d": "Facebook"
+    },
+    "Style": {
+     "t": "V",
+     "o": [
+      "Brand",
+      "Gray"
+     ],
+     "d": "Brand"
+    },
+    "State": {
+     "t": "V",
+     "o": [
+      "Default",
+      "Hover"
+     ],
+     "d": "Default"
+    }
+   }
+  },
+  "Table": {
+   "key": "18bba824bd2ee8e83a209ec1f992c2098f78b02c",
+   "page": "Tables",
+   "props": {
+    "Example": {
+     "t": "V",
+     "o": [
+      "Team members",
+      "Companies",
+      "Sales",
+      "Files"
+     ],
+     "d": "Team members"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    },
+    "Dividers": {
+     "t": "V",
+     "o": [
+      "Divider line",
+      "Alternating fills"
+     ],
+     "d": "Divider line"
+    }
+   }
+  },
+  "Horizontal tabs": {
+   "key": "13645d9283f1bac4476187094e924bfec42427e5",
+   "page": "Tabs",
+   "props": {
+    "Type": {
+     "t": "V",
+     "o": [
+      "Button brand",
+      "Underline",
+      "Button border"
+     ],
+     "d": "Button brand"
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md"
+     ],
+     "d": "sm"
+    },
+    "Full width": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    }
+   }
+  },
+  "Vertical tabs": {
+   "key": "291a87a02f1cb6102ed193a520497362ccf51f6b",
+   "page": "Tabs",
+   "props": {
+    "Type": {
+     "t": "V",
+     "o": [
+      "Button primary",
+      "Line",
+      "Button border"
+     ],
+     "d": "Button primary"
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md"
+     ],
+     "d": "sm"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    }
+   }
+  },
+  "Tag": {
+   "key": "fcd4949190eb11d79cc7e8f590d0c553aa1108a2",
+   "page": "Tags",
+   "props": {
+    "Flag swap": {
+     "t": "S"
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg"
+     ],
+     "d": "sm"
+    },
+    "Icon": {
+     "t": "V",
+     "o": [
+      "False",
+      "Country",
+      "Avatar",
+      "Dot"
+     ],
+     "d": "False"
+    },
+    "Action": {
+     "t": "V",
+     "o": [
+      "X close",
+      "Text only",
+      "Count"
+     ],
+     "d": "Text only"
+    },
+    "Checkbox": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    }
+   }
+  },
+  "Textarea input field": {
+   "key": "bd0fd45779b71de535e25f66df6d77cd6d5256d9",
+   "page": "Inputs",
+   "props": {
+    "Label": {
+     "t": "B",
+     "d": true
+    },
+    "Hint text": {
+     "t": "B",
+     "d": true
+    },
+    "Required": {
+     "t": "B",
+     "d": true
+    },
+    "Help icon": {
+     "t": "B",
+     "d": true
+    },
+    "Resize handle": {
+     "t": "B",
+     "d": true
+    },
+    "Type": {
+     "t": "V",
+     "o": [
+      "Default",
+      "Tags"
+     ],
+     "d": "Default"
+    },
+    "Destructive": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "State": {
+     "t": "V",
+     "o": [
+      "Placeholder",
+      "Default",
+      "Focused",
+      "Disabled"
+     ],
+     "d": "Placeholder"
+    }
+   }
+  },
+  "Toast": {
+   "key": "b064d2b48cfd9306e55c861673c306a4730abf18",
+   "page": "Alerts & notifications",
+   "props": {
+    "X close button": {
+     "t": "B",
+     "d": true
+    },
+    "Supporting text": {
+     "t": "B",
+     "d": false
+    },
+    "Actions": {
+     "t": "B",
+     "d": true
+    },
+    "Color": {
+     "t": "V",
+     "o": [
+      "Informative",
+      "Error",
+      "Warning",
+      "Success"
+     ],
+     "d": "Informative"
+    },
+    "Breakpoint": {
+     "t": "V",
+     "o": [
+      "Desktop",
+      "Mobile"
+     ],
+     "d": "Desktop"
+    }
+   }
+  },
+  "Tooltip": {
+   "key": "e39b31ea5c3fd0904a7691238ff36f10820ccbde",
+   "page": "Tooltips",
+   "props": {
+    "Text": {
+     "t": "T"
+    },
+    "Supporting text": {
+     "t": "V",
+     "o": [
+      "False",
+      "True"
+     ],
+     "d": "False"
+    },
+    "Arrow": {
+     "t": "V",
+     "o": [
+      "None",
+      "Bottom left",
+      "Bottom right",
+      "Left",
+      "Right",
+      "Bottom center",
+      "Top center"
+     ],
+     "d": "None"
+    }
+   }
+  },
+  "Verification code input field": {
+   "key": "3cb539cec337aa3c0839043071dd0bebff7337ba",
+   "page": "Inputs",
+   "props": {
+    "Label": {
+     "t": "B",
+     "d": true
+    },
+    "Hint text": {
+     "t": "B",
+     "d": true
+    },
+    "Size": {
+     "t": "V",
+     "o": [
+      "sm",
+      "md",
+      "lg"
+     ],
+     "d": "sm"
+    },
+    "Digits": {
+     "t": "V",
+     "o": [
+      "4",
+      "6"
+     ],
+     "d": "4"
+    }
+   }
+  }
+ },
+ "figmaOnly": [
+  "Avatar label group",
+  "Avatar profile photo",
+  "Button close X",
+  "Button group",
+  "Buttons/Button destructive",
+  "Carousel image",
+  "Check icon",
+  "Check item text",
+  "Emoji",
+  "File type icon",
+  "Folder icon",
+  "Header navigation",
+  "Mobile app store badge",
+  "Notification",
+  "Pagination dot group",
+  "Payment method icon",
+  "Star icon",
+  "Table card",
+  "Table card field",
+  "Table card header",
+  "Table cell",
+  "Table header",
+  "Table header cell",
+  "Table toolbar",
+  "Toggle",
+  "Verified tick",
+  "WYSIWYG toolbar",
+  "WYSIWYG tooltip"
+ ]
+}

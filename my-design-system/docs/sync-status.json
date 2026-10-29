@@ -1,0 +1,1499 @@
+{
+  "snapshot": {
+    "takenAt": "2026-10-29T16:36:27Z",
+    "takenAtLabel": "2026-10-29 16:36",
+    "ago": "3 min ago",
+    "codeNewer": false
+  },
+  "summary": [
+    "Sync status: 1 of 29 mirrored components match, 28 differ (52 findings: 32 same defaults, 13 same property names, 7 same options). Most to fix: ProgressSteps (7), InputDropdown (6), Button (4), Tabs (4), AvatarGroup (3). Details: docs/sync-status.md, or Sync status in Storybook.",
+    "Figma side: the snapshot taken 2026-10-29 16:36 (3 min ago), not the live file.",
+    "28 Figma component(s) have no code yet: Avatar label group, Avatar profile photo, Button close X, Button group, Buttons/Button destructive, Carousel image, ....",
+    "To check the live library: ask Claude \"take a snapshot of the Figma library\" (it reads the file through the Figma MCP and rewrites figma/manifest.json), then run npm run sync-status."
+  ],
+  "checks": [
+    {
+      "id": "keys",
+      "label": "Figma key",
+      "means": "The snapshot has the key needed to find the component and place it in another file"
+    },
+    {
+      "id": "name",
+      "label": "Same name",
+      "means": "The Figma component is called what the code calls it (or the map says why not)"
+    },
+    {
+      "id": "names",
+      "label": "Same property names",
+      "means": "Every variant and boolean property in Figma is a prop in code"
+    },
+    {
+      "id": "options",
+      "label": "Same options",
+      "means": "Every variant option in Figma is an allowed value in code"
+    },
+    {
+      "id": "defaults",
+      "label": "Same defaults",
+      "means": "The default Figma variant uses the code defaults"
+    },
+    {
+      "id": "rules",
+      "label": "Code follows the rules",
+      "means": "No raw colours in the component code"
+    }
+  ],
+  "counts": {
+    "total": 32,
+    "match": 1,
+    "drift": 28,
+    "missing": 0,
+    "notMirrored": 3
+  },
+  "rows": [
+    {
+      "name": "Alert",
+      "figma": [
+        "Alert"
+      ],
+      "figmaProps": [
+        "X close button",
+        "Actions",
+        "Supporting text",
+        "Color"
+      ],
+      "codeProps": [
+        "color",
+        "title",
+        "supportingText",
+        "actionLabel",
+        "onAction",
+        "dismissLabel",
+        "onDismiss",
+        "showCloseButton",
+        "closeLabel",
+        "actionLoading"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Alert: default \"Color\" is Informative in Figma, info in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Avatar",
+      "figma": [
+        "Avatar"
+      ],
+      "figmaProps": [
+        "Contrast border",
+        "Size",
+        "Placeholder",
+        "Text",
+        "Status icon"
+      ],
+      "codeProps": [
+        "size",
+        "src",
+        "alt",
+        "placeholder",
+        "text",
+        "statusIcon",
+        "online",
+        "companySwap",
+        "contrastBorder",
+        "swap",
+        "className",
+        "name",
+        "supportingText"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Avatar: default \"Size\" is xs in Figma, md in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "AvatarGroup",
+      "figma": [
+        "Avatar group"
+      ],
+      "figmaProps": [
+        "More users",
+        "Add more button",
+        "Size"
+      ],
+      "codeProps": [
+        "size",
+        "avatars",
+        "showAddButton",
+        "onAddClick"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": false,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "names",
+          "message": "Avatar group: Figma property \"More users\" is not a prop in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Avatar group: default \"Add more button\" is true in Figma, false in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Avatar group: default \"Size\" is xs in Figma, md in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Badge",
+      "figma": [
+        "Badge"
+      ],
+      "figmaProps": [
+        "Size",
+        "Type",
+        "Icon",
+        "Color"
+      ],
+      "codeProps": [
+        "size",
+        "type",
+        "icon",
+        "color",
+        "children",
+        "flagSwap",
+        "avatarSwap",
+        "iconLeadingSwap",
+        "iconTrailingSwap",
+        "onClose",
+        "rounded",
+        "onClick",
+        "className"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": false,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Badge: default \"Size\" is sm in Figma, md in code"
+        },
+        {
+          "check": "options",
+          "message": "Badge: \"Color\" has options code does not allow: Blue gray"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "BadgeGroup",
+      "figma": [
+        "Badge group"
+      ],
+      "figmaProps": [
+        "Icon",
+        "Badge",
+        "Size",
+        "Color",
+        "Theme",
+        "State"
+      ],
+      "codeProps": [
+        "badge",
+        "size",
+        "color",
+        "theme",
+        "state",
+        "icon",
+        "badgeLabel",
+        "children"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Badge group: default \"Color\" is Gray in Figma, Brand in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Banner",
+      "figma": [
+        "Banner"
+      ],
+      "figmaProps": [
+        "X close button",
+        "Actions",
+        "Supporting text",
+        "Color"
+      ],
+      "codeProps": [
+        "color",
+        "title",
+        "supportingText",
+        "actionLabel",
+        "onAction",
+        "dismissLabel",
+        "onDismiss",
+        "showCloseButton",
+        "closeLabel",
+        "actionLoading"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Banner: default \"Color\" is Informative in Figma, info in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Breadcrumbs",
+      "figma": [
+        "Breadcrumbs"
+      ],
+      "figmaProps": [],
+      "codeProps": [
+        "current",
+        "state",
+        "className",
+        "items",
+        "maxItems",
+        "'aria-label'"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": true,
+        "rules": true
+      },
+      "issues": [],
+      "status": "match",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Button",
+      "figma": [
+        "Buttons/Button"
+      ],
+      "figmaProps": [
+        "Icon leading",
+        "Icon trailing",
+        "Size",
+        "Hierarchy",
+        "Icon",
+        "State"
+      ],
+      "codeProps": [
+        "size",
+        "hierarchy",
+        "state",
+        "destructive",
+        "iconLeading",
+        "iconTrailing",
+        "iconLeadingSwap",
+        "iconTrailingSwap",
+        "disabled",
+        "children"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": false,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Buttons/Button: default \"Icon leading\" is true in Figma, false in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Buttons/Button: default \"Icon trailing\" is true in Figma, false in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Buttons/Button: default \"Size\" is sm in Figma, md in code"
+        },
+        {
+          "check": "names",
+          "message": "Buttons/Button: Figma property \"Icon\" is not a prop in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Checkbox",
+      "figma": [
+        "Checkbox"
+      ],
+      "figmaProps": [
+        "Supporting text",
+        "Indeterminate",
+        "Size"
+      ],
+      "codeProps": [
+        "size",
+        "label",
+        "supportingText",
+        "error",
+        "indeterminate"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Checkbox: default \"Size\" is sm in Figma, md in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": "Figma Checked, State and Text are preview knobs; the native input and CSS drive them in code"
+    },
+    {
+      "name": "CountryIcon",
+      "figma": [],
+      "figmaProps": [],
+      "codeProps": [
+        "code",
+        "size"
+      ],
+      "checks": {
+        "keys": null,
+        "name": null,
+        "names": null,
+        "options": null,
+        "defaults": null,
+        "rules": true
+      },
+      "issues": [],
+      "status": "not mirrored",
+      "why": "flag set, not snapshotted yet",
+      "note": null
+    },
+    {
+      "name": "Dropdown",
+      "figma": [
+        "Dropdown"
+      ],
+      "figmaProps": [
+        "Type",
+        "Open"
+      ],
+      "codeProps": [
+        "trigger",
+        "children",
+        "open",
+        "defaultOpen",
+        "onOpenChange",
+        "align",
+        "className",
+        "icon",
+        "checkbox",
+        "checked",
+        "supportingText",
+        "shortcut",
+        "disabled",
+        "onSelect",
+        "length"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": false,
+        "options": true,
+        "defaults": true,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "names",
+          "message": "Dropdown: Figma property \"Type\" is not a prop in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "FeaturedIcon",
+      "figma": [
+        "Featured icon",
+        "Featured icon outline"
+      ],
+      "figmaProps": [
+        "Gradient mask",
+        "Size",
+        "Color"
+      ],
+      "codeProps": [
+        "name",
+        "color",
+        "size"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": false,
+        "options": true,
+        "defaults": true,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "names",
+          "message": "Featured icon: Figma property \"Gradient mask\" is not a prop in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "FeedbackShared",
+      "figma": [],
+      "figmaProps": [],
+      "codeProps": [
+        "color",
+        "variant",
+        "className"
+      ],
+      "checks": {
+        "keys": null,
+        "name": null,
+        "names": null,
+        "options": null,
+        "defaults": null,
+        "rules": true
+      },
+      "issues": [],
+      "status": "not mirrored",
+      "why": "internal building blocks shared by Alert, Banner and Toast",
+      "note": null
+    },
+    {
+      "name": "HelpIcon",
+      "figma": [
+        "Help icon"
+      ],
+      "figmaProps": [
+        "Cursor",
+        "Open",
+        "Supporting text",
+        "Tooltip"
+      ],
+      "codeProps": [
+        "cursor",
+        "open",
+        "supportingText",
+        "tooltipText",
+        "tooltipSupportingTextContent",
+        "tooltipArrow",
+        "'aria-label'"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Help icon: default \"Tooltip\" is Top no arrow in Figma, Bottom in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Icon",
+      "figma": [],
+      "figmaProps": [],
+      "codeProps": [
+        "name",
+        "size",
+        "color",
+        "filled",
+        "weight",
+        "label"
+      ],
+      "checks": {
+        "keys": null,
+        "name": null,
+        "names": null,
+        "options": null,
+        "defaults": null,
+        "rules": true
+      },
+      "issues": [],
+      "status": "not mirrored",
+      "why": "Material Symbols icon font, not drawn in Figma",
+      "note": null
+    },
+    {
+      "name": "Input",
+      "figma": [
+        "Input field"
+      ],
+      "figmaProps": [
+        "Label",
+        "Hint text",
+        "Help icon",
+        "Required",
+        "Size",
+        "Type",
+        "Destructive",
+        "State"
+      ],
+      "codeProps": [
+        "slot",
+        "side",
+        "disabled",
+        "size",
+        "type",
+        "state",
+        "destructive",
+        "label",
+        "hint",
+        "errorMessage",
+        "required",
+        "helpIcon",
+        "iconSwap",
+        "leadingDropdown",
+        "trailingDropdown",
+        "leadingTextAddon",
+        "paymentIcon",
+        "tags",
+        "onTagsChange",
+        "trailingButton"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Input field: default \"Required\" is true in Figma, false in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "InputDropdown",
+      "figma": [
+        "Input dropdown"
+      ],
+      "figmaProps": [
+        "Label",
+        "Hint text",
+        "Supporting text",
+        "Scroll bar",
+        "Required",
+        "Help icon",
+        "Type",
+        "State"
+      ],
+      "codeProps": [
+        "label",
+        "hint",
+        "error",
+        "errorMessage",
+        "disabled",
+        "required",
+        "placeholder",
+        "options",
+        "searchable",
+        "value",
+        "defaultValue",
+        "onChange",
+        "open",
+        "defaultOpen",
+        "onOpenChange",
+        "id",
+        "option",
+        "selected",
+        "active",
+        "onSelect"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": false,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "names",
+          "message": "Input dropdown: Figma property \"Supporting text\" is not a prop in code"
+        },
+        {
+          "check": "names",
+          "message": "Input dropdown: Figma property \"Scroll bar\" is not a prop in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Input dropdown: default \"Required\" is true in Figma, false in code"
+        },
+        {
+          "check": "names",
+          "message": "Input dropdown: Figma property \"Help icon\" is not a prop in code"
+        },
+        {
+          "check": "names",
+          "message": "Input dropdown: Figma property \"Type\" is not a prop in code"
+        },
+        {
+          "check": "names",
+          "message": "Input dropdown: Figma property \"State\" is not a prop in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Modal",
+      "figma": [
+        "Modal"
+      ],
+      "figmaProps": [
+        "Size"
+      ],
+      "codeProps": [
+        "open",
+        "size",
+        "title",
+        "subtitle",
+        "icon",
+        "iconTone",
+        "children",
+        "footerStart",
+        "actions",
+        "dividers",
+        "onClose",
+        "dismissOnEsc",
+        "dismissOnOverlay",
+        "closeLabel",
+        "inline"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": false,
+        "defaults": true,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "options",
+          "message": "Modal: \"Size\" has options code does not allow: full screen"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Pagination",
+      "figma": [
+        "Pagination"
+      ],
+      "figmaProps": [
+        "Type"
+      ],
+      "codeProps": [
+        "pageCount",
+        "page",
+        "defaultPage",
+        "onPageChange",
+        "previousLabel",
+        "nextLabel",
+        "current",
+        "state",
+        "onClick"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": false,
+        "options": true,
+        "defaults": true,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "names",
+          "message": "Pagination: Figma property \"Type\" is not a prop in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "ProgressSteps",
+      "figma": [
+        "Progress steps / Progress icons centered",
+        "Progress steps / Progress icons with text",
+        "Progress steps / Progress minimal icons",
+        "Progress steps / Progress minimal icons connected"
+      ],
+      "figmaProps": [
+        "Size",
+        "Steps",
+        "Orientation",
+        "Connector",
+        "Step label"
+      ],
+      "codeProps": [
+        "steps",
+        "currentStep",
+        "orientation",
+        "content",
+        "size",
+        "connector",
+        "showStepLabel",
+        "onStepClick",
+        "status",
+        "focused"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Progress steps / Progress icons centered: default \"Size\" is sm in Figma, md in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Progress steps / Progress icons centered: default \"Orientation\" is Horizontal in Figma, auto in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Progress steps / Progress icons with text: default \"Size\" is sm in Figma, md in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Progress steps / Progress minimal icons: default \"Size\" is sm in Figma, md in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Progress steps / Progress minimal icons: default \"Orientation\" is Horizontal in Figma, auto in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Progress steps / Progress minimal icons connected: default \"Size\" is sm in Figma, md in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Progress steps / Progress minimal icons connected: default \"Orientation\" is Horizontal in Figma, auto in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Radio",
+      "figma": [
+        "Checkbox"
+      ],
+      "figmaProps": [
+        "Supporting text",
+        "Size"
+      ],
+      "codeProps": [
+        "size",
+        "label",
+        "supportingText",
+        "error"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Checkbox: default \"Size\" is sm in Figma, md in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": "Figma draws Radio as Checkbox with Type=Radio; Checked, State and Text are preview knobs"
+    },
+    {
+      "name": "SidebarNavigation",
+      "figma": [
+        "Sidebar navigation"
+      ],
+      "figmaProps": [
+        "Open",
+        "Style"
+      ],
+      "codeProps": [
+        "variant",
+        "dense",
+        "className",
+        "label",
+        "icon",
+        "badge",
+        "dot",
+        "current",
+        "state",
+        "chevron",
+        "iconOnly",
+        "nested",
+        "href",
+        "disabled",
+        "items",
+        "selected",
+        "onSelect",
+        "mode",
+        "expanded",
+        "onToggle",
+        "idPrefix",
+        "markOnly",
+        "auto",
+        "logo",
+        "open",
+        "onOpenChange",
+        "inline",
+        "drawerId",
+        "ariaLabel",
+        "children",
+        "type",
+        "footerItems",
+        "value",
+        "defaultValue",
+        "onValueChange",
+        "showSearch",
+        "searchPlaceholder",
+        "onSearchChange",
+        "featuredCard",
+        "account",
+        "defaultOpen",
+        "breakpoint",
+        "'aria-label'"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": false,
+        "options": true,
+        "defaults": true,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "names",
+          "message": "Sidebar navigation: Figma property \"Style\" is not a prop in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "SocialButton",
+      "figma": [
+        "Social button"
+      ],
+      "figmaProps": [
+        "Social",
+        "Supporting text",
+        "Theme",
+        "State"
+      ],
+      "codeProps": [
+        "social",
+        "supportingText",
+        "theme",
+        "state"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Social button: default \"Theme\" is Brand in Figma, Color in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null,
+      "rulesException": "official brand colours of the platforms"
+    },
+    {
+      "name": "SocialButtonGroup",
+      "figma": [
+        "Social button groups"
+      ],
+      "figmaProps": [
+        "Style",
+        "Theme"
+      ],
+      "codeProps": [
+        "style",
+        "theme",
+        "providers"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Social button groups: default \"Theme\" is Brand in Figma, Color in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "SocialIcon",
+      "figma": [
+        "Social icon"
+      ],
+      "figmaProps": [
+        "Platform",
+        "Style",
+        "State"
+      ],
+      "codeProps": [
+        "platform",
+        "style",
+        "state",
+        "tone",
+        "monoColor",
+        "className"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": false,
+        "defaults": true,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "options",
+          "message": "Social icon: \"Platform\" has options code does not allow: Layers"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null,
+      "rulesException": "official brand colours of the platforms"
+    },
+    {
+      "name": "Table",
+      "figma": [
+        "Table"
+      ],
+      "figmaProps": [
+        "Example",
+        "Dividers"
+      ],
+      "codeProps": [
+        "title",
+        "badge",
+        "supportingText",
+        "actions",
+        "menu",
+        "onMenuClick",
+        "dividers",
+        "footer",
+        "tableLabel",
+        "children",
+        "selected",
+        "disabled",
+        "helpIcon",
+        "helpText",
+        "sort",
+        "hover",
+        "onClick",
+        "color",
+        "align",
+        "checkbox",
+        "selectAll",
+        "onSelectAllChange",
+        "onSort",
+        "focused",
+        "state",
+        "errorMessage",
+        "skeletonLines",
+        "primary",
+        "supporting",
+        "lead",
+        "numeric",
+        "control",
+        "visual",
+        "badges",
+        "avatars",
+        "extra",
+        "label",
+        "value",
+        "percentage",
+        "trend",
+        "hideLabel",
+        "onDelete",
+        "onEdit",
+        "deleteLabel",
+        "editLabel",
+        "open",
+        "onToggle",
+        "checked",
+        "onChange",
+        "'aria-label'",
+        "trailing",
+        "details",
+        "defaultOpen",
+        "onOpenChange"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": false,
+        "options": false,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "names",
+          "message": "Table: Figma property \"Example\" is not a prop in code"
+        },
+        {
+          "check": "options",
+          "message": "Table: \"Dividers\" has options code does not allow: Divider line, Alternating fills"
+        },
+        {
+          "check": "defaults",
+          "message": "Table: default \"Dividers\" is Divider line in Figma, line in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Tabs",
+      "figma": [
+        "Horizontal tabs",
+        "Vertical tabs"
+      ],
+      "figmaProps": [
+        "Type",
+        "Size",
+        "Full width"
+      ],
+      "codeProps": [
+        "variant",
+        "size",
+        "current",
+        "badge",
+        "state",
+        "block",
+        "items",
+        "value",
+        "defaultValue",
+        "onValueChange",
+        "'aria-label'",
+        "type",
+        "fullWidth"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": false,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "options",
+          "message": "Horizontal tabs: \"Type\" has options code does not allow: Button brand, Button border"
+        },
+        {
+          "check": "defaults",
+          "message": "Horizontal tabs: default \"Type\" is Button brand in Figma, Line in code"
+        },
+        {
+          "check": "options",
+          "message": "Vertical tabs: \"Type\" has options code does not allow: Button primary, Button border"
+        },
+        {
+          "check": "defaults",
+          "message": "Vertical tabs: default \"Type\" is Button primary in Figma, Line in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Tag",
+      "figma": [
+        "Tag"
+      ],
+      "figmaProps": [
+        "Size",
+        "Icon",
+        "Action",
+        "Checkbox"
+      ],
+      "codeProps": [
+        "size",
+        "icon",
+        "action",
+        "checkbox",
+        "checked",
+        "defaultChecked",
+        "onCheckedChange",
+        "disabled",
+        "children",
+        "flagSwap",
+        "avatarSwap",
+        "count",
+        "onClose",
+        "className",
+        "onClick"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Tag: default \"Size\" is sm in Figma, md in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Textarea",
+      "figma": [
+        "Textarea input field"
+      ],
+      "figmaProps": [
+        "Label",
+        "Hint text",
+        "Required",
+        "Help icon",
+        "Resize handle",
+        "Type",
+        "Destructive",
+        "State"
+      ],
+      "codeProps": [
+        "type",
+        "state",
+        "destructive",
+        "label",
+        "hint",
+        "errorMessage",
+        "required",
+        "helpIcon",
+        "resizeHandle",
+        "tags",
+        "onTagsChange"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Textarea input field: default \"Required\" is true in Figma, false in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Toast",
+      "figma": [
+        "Toast"
+      ],
+      "figmaProps": [
+        "X close button",
+        "Supporting text",
+        "Actions",
+        "Color"
+      ],
+      "codeProps": [
+        "color",
+        "title",
+        "supportingText",
+        "actionLabel",
+        "onAction",
+        "onDismiss",
+        "showCloseButton",
+        "closeLabel",
+        "duration",
+        "restartKey",
+        "actionLoading"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "defaults",
+          "message": "Toast: default \"Color\" is Informative in Figma, info in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "Tooltip",
+      "figma": [
+        "Tooltip"
+      ],
+      "figmaProps": [
+        "Supporting text",
+        "Arrow"
+      ],
+      "codeProps": [
+        "text",
+        "supportingText",
+        "supportingTextContent",
+        "arrow"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": true,
+        "options": false,
+        "defaults": true,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "options",
+          "message": "Tooltip: \"Arrow\" has options code does not allow: Bottom left, Bottom right, Bottom center, Top center"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    },
+    {
+      "name": "VerificationCodeInput",
+      "figma": [
+        "Verification code input field"
+      ],
+      "figmaProps": [
+        "Label",
+        "Hint text",
+        "Size",
+        "Digits"
+      ],
+      "codeProps": [
+        "size",
+        "filled",
+        "error",
+        "digits",
+        "label",
+        "value",
+        "defaultValue",
+        "errorMessage",
+        "disabled",
+        "onChange",
+        "onComplete",
+        "name"
+      ],
+      "checks": {
+        "keys": true,
+        "name": true,
+        "names": false,
+        "options": true,
+        "defaults": false,
+        "rules": true
+      },
+      "issues": [
+        {
+          "check": "names",
+          "message": "Verification code input field: Figma property \"Hint text\" is not a prop in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Verification code input field: default \"Size\" is sm in Figma, md in code"
+        },
+        {
+          "check": "defaults",
+          "message": "Verification code input field: default \"Digits\" is 4 in Figma, 6 in code"
+        }
+      ],
+      "status": "drift",
+      "why": null,
+      "note": null
+    }
+  ],
+  "figmaOnly": [
+    "Avatar label group",
+    "Avatar profile photo",
+    "Button close X",
+    "Button group",
+    "Buttons/Button destructive",
+    "Carousel image",
+    "Check icon",
+    "Check item text",
+    "Emoji",
+    "File type icon",
+    "Folder icon",
+    "Header navigation",
+    "Mobile app store badge",
+    "Notification",
+    "Pagination dot group",
+    "Payment method icon",
+    "Star icon",
+    "Table card",
+    "Table card field",
+    "Table card header",
+    "Table cell",
+    "Table header",
+    "Table header cell",
+    "Table toolbar",
+    "Toggle",
+    "Verified tick",
+    "WYSIWYG toolbar",
+    "WYSIWYG tooltip"
+  ],
+  "howToRefresh": "To check the live library: ask Claude \"take a snapshot of the Figma library\" (it reads the file through the Figma MCP and rewrites figma/manifest.json), then run npm run sync-status."
+}

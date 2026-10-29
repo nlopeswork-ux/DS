@@ -32,7 +32,7 @@ const preview: Preview = {
     // automática fique legível na sidebar.
     options: {
       storySort: {
-        order: ['Introduction', 'Foundations', ['Colors', 'Typography', 'Spacing', 'Shadows & Radius', 'Icons'], 'Components'],
+        order: ['Introduction', 'Foundations', ['Colors', 'Typography', 'Spacing', 'Shadows & Radius', 'Icons'], 'Components', 'Sync status'],
       },
     },
   },

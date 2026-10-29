@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { SyncStatusTable } from './SyncStatusTable';
+
+<Meta title="Sync status" />
+
+# Sync status
+
+Is the code still describing the same components as the Figma library? One row per component and one column per check, code and Figma side by side. Open a row to see what differs.
+
+The checks compare names, options and defaults. They do not compare how a component looks: a padding changed in Figma does not show here. The Figma side is the last snapshot, not the live file, and the banner below says when it was taken.
+
+<SyncStatusTable />
+
+## How it works
+
+- **Code is the source.** The props, their allowed values and their defaults are read from `src/components` by `scripts/code-manifest.mjs`.
+- **Figma is a snapshot.** `figma/manifest.json` holds every mapped component set, its properties, options, defaults and key. Ask Claude to take a new snapshot to refresh it.
+- **The map decides what is the same thing.** `figma/map.json` says which Figma set is which code component, which Figma properties are the same prop under another name, and what is deliberately not mirrored.
+- **One command.** `npm run sync-status` rewrites `docs/sync-status.md` and the data behind this page. Claude runs the short version when a session opens.

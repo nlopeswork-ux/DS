@@ -274,6 +274,25 @@ Todo `title:` em `*.stories.tsx` usa **Title Case com espaço entre palavras** (
 
 A ordem da sidebar dentro de "Components" é **sempre alfabética automática** — `.storybook/preview.tsx`'s `options.storySort.order` não lista os componentes um a um (só fixa `Introduction`/`Foundations`/`Components` como grupos de topo). Uma lista manual desalinha-se do menu real sempre que um componente é adicionado ou renomeado; não reintroduzas uma sub-lista explícita de componentes ali.
 
+### Sync status — código e Figma no mesmo sítio (regra transversal, obrigatória)
+
+O código é a fonte; o Figma segue. A página **Sync status** do Storybook (e `docs/sync-status.md`) mostra, por componente, se os dois ainda descrevem o mesmo: chave do Figma, mesmo nome, mesmos nomes de propriedades, mesmas opções, mesmos defaults e "o código segue as regras" (sem cores cruas). Compara nomes, opções e defaults, **não** a aparência: um padding alterado no Figma não aparece aqui.
+
+| Ficheiro | O que é | Quem o escreve |
+| --- | --- | --- |
+| `figma/code-manifest.json` | Props, valores permitidos e defaults de cada componente, lidos de `src/components` | `npm run sync-status` (via `scripts/code-manifest.mjs`) |
+| `figma/manifest.json` | Snapshot do Figma: conjuntos de componentes, propriedades, opções, defaults e chaves | Claude, com `scripts/figma/snapshot.figma.js` no Figma MCP |
+| `figma/map.json` | Que conjunto do Figma é que componente de código, aliases de propriedades, o que não é espelhado e exceções às regras (com o motivo) | A mão, quando se decide algo |
+| `docs/sync-status.md` e `.json` | A comparação, lado a lado. Gerado, nunca editado à mão | `npm run sync-status` |
+
+Regras:
+
+- **Ao criar ou alterar um componente**, atualiza o Figma e o `figma/map.json` se for caso disso, tira um novo snapshot do Figma e corre `npm run sync-status`. Um componente só está "feito" quando a linha dele está certa, ou a diferença está justificada no mapa.
+- **Snapshot do Figma:** corre `scripts/figma/snapshot.figma.js` com `use_figma` uma vez por página de componentes (a Plugin API carrega uma página de cada vez) e junta o resultado em `figma/manifest.json`, mantendo `takenAt`. O Node não consegue ler o Figma: só o snapshot, cuja data a página mostra, para um snapshot velho ser visível em vez de confiado.
+- **No início de cada sessão** corre `npm run sync-status -- --summary` e diz ao utilizador o resultado, antes de começar o trabalho pedido.
+- **Diferenças deliberadas** não se escondem: vão para o `figma/map.json` (`propAliases`, `ignoreProps`, `note`, `notMirrored`, `rulesException`), sempre com o motivo.
+- `npm run sync-status -- --strict` sai com erro se algo diferir (para CI).
+
 ### Largura dos previews — fluida, nunca fixa (regra transversal, obrigatória)
 
 Um decorator global (`.storybook/preview.tsx`) embrulha cada story num `inline-block` com fundo branco, que **encolhe ao conteúdo**. Um componente que ocupa a largura do container (`w-full`) colapsa lá dentro, e uma largura fixa (`w-[1008px]`) ultrapassa a coluna do Preview e as galerias, sobrepondo-se às Options ou ficando cortada. Regras:

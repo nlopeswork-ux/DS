@@ -1,0 +1,217 @@
+{
+  "_readme": "Which Figma component sets are the same thing as which code component. figma: names of the sets in figma/manifest.json. ignoreProps: Figma properties that are not component props in code. notMirrored: components that are deliberately not drawn in Figma, with the reason. rulesException: components allowed to hard-code colours, with the reason. propAliases: Figma property -> code prop when they are the same thing under a different name. The note field, when set, also stops the same-name check from flagging a deliberate naming difference.",
+  "ignoreProps": [
+    "Breakpoint"
+  ],
+  "components": {
+    "Alert": {
+      "figma": [
+        "Alert"
+      ],
+      "propAliases": {
+        "X close button": "showCloseButton",
+        "Actions": "actionLabel"
+      }
+    },
+    "Avatar": {
+      "figma": [
+        "Avatar"
+      ]
+    },
+    "AvatarGroup": {
+      "figma": [
+        "Avatar group"
+      ],
+      "propAliases": {
+        "Add more button": "showAddButton"
+      }
+    },
+    "Badge": {
+      "figma": [
+        "Badge"
+      ]
+    },
+    "BadgeGroup": {
+      "figma": [
+        "Badge group"
+      ]
+    },
+    "Banner": {
+      "figma": [
+        "Banner"
+      ],
+      "propAliases": {
+        "X close button": "showCloseButton",
+        "Actions": "actionLabel"
+      }
+    },
+    "Breadcrumbs": {
+      "figma": [
+        "Breadcrumbs"
+      ]
+    },
+    "Button": {
+      "figma": [
+        "Buttons/Button"
+      ]
+    },
+    "Checkbox": {
+      "figma": [
+        "Checkbox"
+      ],
+      "ignoreProps": [
+        "Type",
+        "Checked",
+        "State",
+        "Text"
+      ],
+      "note": "Figma Checked, State and Text are preview knobs; the native input and CSS drive them in code"
+    },
+    "CountryIcon": {
+      "notMirrored": "flag set, not snapshotted yet"
+    },
+    "Dropdown": {
+      "figma": [
+        "Dropdown"
+      ]
+    },
+    "FeaturedIcon": {
+      "figma": [
+        "Featured icon",
+        "Featured icon outline"
+      ]
+    },
+    "FeedbackShared": {
+      "notMirrored": "internal building blocks shared by Alert, Banner and Toast"
+    },
+    "HelpIcon": {
+      "figma": [
+        "Help icon"
+      ],
+      "propAliases": {
+        "Tooltip": "tooltipArrow"
+      }
+    },
+    "Icon": {
+      "notMirrored": "Material Symbols icon font, not drawn in Figma"
+    },
+    "Input": {
+      "figma": [
+        "Input field"
+      ],
+      "propAliases": {
+        "Hint text": "hint"
+      }
+    },
+    "InputDropdown": {
+      "figma": [
+        "Input dropdown"
+      ],
+      "propAliases": {
+        "Hint text": "hint"
+      }
+    },
+    "Modal": {
+      "figma": [
+        "Modal"
+      ]
+    },
+    "Pagination": {
+      "figma": [
+        "Pagination"
+      ]
+    },
+    "ProgressSteps": {
+      "figma": [
+        "Progress steps / Progress icons centered",
+        "Progress steps / Progress icons with text",
+        "Progress steps / Progress minimal icons",
+        "Progress steps / Progress minimal icons connected"
+      ],
+      "propAliases": {
+        "Step label": "showStepLabel"
+      }
+    },
+    "Radio": {
+      "figma": [
+        "Checkbox"
+      ],
+      "ignoreProps": [
+        "Type",
+        "Checked",
+        "State",
+        "Text",
+        "Indeterminate"
+      ],
+      "note": "Figma draws Radio as Checkbox with Type=Radio; Checked, State and Text are preview knobs"
+    },
+    "SidebarNavigation": {
+      "figma": [
+        "Sidebar navigation"
+      ]
+    },
+    "SocialButton": {
+      "figma": [
+        "Social button"
+      ],
+      "rulesException": "official brand colours of the platforms"
+    },
+    "SocialButtonGroup": {
+      "figma": [
+        "Social button groups"
+      ]
+    },
+    "SocialIcon": {
+      "figma": [
+        "Social icon"
+      ],
+      "rulesException": "official brand colours of the platforms"
+    },
+    "Table": {
+      "figma": [
+        "Table"
+      ]
+    },
+    "Tabs": {
+      "figma": [
+        "Horizontal tabs",
+        "Vertical tabs"
+      ]
+    },
+    "Tag": {
+      "figma": [
+        "Tag"
+      ]
+    },
+    "Textarea": {
+      "figma": [
+        "Textarea input field"
+      ],
+      "propAliases": {
+        "Hint text": "hint"
+      }
+    },
+    "Toast": {
+      "figma": [
+        "Toast"
+      ],
+      "propAliases": {
+        "X close button": "showCloseButton",
+        "Actions": "actionLabel"
+      }
+    },
+    "Tooltip": {
+      "figma": [
+        "Tooltip"
+      ]
+    },
+    "VerificationCodeInput": {
+      "figma": [
+        "Verification code input field"
+      ],
+      "propAliases": {
+        "Hint text": "hint"
+      }
+    }
+  }
+}

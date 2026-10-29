@@ -1,0 +1,2578 @@
+{
+  "generatedBy": "scripts/code-manifest.mjs",
+  "components": {
+    "Alert": {
+      "source": "src/components/Alert/",
+      "interfaces": [
+        "AlertProps"
+      ],
+      "props": {
+        "color": {
+          "kind": "AlertColor",
+          "required": false,
+          "default": "info"
+        },
+        "title": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "supportingText": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "actionLabel": {
+          "kind": "string",
+          "required": false
+        },
+        "onAction": {
+          "kind": "() => void",
+          "required": false
+        },
+        "dismissLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Dismiss"
+        },
+        "onDismiss": {
+          "kind": "() => void",
+          "required": false
+        },
+        "showCloseButton": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "closeLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Dismiss alert"
+        },
+        "actionLoading": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      },
+      "hardcoded": []
+    },
+    "Avatar": {
+      "source": "src/components/Avatar/",
+      "interfaces": [
+        "AvatarProps",
+        "AvatarAddButtonProps",
+        "AvatarCompanyIconProps",
+        "AvatarLabelGroupProps",
+        "AvatarOnlineIndicatorProps",
+        "AvatarProfilePhotoProps",
+        "VerifiedBadgeProps"
+      ],
+      "props": {
+        "size": {
+          "kind": "AvatarSize",
+          "required": false,
+          "options": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "4xl"
+          ],
+          "default": "md"
+        },
+        "src": {
+          "kind": "string",
+          "required": false
+        },
+        "alt": {
+          "kind": "string",
+          "required": false,
+          "default": ""
+        },
+        "placeholder": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "text": {
+          "kind": "string",
+          "required": false
+        },
+        "statusIcon": {
+          "kind": "AvatarStatusIcon",
+          "required": false,
+          "options": [
+            "false",
+            "online-indicator",
+            "company",
+            "verified"
+          ],
+          "default": "false"
+        },
+        "online": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "companySwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "contrastBorder": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "swap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "className": {
+          "kind": "string",
+          "required": false
+        },
+        "name": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "supportingText": {
+          "kind": "ReactNode",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "AvatarGroup": {
+      "source": "src/components/AvatarGroup/",
+      "interfaces": [
+        "AvatarGroupProps"
+      ],
+      "props": {
+        "size": {
+          "kind": "AvatarGroupSize",
+          "required": false,
+          "default": "md"
+        },
+        "avatars": {
+          "kind": "Pick<AvatarProps, 'src' | 'alt' | 'placeholder' | 'text'>[]",
+          "required": true
+        },
+        "showAddButton": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onAddClick": {
+          "kind": "() => void",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "Badge": {
+      "source": "src/components/Badge/",
+      "interfaces": [
+        "BadgeProps",
+        "BadgeCloseXProps"
+      ],
+      "props": {
+        "size": {
+          "kind": "BadgeSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        "type": {
+          "kind": "BadgeType",
+          "required": false,
+          "options": [
+            "Pill color",
+            "Pill outline",
+            "Badge color",
+            "Badge modern"
+          ],
+          "default": "Pill color"
+        },
+        "icon": {
+          "kind": "BadgeIcon",
+          "required": false,
+          "options": [
+            "False",
+            "Dot",
+            "Country",
+            "X close",
+            "Avatar",
+            "Icon trailing",
+            "Icon leading",
+            "Only"
+          ],
+          "default": "False"
+        },
+        "color": {
+          "kind": "BadgeColor",
+          "required": false,
+          "options": [
+            "Gray",
+            "Brand",
+            "Error",
+            "Warning",
+            "Success",
+            "Info",
+            "Blue light",
+            "Blue",
+            "Indigo",
+            "Purple",
+            "Pink",
+            "Orange",
+            "Gray blue"
+          ],
+          "default": "Gray"
+        },
+        "children": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "flagSwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "avatarSwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "iconLeadingSwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "iconTrailingSwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "onClose": {
+          "kind": "() => void",
+          "required": false
+        },
+        "rounded": {
+          "kind": "boolean",
+          "required": true
+        },
+        "onClick": {
+          "kind": "() => void",
+          "required": false
+        },
+        "className": {
+          "kind": "string",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "BadgeGroup": {
+      "source": "src/components/BadgeGroup/",
+      "interfaces": [
+        "BadgeGroupProps"
+      ],
+      "props": {
+        "badge": {
+          "kind": "BadgeGroupBadgePosition",
+          "required": false,
+          "options": [
+            "Leading",
+            "Trailing"
+          ],
+          "default": "Leading"
+        },
+        "size": {
+          "kind": "BadgeGroupSize",
+          "required": false,
+          "options": [
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        "color": {
+          "kind": "BadgeGroupColor",
+          "required": false,
+          "default": "Brand"
+        },
+        "theme": {
+          "kind": "BadgeGroupTheme",
+          "required": false,
+          "options": [
+            "Light",
+            "Outline",
+            "Modern"
+          ],
+          "default": "Light"
+        },
+        "state": {
+          "kind": "BadgeGroupState",
+          "required": false,
+          "options": [
+            "Default",
+            "Hover"
+          ],
+          "default": "Default"
+        },
+        "icon": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "badgeLabel": {
+          "kind": "ReactNode",
+          "required": false,
+          "default": "New"
+        },
+        "children": {
+          "kind": "ReactNode",
+          "required": false,
+          "default": "Additional text"
+        }
+      },
+      "hardcoded": []
+    },
+    "Banner": {
+      "source": "src/components/Banner/",
+      "interfaces": [
+        "BannerProps"
+      ],
+      "props": {
+        "color": {
+          "kind": "BannerColor",
+          "required": false,
+          "default": "info"
+        },
+        "title": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "supportingText": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "actionLabel": {
+          "kind": "string",
+          "required": false
+        },
+        "onAction": {
+          "kind": "() => void",
+          "required": false
+        },
+        "dismissLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Dismiss"
+        },
+        "onDismiss": {
+          "kind": "() => void",
+          "required": false
+        },
+        "showCloseButton": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "closeLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Dismiss banner"
+        },
+        "actionLoading": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      },
+      "hardcoded": []
+    },
+    "Breadcrumbs": {
+      "source": "src/components/Breadcrumbs/",
+      "interfaces": [
+        "BreadcrumbButtonProps",
+        "BreadcrumbsProps"
+      ],
+      "props": {
+        "current": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "state": {
+          "kind": "BreadcrumbState",
+          "required": false,
+          "options": [
+            "Default",
+            "Hover",
+            "Focused"
+          ],
+          "default": "Default"
+        },
+        "className": {
+          "kind": "string",
+          "required": false
+        },
+        "items": {
+          "kind": "BreadcrumbItem[]",
+          "required": true
+        },
+        "maxItems": {
+          "kind": "number",
+          "required": false,
+          "default": "4"
+        },
+        "'aria-label'": {
+          "kind": "string",
+          "required": false,
+          "default": "Breadcrumb"
+        }
+      },
+      "hardcoded": []
+    },
+    "Button": {
+      "source": "src/components/Button/",
+      "interfaces": [
+        "ButtonProps"
+      ],
+      "props": {
+        "size": {
+          "kind": "ButtonSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ],
+          "default": "md"
+        },
+        "hierarchy": {
+          "kind": "ButtonHierarchy",
+          "required": false,
+          "options": [
+            "Primary",
+            "Secondary gray",
+            "Secondary color",
+            "Tertiary gray",
+            "Tertiary color",
+            "Link gray",
+            "Link color"
+          ],
+          "default": "Primary"
+        },
+        "state": {
+          "kind": "ButtonState",
+          "required": false,
+          "options": [
+            "Default",
+            "Hover",
+            "Focused",
+            "Disabled"
+          ],
+          "default": "Default"
+        },
+        "destructive": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "iconLeading": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "iconTrailing": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "iconLeadingSwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "iconTrailingSwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "disabled": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "children": {
+          "kind": "ReactNode",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "Checkbox": {
+      "source": "src/components/Checkbox/",
+      "interfaces": [
+        "CheckboxProps"
+      ],
+      "props": {
+        "size": {
+          "kind": "CheckboxSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        },
+        "label": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "supportingText": {
+          "kind": "string",
+          "required": false
+        },
+        "error": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "indeterminate": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      },
+      "hardcoded": []
+    },
+    "CountryIcon": {
+      "source": "src/components/CountryIcon/",
+      "interfaces": [
+        "CountryIconProps"
+      ],
+      "props": {
+        "code": {
+          "kind": "string",
+          "required": true
+        },
+        "size": {
+          "kind": "number",
+          "required": false,
+          "default": "24"
+        }
+      },
+      "hardcoded": []
+    },
+    "Dropdown": {
+      "source": "src/components/Dropdown/",
+      "interfaces": [
+        "DropdownProps",
+        "DropdownListItemProps",
+        "DropdownHeaderProps",
+        "ScrollBarProps"
+      ],
+      "props": {
+        "trigger": {
+          "kind": "ReactElement<{ onClick?: (event: MouseEvent<HTMLElement>) => void }>",
+          "required": true
+        },
+        "children": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "open": {
+          "kind": "boolean",
+          "required": false
+        },
+        "defaultOpen": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onOpenChange": {
+          "kind": "(open: boolean) => void",
+          "required": false
+        },
+        "align": {
+          "kind": "'start' | 'end'",
+          "required": false,
+          "options": [
+            "start",
+            "end"
+          ],
+          "default": "start"
+        },
+        "className": {
+          "kind": "string",
+          "required": false
+        },
+        "icon": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "checkbox": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "checked": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "supportingText": {
+          "kind": "string",
+          "required": false
+        },
+        "shortcut": {
+          "kind": "string",
+          "required": false
+        },
+        "disabled": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onSelect": {
+          "kind": "() => void",
+          "required": false
+        },
+        "length": {
+          "kind": "ScrollBarLength",
+          "required": false,
+          "options": [
+            "25%",
+            "50%",
+            "75%"
+          ],
+          "default": "50%"
+        }
+      },
+      "hardcoded": []
+    },
+    "FeaturedIcon": {
+      "source": "src/components/FeaturedIcon/",
+      "interfaces": [
+        "FeaturedIconProps"
+      ],
+      "props": {
+        "name": {
+          "kind": "string",
+          "required": false,
+          "default": "error"
+        },
+        "color": {
+          "kind": "FeaturedIconColor",
+          "required": false,
+          "options": [
+            "brand",
+            "gray",
+            "error",
+            "warning",
+            "success",
+            "info"
+          ],
+          "default": "brand"
+        },
+        "size": {
+          "kind": "FeaturedIconSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ],
+          "default": "sm"
+        }
+      },
+      "hardcoded": []
+    },
+    "FeedbackShared": {
+      "source": "src/components/FeedbackShared/",
+      "interfaces": [
+        "FeedbackIconProps"
+      ],
+      "props": {
+        "color": {
+          "kind": "FeedbackColor",
+          "required": true,
+          "options": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ]
+        },
+        "variant": {
+          "kind": "'light' | 'outline'",
+          "required": false,
+          "options": [
+            "light",
+            "outline"
+          ],
+          "default": "light"
+        },
+        "className": {
+          "kind": "string",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "HelpIcon": {
+      "source": "src/components/HelpIcon/",
+      "interfaces": [
+        "HelpIconProps"
+      ],
+      "props": {
+        "cursor": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "open": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "supportingText": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "tooltipText": {
+          "kind": "string",
+          "required": false,
+          "default": "This is a tooltip"
+        },
+        "tooltipSupportingTextContent": {
+          "kind": "string",
+          "required": false
+        },
+        "tooltipArrow": {
+          "kind": "TooltipArrow",
+          "required": false,
+          "default": "Bottom"
+        },
+        "'aria-label'": {
+          "kind": "string",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "Icon": {
+      "source": "src/components/Icon/",
+      "interfaces": [
+        "IconProps"
+      ],
+      "props": {
+        "name": {
+          "kind": "string",
+          "required": true
+        },
+        "size": {
+          "kind": "IconSize",
+          "required": false,
+          "options": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ],
+          "default": "md"
+        },
+        "color": {
+          "kind": "string",
+          "required": false
+        },
+        "filled": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "weight": {
+          "kind": "IconWeight",
+          "required": false,
+          "default": "400"
+        },
+        "label": {
+          "kind": "string",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "Input": {
+      "source": "src/components/Input/",
+      "interfaces": [
+        "DropdownSegmentProps",
+        "InputProps"
+      ],
+      "props": {
+        "slot": {
+          "kind": "InputDropdownSlot",
+          "required": true
+        },
+        "side": {
+          "kind": "'leading' | 'trailing'",
+          "required": true,
+          "options": [
+            "leading",
+            "trailing"
+          ]
+        },
+        "disabled": {
+          "kind": "boolean",
+          "required": true,
+          "default": "false"
+        },
+        "size": {
+          "kind": "InputSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "sm"
+        },
+        "type": {
+          "kind": "InputType",
+          "required": false,
+          "options": [
+            "default",
+            "iconLeading",
+            "leadingDropdown",
+            "trailingDropdown",
+            "leadingText",
+            "paymentInput",
+            "tags",
+            "trailingButton"
+          ],
+          "default": "default"
+        },
+        "state": {
+          "kind": "InputState",
+          "required": false,
+          "options": [
+            "Placeholder",
+            "Filled",
+            "Focused",
+            "Disabled"
+          ]
+        },
+        "destructive": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "label": {
+          "kind": "string",
+          "required": false
+        },
+        "hint": {
+          "kind": "string",
+          "required": false
+        },
+        "errorMessage": {
+          "kind": "string",
+          "required": false
+        },
+        "required": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "helpIcon": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "iconSwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "leadingDropdown": {
+          "kind": "InputDropdownSlot",
+          "required": false
+        },
+        "trailingDropdown": {
+          "kind": "InputDropdownSlot",
+          "required": false
+        },
+        "leadingTextAddon": {
+          "kind": "string",
+          "required": false
+        },
+        "paymentIcon": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "tags": {
+          "kind": "InputTag[]",
+          "required": false
+        },
+        "onTagsChange": {
+          "kind": "(tags: InputTag[]) => void",
+          "required": false
+        },
+        "trailingButton": {
+          "kind": "InputTrailingButton",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "InputDropdown": {
+      "source": "src/components/InputDropdown/",
+      "interfaces": [
+        "InputDropdownProps",
+        "InputDropdownMenuItemProps"
+      ],
+      "props": {
+        "label": {
+          "kind": "string",
+          "required": false
+        },
+        "hint": {
+          "kind": "string",
+          "required": false
+        },
+        "error": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "errorMessage": {
+          "kind": "string",
+          "required": false
+        },
+        "disabled": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "required": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "placeholder": {
+          "kind": "string",
+          "required": false,
+          "default": "Select an option"
+        },
+        "options": {
+          "kind": "InputDropdownOption[]",
+          "required": true
+        },
+        "searchable": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "value": {
+          "kind": "string",
+          "required": false
+        },
+        "defaultValue": {
+          "kind": "string",
+          "required": false
+        },
+        "onChange": {
+          "kind": "(value: string) => void",
+          "required": false
+        },
+        "open": {
+          "kind": "boolean",
+          "required": false
+        },
+        "defaultOpen": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onOpenChange": {
+          "kind": "(open: boolean) => void",
+          "required": false
+        },
+        "id": {
+          "kind": "string",
+          "required": false
+        },
+        "option": {
+          "kind": "InputDropdownOption",
+          "required": true
+        },
+        "selected": {
+          "kind": "boolean",
+          "required": true
+        },
+        "active": {
+          "kind": "boolean",
+          "required": true
+        },
+        "onSelect": {
+          "kind": "() => void",
+          "required": true
+        }
+      },
+      "hardcoded": []
+    },
+    "Modal": {
+      "source": "src/components/Modal/",
+      "interfaces": [
+        "ModalProps"
+      ],
+      "props": {
+        "open": {
+          "kind": "boolean",
+          "required": true
+        },
+        "size": {
+          "kind": "ModalSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md",
+            "lg",
+            "full"
+          ],
+          "default": "sm"
+        },
+        "title": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "subtitle": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "icon": {
+          "kind": "string",
+          "required": false
+        },
+        "iconTone": {
+          "kind": "ModalIconTone",
+          "required": false,
+          "options": [
+            "brand",
+            "success",
+            "error",
+            "warning",
+            "info",
+            "gray"
+          ]
+        },
+        "children": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "footerStart": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "actions": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "dividers": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true for `md`/`lg`/`full`"
+        },
+        "onClose": {
+          "kind": "() => void",
+          "required": false
+        },
+        "dismissOnEsc": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "dismissOnOverlay": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "closeLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Close"
+        },
+        "inline": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      },
+      "hardcoded": []
+    },
+    "Pagination": {
+      "source": "src/components/Pagination/",
+      "interfaces": [
+        "PaginationProps",
+        "PaginationNumberProps"
+      ],
+      "props": {
+        "pageCount": {
+          "kind": "number",
+          "required": true
+        },
+        "page": {
+          "kind": "number",
+          "required": false
+        },
+        "defaultPage": {
+          "kind": "number",
+          "required": false,
+          "default": "1"
+        },
+        "onPageChange": {
+          "kind": "(page: number) => void",
+          "required": false
+        },
+        "previousLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Previous"
+        },
+        "nextLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Next"
+        },
+        "current": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "state": {
+          "kind": "PaginationNumberState",
+          "required": false,
+          "options": [
+            "Default",
+            "Hover/active",
+            "Focused"
+          ],
+          "default": "Default"
+        },
+        "onClick": {
+          "kind": "() => void",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "ProgressSteps": {
+      "source": "src/components/ProgressSteps/",
+      "interfaces": [
+        "ProgressStepsProps",
+        "StepIconProps"
+      ],
+      "props": {
+        "steps": {
+          "kind": "ProgressStep[]",
+          "required": true
+        },
+        "currentStep": {
+          "kind": "number",
+          "required": false,
+          "default": "1"
+        },
+        "orientation": {
+          "kind": "ProgressStepsOrientation",
+          "required": false,
+          "options": [
+            "horizontal",
+            "vertical",
+            "auto"
+          ],
+          "default": "auto"
+        },
+        "content": {
+          "kind": "ProgressStepsContent",
+          "required": false,
+          "options": [
+            "text",
+            "minimal"
+          ],
+          "default": "text"
+        },
+        "size": {
+          "kind": "ProgressStepsSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        "connector": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "showStepLabel": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onStepClick": {
+          "kind": "(step: number) => void",
+          "required": false
+        },
+        "status": {
+          "kind": "ProgressStepStatus",
+          "required": true,
+          "options": [
+            "Incomplete",
+            "Current",
+            "Complete"
+          ]
+        },
+        "focused": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      },
+      "hardcoded": []
+    },
+    "Radio": {
+      "source": "src/components/Radio/",
+      "interfaces": [
+        "RadioProps"
+      ],
+      "props": {
+        "size": {
+          "kind": "RadioSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        },
+        "label": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "supportingText": {
+          "kind": "string",
+          "required": false
+        },
+        "error": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      },
+      "hardcoded": []
+    },
+    "SidebarNavigation": {
+      "source": "src/components/SidebarNavigation/",
+      "interfaces": [
+        "NavAccountProps",
+        "NavItemButtonProps",
+        "NavListProps",
+        "NavLogoProps",
+        "MobileNavigationProps",
+        "SidebarNavigationProps"
+      ],
+      "props": {
+        "variant": {
+          "kind": "'full' | 'avatar' | 'compact'",
+          "required": false,
+          "options": [
+            "full",
+            "avatar",
+            "compact"
+          ],
+          "default": "full"
+        },
+        "dense": {
+          "kind": "boolean",
+          "required": false
+        },
+        "className": {
+          "kind": "string",
+          "required": false
+        },
+        "label": {
+          "kind": "string",
+          "required": true
+        },
+        "icon": {
+          "kind": "string",
+          "required": false
+        },
+        "badge": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "dot": {
+          "kind": "boolean",
+          "required": false
+        },
+        "current": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "state": {
+          "kind": "NavItemState",
+          "required": false,
+          "options": [
+            "Default",
+            "Hover",
+            "Focus"
+          ],
+          "default": "Default"
+        },
+        "chevron": {
+          "kind": "'down' | 'up'",
+          "required": false,
+          "options": [
+            "down",
+            "up"
+          ]
+        },
+        "iconOnly": {
+          "kind": "boolean",
+          "required": false
+        },
+        "nested": {
+          "kind": "boolean",
+          "required": false
+        },
+        "href": {
+          "kind": "string",
+          "required": false
+        },
+        "disabled": {
+          "kind": "boolean",
+          "required": false
+        },
+        "items": {
+          "kind": "(NavItem | NavSubItem)[]",
+          "required": true
+        },
+        "selected": {
+          "kind": "string",
+          "required": false
+        },
+        "onSelect": {
+          "kind": "(value: string) => void",
+          "required": true
+        },
+        "mode": {
+          "kind": "NavListMode",
+          "required": true,
+          "options": [
+            "accordion",
+            "flat",
+            "rail"
+          ]
+        },
+        "expanded": {
+          "kind": "string[]",
+          "required": false
+        },
+        "onToggle": {
+          "kind": "(value: string) => void",
+          "required": false
+        },
+        "idPrefix": {
+          "kind": "string",
+          "required": true
+        },
+        "markOnly": {
+          "kind": "boolean",
+          "required": false
+        },
+        "auto": {
+          "kind": "boolean",
+          "required": true
+        },
+        "logo": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "open": {
+          "kind": "boolean",
+          "required": true
+        },
+        "onOpenChange": {
+          "kind": "(open: boolean) => void",
+          "required": true
+        },
+        "inline": {
+          "kind": "boolean",
+          "required": true,
+          "default": "false"
+        },
+        "drawerId": {
+          "kind": "string",
+          "required": true
+        },
+        "ariaLabel": {
+          "kind": "string",
+          "required": true
+        },
+        "children": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "type": {
+          "kind": "SidebarNavigationType",
+          "required": false,
+          "options": [
+            "Simple",
+            "Slim",
+            "Dual-tier"
+          ],
+          "default": "Simple"
+        },
+        "footerItems": {
+          "kind": "NavSubItem[]",
+          "required": false
+        },
+        "value": {
+          "kind": "string",
+          "required": false
+        },
+        "defaultValue": {
+          "kind": "string",
+          "required": false
+        },
+        "onValueChange": {
+          "kind": "(value: string) => void",
+          "required": false
+        },
+        "showSearch": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "searchPlaceholder": {
+          "kind": "string",
+          "required": false,
+          "default": "Search"
+        },
+        "onSearchChange": {
+          "kind": "(value: string) => void",
+          "required": false
+        },
+        "featuredCard": {
+          "kind": "NavFeaturedCardData",
+          "required": false
+        },
+        "account": {
+          "kind": "NavAccount",
+          "required": false
+        },
+        "defaultOpen": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "breakpoint": {
+          "kind": "SidebarBreakpoint",
+          "required": false,
+          "options": [
+            "Auto",
+            "Desktop",
+            "Mobile"
+          ],
+          "default": "Auto"
+        },
+        "'aria-label'": {
+          "kind": "string",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "SocialButton": {
+      "source": "src/components/SocialButton/",
+      "interfaces": [
+        "SocialButtonProps"
+      ],
+      "props": {
+        "social": {
+          "kind": "SocialProvider",
+          "required": false,
+          "options": [
+            "Google",
+            "Facebook",
+            "Apple",
+            "Twitter",
+            "Figma",
+            "Dribbble"
+          ],
+          "default": "Google"
+        },
+        "supportingText": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "theme": {
+          "kind": "SocialButtonTheme",
+          "required": false,
+          "options": [
+            "Brand",
+            "Color",
+            "Gray"
+          ],
+          "default": "Color"
+        },
+        "state": {
+          "kind": "SocialButtonState",
+          "required": false,
+          "options": [
+            "Default",
+            "Hover",
+            "Focused"
+          ],
+          "default": "Default"
+        }
+      },
+      "hardcoded": [
+        {
+          "file": "src/components/SocialButton/SocialButton.tsx",
+          "line": 34,
+          "text": "Google: '#FFFFFF',"
+        },
+        {
+          "file": "src/components/SocialButton/SocialButton.tsx",
+          "line": 35,
+          "text": "Facebook: '#1877F2',"
+        },
+        {
+          "file": "src/components/SocialButton/SocialButton.tsx",
+          "line": 36,
+          "text": "Apple: '#000000',"
+        },
+        {
+          "file": "src/components/SocialButton/SocialButton.tsx",
+          "line": 37,
+          "text": "Twitter: '#000000',"
+        },
+        {
+          "file": "src/components/SocialButton/SocialButton.tsx",
+          "line": 38,
+          "text": "Figma: '#000000',"
+        },
+        {
+          "file": "src/components/SocialButton/SocialButton.tsx",
+          "line": 39,
+          "text": "Dribbble: '#EA4C89',"
+        }
+      ]
+    },
+    "SocialButtonGroup": {
+      "source": "src/components/SocialButtonGroup/",
+      "interfaces": [
+        "SocialButtonGroupProps"
+      ],
+      "props": {
+        "style": {
+          "kind": "SocialButtonGroupStyle",
+          "required": false,
+          "options": [
+            "Buttons",
+            "Icons"
+          ],
+          "default": "Buttons"
+        },
+        "theme": {
+          "kind": "SocialButtonTheme",
+          "required": false,
+          "default": "Color"
+        },
+        "providers": {
+          "kind": "SocialProvider[]",
+          "required": false,
+          "default": "Google, Facebook, Apple"
+        }
+      },
+      "hardcoded": []
+    },
+    "SocialIcon": {
+      "source": "src/components/SocialIcon/",
+      "interfaces": [
+        "SocialIconProps",
+        "SocialIconProps"
+      ],
+      "props": {
+        "platform": {
+          "kind": "SocialIconPlatform",
+          "required": false,
+          "options": [
+            "AngelList",
+            "Apple",
+            "Clubhouse",
+            "Discord",
+            "Dribbble",
+            "Facebook",
+            "Figma",
+            "GitHub",
+            "Google",
+            "Instagram",
+            "LinkedIn",
+            "Notion",
+            "PayPal",
+            "Pinterest",
+            "Reddit",
+            "Slack",
+            "Spotify",
+            "TikTok",
+            "Twitch",
+            "WhatsApp",
+            "X",
+            "YouTube"
+          ],
+          "default": "Facebook"
+        },
+        "style": {
+          "kind": "SocialIconStyle",
+          "required": false,
+          "options": [
+            "Brand",
+            "Gray"
+          ],
+          "default": "Brand"
+        },
+        "state": {
+          "kind": "SocialIconState",
+          "required": false,
+          "options": [
+            "Default",
+            "Hover"
+          ],
+          "default": "Default"
+        },
+        "tone": {
+          "kind": "SocialIconTone",
+          "required": true,
+          "options": [
+            "color",
+            "mono",
+            "white"
+          ]
+        },
+        "monoColor": {
+          "kind": "string",
+          "required": false
+        },
+        "className": {
+          "kind": "string",
+          "required": false
+        }
+      },
+      "hardcoded": [
+        {
+          "file": "src/components/SocialIcon/SocialIcon.tsx",
+          "line": 18,
+          "text": "const GRAY_DEFAULT = '#98A2B3'; // fg-quinary (400)"
+        },
+        {
+          "file": "src/components/SocialIcon/SocialIcon.tsx",
+          "line": 19,
+          "text": "const GRAY_HOVER = '#667085'; // fg-quinary_hover"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 26,
+          "text": "const DEFAULT_MONO_FILL = '#667085';"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 51,
+          "text": "fill=\"#4285F4\""
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 55,
+          "text": "fill=\"#34A853\""
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 58,
+          "text": "<path fill=\"#FBBC05\" d=\"M5.27 14.27a7.2 7.2 0 0 1 0-4.54v-3.1H1.26a12 12 0 0 0 0 10.75l4.01-3.11Z\" /"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 60,
+          "text": "fill=\"#EA4335\""
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 68,
+          "text": "const fFill = tone === 'white' ? '#FFFFFF' : tone === 'mono' ? monoColor : '#FFFFFF';"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 71,
+          "text": "{tone !== 'white' && <circle cx=\"12\" cy=\"12\" r=\"12\" fill={tone === 'mono' ? '#F2F4F7' : '#1877F2'} /"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 81,
+          "text": "const fill = tone === 'white' ? '#FFFFFF' : tone === 'mono' ? monoColor : '#000000';"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 98,
+          "text": "const fill = tone === 'white' ? '#FFFFFF' : tone === 'mono' ? monoColor : '#000000';"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 118,
+          "text": "const fill = tone === 'white' ? '#FFFFFF' : undefined;"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 121,
+          "text": "<path fill={fill ?? '#0ACF83'} d=\"M4.5 19.5A4.5 4.5 0 0 1 9 15v4.5a4.5 4.5 0 1 1-4.5 0Z\" />"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 122,
+          "text": "<path fill={fill ?? '#A259FF'} d=\"M4.5 13.5A4.5 4.5 0 0 1 9 9h0v9H9a4.5 4.5 0 0 1-4.5-4.5Z\" />"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 123,
+          "text": "<path fill={fill ?? '#F24E1E'} d=\"M4.5 4.5A4.5 4.5 0 0 1 9 0h0v9H9a4.5 4.5 0 0 1-4.5-4.5Z\" />"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 124,
+          "text": "<path fill={fill ?? '#FF7262'} d=\"M9 0h4.5a4.5 4.5 0 1 1 0 9H9V0Z\" />"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 125,
+          "text": "<circle cx=\"13.5\" cy=\"13.5\" r=\"4.5\" fill={fill ?? '#1ABCFE'} />"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 131,
+          "text": "const fill = tone === 'white' ? '#FFFFFF' : tone === 'mono' ? monoColor : '#EA4C89';"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 146,
+          "text": "const bg = tone === 'mono' ? monoColor : tone === 'white' ? '#FFFFFF' : '#0A66C2';"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 147,
+          "text": "const glyph = tone === 'white' ? '#0A66C2' : '#FFFFFF';"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 165,
+          "text": "? { a: '#36C5F0', b: '#2EB67D', c: '#ECB22E', d: '#E01E5A' }"
+        },
+        {
+          "file": "src/components/SocialIcon/brandIcons.tsx",
+          "line": 167,
+          "text": "const fill = tone === 'white' ? '#FFFFFF' : undefined;"
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 16,
+          "text": "\"Clubhouse\": { brandHex: \"#FFE450\", path: \"M24 9.543c0 .32-.23.763-.337.976-.39.833-1.03 2.112-1.03 "
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 17,
+          "text": "\"Discord\": { brandHex: \"#5865F2\", path: \"M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741"
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 18,
+          "text": "\"GitHub\": { brandHex: \"#181717\", path: \"M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.3"
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 19,
+          "text": "\"Instagram\": { brandHex: \"#FF0069\", path: \"M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075"
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 20,
+          "text": "\"Notion\": { brandHex: \"#000000\", path: \"M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 ."
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 21,
+          "text": "\"PayPal\": { brandHex: \"#002991\", path: \"M15.607 4.653H8.941L6.645 19.251H1.82L4.862 0h7.995c3.754 0 "
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 22,
+          "text": "\"Pinterest\": { brandHex: \"#BD081C\", path: \"M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.4"
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 23,
+          "text": "\"Reddit\": { brandHex: \"#FF4500\", path: \"M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-"
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 24,
+          "text": "\"Spotify\": { brandHex: \"#1ED760\", path: \"M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12"
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 25,
+          "text": "\"TikTok\": { brandHex: \"#000000\", path: \"M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4"
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 26,
+          "text": "\"Twitch\": { brandHex: \"#9146FF\", path: \"M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 "
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 27,
+          "text": "\"WhatsApp\": { brandHex: \"#25D366\", path: \"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-."
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 28,
+          "text": "\"YouTube\": { brandHex: \"#FF0000\", path: \"M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12"
+        },
+        {
+          "file": "src/components/SocialIcon/simpleIconMarks.generated.ts",
+          "line": 29,
+          "text": "\"AngelList\": { brandHex: \"#000000\", path: \"M23.998 8.128c.063-1.379-1.612-2.376-2.795-1.664-1.23.598"
+        }
+      ]
+    },
+    "Table": {
+      "source": "src/components/Table/",
+      "interfaces": [
+        "TableProps",
+        "TableRowProps",
+        "TableHeaderProps",
+        "TableHeaderCellProps",
+        "TableCellProps",
+        "TableCellTextProps",
+        "TableCellLeadProps",
+        "TableCellBadgesProps",
+        "TableCellAvatarGroupProps",
+        "TableCellTrendProps",
+        "TableCellProgressProps",
+        "TableCellActionButtonsProps",
+        "TableCellActionIconsProps",
+        "TableCellRatingProps",
+        "TableCellExpandProps",
+        "TableToggleProps",
+        "TableMobileRowProps"
+      ],
+      "props": {
+        "title": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "badge": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "supportingText": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "actions": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "menu": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onMenuClick": {
+          "kind": "() => void",
+          "required": false
+        },
+        "dividers": {
+          "kind": "TableDividers",
+          "required": false,
+          "options": [
+            "line",
+            "alternating"
+          ],
+          "default": "line"
+        },
+        "footer": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "tableLabel": {
+          "kind": "string",
+          "required": false
+        },
+        "children": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "selected": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "disabled": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "helpIcon": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "helpText": {
+          "kind": "string",
+          "required": false,
+          "default": "More information"
+        },
+        "sort": {
+          "kind": "TableSortDirection",
+          "required": false,
+          "options": [
+            "none",
+            "asc",
+            "desc"
+          ],
+          "default": "none"
+        },
+        "hover": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onClick": {
+          "kind": "() => void",
+          "required": false
+        },
+        "color": {
+          "kind": "'white' | 'gray'",
+          "required": false,
+          "options": [
+            "white",
+            "gray"
+          ],
+          "default": "gray"
+        },
+        "align": {
+          "kind": "'left' | 'right'",
+          "required": false,
+          "options": [
+            "left",
+            "right"
+          ],
+          "default": "left"
+        },
+        "checkbox": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "selectAll": {
+          "kind": "'unchecked' | 'indeterminate' | 'checked'",
+          "required": false,
+          "options": [
+            "unchecked",
+            "indeterminate",
+            "checked"
+          ],
+          "default": "unchecked"
+        },
+        "onSelectAllChange": {
+          "kind": "(checked: boolean) => void",
+          "required": false
+        },
+        "onSort": {
+          "kind": "() => void",
+          "required": false
+        },
+        "focused": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "state": {
+          "kind": "TableCellState",
+          "required": false,
+          "options": [
+            "default",
+            "hover",
+            "selected",
+            "focus",
+            "disabled",
+            "loading",
+            "error",
+            "editing"
+          ],
+          "default": "default"
+        },
+        "errorMessage": {
+          "kind": "string",
+          "required": false
+        },
+        "skeletonLines": {
+          "kind": "1 | 2",
+          "required": false,
+          "default": "2"
+        },
+        "primary": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "supporting": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "lead": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "numeric": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "control": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "visual": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "badges": {
+          "kind": "{ label: ReactNode; color?: BadgeColor }[]",
+          "required": true
+        },
+        "avatars": {
+          "kind": "Pick<AvatarProps, 'src' | 'alt' | 'placeholder' | 'text'>[]",
+          "required": true
+        },
+        "extra": {
+          "kind": "number",
+          "required": false
+        },
+        "label": {
+          "kind": "ReactNode",
+          "required": false,
+          "default": "Expand row"
+        },
+        "value": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "percentage": {
+          "kind": "number",
+          "required": true
+        },
+        "trend": {
+          "kind": "'positive' | 'negative'",
+          "required": true,
+          "options": [
+            "positive",
+            "negative"
+          ]
+        },
+        "hideLabel": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onDelete": {
+          "kind": "() => void",
+          "required": false
+        },
+        "onEdit": {
+          "kind": "() => void",
+          "required": false
+        },
+        "deleteLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Delete"
+        },
+        "editLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Edit"
+        },
+        "open": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onToggle": {
+          "kind": "() => void",
+          "required": false
+        },
+        "checked": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onChange": {
+          "kind": "(checked: boolean) => void",
+          "required": false
+        },
+        "'aria-label'": {
+          "kind": "string",
+          "required": true
+        },
+        "trailing": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "details": {
+          "kind": "{ label: ReactNode; value: ReactNode }[]",
+          "required": false
+        },
+        "defaultOpen": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onOpenChange": {
+          "kind": "(open: boolean) => void",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "Tabs": {
+      "source": "src/components/Tabs/",
+      "interfaces": [
+        "TabButtonProps",
+        "BaseTabsProps",
+        "TabsProps",
+        "VerticalTabsProps"
+      ],
+      "props": {
+        "variant": {
+          "kind": "TabVariant",
+          "required": true,
+          "options": [
+            "underline",
+            "line",
+            "button"
+          ]
+        },
+        "size": {
+          "kind": "TabsSize",
+          "required": true,
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "sm"
+        },
+        "current": {
+          "kind": "boolean",
+          "required": true
+        },
+        "badge": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "state": {
+          "kind": "TabState",
+          "required": false,
+          "options": [
+            "Default",
+            "Hover",
+            "Focus"
+          ],
+          "default": "Default"
+        },
+        "block": {
+          "kind": "boolean",
+          "required": false
+        },
+        "items": {
+          "kind": "TabItem[]",
+          "required": true
+        },
+        "value": {
+          "kind": "string",
+          "required": false
+        },
+        "defaultValue": {
+          "kind": "string",
+          "required": false,
+          "default": "the first enabled tab"
+        },
+        "onValueChange": {
+          "kind": "(value: string) => void",
+          "required": false
+        },
+        "'aria-label'": {
+          "kind": "string",
+          "required": false
+        },
+        "type": {
+          "kind": "TabsType",
+          "required": false,
+          "options": [
+            "Underline",
+            "Button",
+            "Line"
+          ],
+          "default": "Line"
+        },
+        "fullWidth": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      },
+      "hardcoded": []
+    },
+    "Tag": {
+      "source": "src/components/Tag/",
+      "interfaces": [
+        "TagProps",
+        "TagCheckboxProps",
+        "TagCloseXProps"
+      ],
+      "props": {
+        "size": {
+          "kind": "TagSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        "icon": {
+          "kind": "TagIcon",
+          "required": false,
+          "options": [
+            "False",
+            "Country",
+            "Avatar",
+            "Dot"
+          ],
+          "default": "False"
+        },
+        "action": {
+          "kind": "TagAction",
+          "required": false,
+          "options": [
+            "Text only",
+            "X close",
+            "Count"
+          ],
+          "default": "Text only"
+        },
+        "checkbox": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "checked": {
+          "kind": "boolean",
+          "required": false
+        },
+        "defaultChecked": {
+          "kind": "boolean",
+          "required": false
+        },
+        "onCheckedChange": {
+          "kind": "(checked: boolean) => void",
+          "required": false
+        },
+        "disabled": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "children": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "flagSwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "avatarSwap": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "count": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "onClose": {
+          "kind": "() => void",
+          "required": false
+        },
+        "className": {
+          "kind": "string",
+          "required": false
+        },
+        "onClick": {
+          "kind": "() => void",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "Textarea": {
+      "source": "src/components/Textarea/",
+      "interfaces": [
+        "TextareaProps"
+      ],
+      "props": {
+        "type": {
+          "kind": "TextareaType",
+          "required": false,
+          "options": [
+            "default",
+            "tags"
+          ],
+          "default": "default"
+        },
+        "state": {
+          "kind": "TextareaState",
+          "required": false,
+          "options": [
+            "Placeholder",
+            "Default",
+            "Focused",
+            "Disabled"
+          ]
+        },
+        "destructive": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "label": {
+          "kind": "string",
+          "required": false
+        },
+        "hint": {
+          "kind": "string",
+          "required": false
+        },
+        "errorMessage": {
+          "kind": "string",
+          "required": false
+        },
+        "required": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "helpIcon": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "resizeHandle": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "tags": {
+          "kind": "TextareaTag[]",
+          "required": false
+        },
+        "onTagsChange": {
+          "kind": "(tags: TextareaTag[]) => void",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    },
+    "Toast": {
+      "source": "src/components/Toast/",
+      "interfaces": [
+        "ToastProps"
+      ],
+      "props": {
+        "color": {
+          "kind": "ToastColor",
+          "required": false,
+          "default": "info"
+        },
+        "title": {
+          "kind": "ReactNode",
+          "required": true
+        },
+        "supportingText": {
+          "kind": "ReactNode",
+          "required": false
+        },
+        "actionLabel": {
+          "kind": "string",
+          "required": false
+        },
+        "onAction": {
+          "kind": "() => void",
+          "required": false
+        },
+        "onDismiss": {
+          "kind": "() => void",
+          "required": false
+        },
+        "showCloseButton": {
+          "kind": "boolean",
+          "required": false,
+          "default": "true"
+        },
+        "closeLabel": {
+          "kind": "string",
+          "required": false,
+          "default": "Dismiss notification"
+        },
+        "duration": {
+          "kind": "number | null",
+          "required": false
+        },
+        "restartKey": {
+          "kind": "number",
+          "required": false,
+          "default": "0"
+        },
+        "actionLoading": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      },
+      "hardcoded": []
+    },
+    "Tooltip": {
+      "source": "src/components/Tooltip/",
+      "interfaces": [
+        "TooltipProps"
+      ],
+      "props": {
+        "text": {
+          "kind": "string",
+          "required": false,
+          "default": "This is a tooltip"
+        },
+        "supportingText": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "supportingTextContent": {
+          "kind": "string",
+          "required": false
+        },
+        "arrow": {
+          "kind": "TooltipArrow",
+          "required": false,
+          "options": [
+            "None",
+            "Top",
+            "Bottom",
+            "Left",
+            "Right"
+          ],
+          "default": "None"
+        }
+      },
+      "hardcoded": []
+    },
+    "VerificationCodeInput": {
+      "source": "src/components/VerificationCodeInput/",
+      "interfaces": [
+        "MegaInputFieldBaseProps",
+        "VerificationCodeInputProps"
+      ],
+      "props": {
+        "size": {
+          "kind": "MegaInputFieldBaseSize",
+          "required": false,
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        "filled": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "error": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "digits": {
+          "kind": "VerificationCodeDigits",
+          "required": false,
+          "default": "6"
+        },
+        "label": {
+          "kind": "string",
+          "required": false
+        },
+        "value": {
+          "kind": "string",
+          "required": false
+        },
+        "defaultValue": {
+          "kind": "string",
+          "required": false,
+          "default": ""
+        },
+        "errorMessage": {
+          "kind": "string",
+          "required": false
+        },
+        "disabled": {
+          "kind": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        "onChange": {
+          "kind": "(code: string) => void",
+          "required": false
+        },
+        "onComplete": {
+          "kind": "(code: string) => void",
+          "required": false
+        },
+        "name": {
+          "kind": "string",
+          "required": false
+        }
+      },
+      "hardcoded": []
+    }
+  }
+}
