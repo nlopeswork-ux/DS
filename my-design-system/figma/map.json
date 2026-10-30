@@ -93,7 +93,7 @@
       }
     },
     "Icon": {
-      "notMirrored": "Material Symbols icon font, not drawn in Figma"
+      "notMirrored": "Material Symbols icon font. The Figma Icons page holds the same glyphs as plain components named after the name prop, so there is no component set to compare"
     },
     "Input": {
       "figma": [
